@@ -1,0 +1,58 @@
+{
+  "login": {
+    "title": "Bienvenue sur InTalks ! 👋🏻",
+    "subtitle": "Veuillez vous connecter à votre compte et commencer l'aventure",
+    "form": {
+      "username": {
+        "label": "E-mail",
+        "placeholder": "exemple@gmail.com",
+        "validation": "L'e-mail est requis"
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "********",
+        "validation": "Le mot de passe est requis"
+      },
+      "cta": "Se connecter",
+      "forgetPassword": "Mot de passe oublié ?",
+      "createAccount": "Nouveau sur notre plateforme ? <span class=\" text-mainColor \">  Créez un compte  </span>"
+    }
+  },
+  "resetPassword": {
+    "title": "Réinitialisez votre mot de passe en indiquant l'adresse électronique de votre compte ci-dessous.",
+    "form": {
+      "username": {
+        "label": "E-mail",
+        "placeholder": "exemple@gmail.com",
+        "validation": "L'e-mail est requis"
+      },
+      "cta": "Envoyer",
+      "createAccount": "Nouveau sur notre plateforme ? <span class=\" text-mainColor \">  Créez un compte  </span>"
+    }
+  },
+  "register": {
+    "title": "Bienvenue sur InTalks ! 👋🏻",
+    "subtitle": "Veuillez vous inscrire pour créer votre compte et commencer l'aventure",
+    "form": {
+      "firstName": {
+        "label": "Prénom",
+        "validation": "Le prénom est requis"
+      },
+      "lastName": {
+        "label": "Nom",
+        "validation": "Le nom est requis"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "exemple@gmail.com",
+        "validation": "L'email est requis"
+      },
+      "phone": {
+        "label": "Téléphone",
+        "validation": "Le téléphone est requis"
+      },
+      "cta": "Créer un compte",
+      "createAccount": "Déjà inscrit sur InTalks ? <span class=\" text-mainColor \"> Se connecter </span>"
+    }
+  }
+}

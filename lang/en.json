@@ -1,0 +1,58 @@
+{
+  "login": {
+    "title": "Welcome to InTalks ! 👋🏻",
+    "subtitle": "Please sign-in to your account and start the adventure",
+    "form": {
+      "username": {
+        "label": "Email",
+        "placeholder": "example@gmail.com",
+        "validation":"Email is Required"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "********",
+        "validation":"Password is Required"
+      },
+      "cta": "Login",
+      "forgetPassword": "Reset your password ?",
+      "createAccount": "New on our platform ? <span class=\" text-mainColor \"> Create an account </span>"
+    }
+  },
+  "resetPassword": {
+    "title": "Reset your password by entering your account e-mail address below.",
+    "form": {
+      "username": {
+        "label": "Email",
+        "placeholder": "example@gmail.com",
+        "validation":"Email is Required"
+      },
+      "cta": "Send",
+      "createAccount": "New on our platform ? <span class=\" text-mainColor \"> Create an account </span>"
+    }
+  },
+  "register": {
+    "title": "Welcome to InTalks ! 👋🏻",
+    "subtitle": "Please sign-up to create your account and start the adventure",
+    "form": {
+      "firstName": {
+        "label": "first name",
+        "validation": "first name is Required"
+      },
+      "lastName": {
+        "label": "last name",
+        "validation": "last name is Required"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "exemple@gmail.com",
+        "validation":"Email is Required"
+      },
+      "phone": {
+        "label": "Phone",
+        "validation":"phone is Required"
+      },
+      "cta": "Create Account",
+      "createAccount": " Already registered with InTalks . ? <span class=\" text-mainColor \">  Sign in  </span>"
+    }
+  }
+}
