@@ -58,11 +58,9 @@ function ReportAccount({
                   <div className="col-span-5">
                     <NicheAccount data={data} />
                   </div>
-                  <div className="col-span-7">
-                    <AudienceGraph id={id} />
-                  </div>
                 </div>
                 <SocialCoverage id={id} />
+                <AudienceGraph id={id} />
                 <PostMedia id={id} />
               </>
             )}
