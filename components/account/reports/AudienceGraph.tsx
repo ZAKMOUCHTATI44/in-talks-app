@@ -9,6 +9,7 @@ import AgeSplit from "./AgeSplit";
 import GenderSplit from "./GenderSplit";
 import ListAffichage from "./ListAffichage";
 import AudienceLooklikes from "./AudienceLooklikes";
+import Image from "next/image";
 
 type AgeGroup = {
   [key: string]: number; // Key represents age range as a string, e.g., "13-17", "18-24".
@@ -99,6 +100,17 @@ const AudienceGraph = ({ id }: { id: string }) => {
               className="grid grid-cols-3 gap-5 mt-5 rounded-md"
               key={item.id}
             >
+              <div className="col-span-3">
+                <h2 className="flex gap-2 justify-center items-center">
+                  <Image
+                    src={`/social-media/${item.network}.png`}
+                    alt=""
+                    width={25}
+                    height={25}
+                  />
+                  {item.network} Audience
+                </h2>
+              </div>
               <FollowerCredibilty props={item.audience.analysis} />
               <AgeSplit props={item.audience.age_groups} />
               <GenderSplit props={item.audience.gender} />
