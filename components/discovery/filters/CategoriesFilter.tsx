@@ -21,9 +21,13 @@ interface Response {
   id: string;
   name: string;
   image: string;
+  sub: {
+    id: string;
+    name: string;
+    image: string;
+  }[];
 }
 const CategoriesFilter = () => {
-
   const { createQueryString } = useQueryHelper();
   const router = useRouter();
 
@@ -35,7 +39,7 @@ const CategoriesFilter = () => {
     queryFn: fetchGategories,
   });
 
-  if (error) return <Error />
+  if (error) return <Error />;
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -50,15 +54,19 @@ const CategoriesFilter = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Category</SelectLabel>
             {!isLoading &&
               data &&
               data.map((item) => (
-                <SelectItem key={item.id} value={item.id} className="py-2">
-                  <div className="flex items-center gap-2 capitalize">
-                    {item.name}
-                  </div>
-                </SelectItem>
+                <div key={item.id}>
+                  <SelectLabel className=" uppercase text-mainColor">{item.name}</SelectLabel>
+                  {item.sub.map((sub) => (
+                    <SelectItem key={sub.id} value={sub.id} className="py-2">
+                      <div className="flex items-center gap-2 capitalize">
+                        {sub.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </div>
               ))}
           </SelectGroup>
         </SelectContent>

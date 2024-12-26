@@ -26,6 +26,7 @@ const AccountType = () => {
           <div key={item.label} className="flex w-full">
             <input
               type="radio"
+              defaultChecked={item.value === "1"}
               name="profil"
               value={item.value}
               id={item.value}

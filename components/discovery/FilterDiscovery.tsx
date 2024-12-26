@@ -9,15 +9,19 @@ import AccountType from "./filters/AccountType";
 // import { Filter, RotateCcw } from "lucide-react";
 // import { useRouter } from "next/navigation";
 
-const FilterDiscovery = () => {
 
+const FilterDiscovery = () => {
   // const router = useRouter()
+
+
 
   return (
     <div className="py-5 px-2 flex flex-col gap-5 bg-white dark:bg-darkColor rounded-lg shadow-md border border-gray-700">
       <div className="py-5 flex flex-col gap-5 items-center">
+      
         <SocialMediaFilter />
         <CategoriesFilter />
+        {/* <SelectCategory /> */}
         <AccountCategory />
         <GenderFilter />
         <CountryFilter />

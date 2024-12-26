@@ -16,6 +16,7 @@ import CardDetail from "./reports/CardDetail";
 import NicheAccount from "./reports/NicheAccount";
 import SocialCoverage from "./reports/SocialCoverage";
 import PostMedia from "./reports/PostMedia";
+import AudienceGraph from "./reports/AudienceGraph";
 
 function ReportAccount({
   id,
@@ -57,6 +58,7 @@ function ReportAccount({
                 <div className="col-span-5">
                   {/* <AccountDispatch accounts={data.accounts} /> */}
                   <NicheAccount data={data} />
+                  <AudienceGraph id={id} />
                 </div>
               </div>
               <SocialCoverage id={id} />
