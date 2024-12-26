@@ -51,18 +51,19 @@ function ReportAccount({
             {isLoading && <Loading />}
             {data && (
               <>
-              <div className="grid grid-cols-7 gap-2">
-                <div className="col-span-2">
-                  <CardDetail account={data} />
+                <div className="grid grid-cols-7 gap-2">
+                  <div className="col-span-2">
+                    <CardDetail account={data} />
+                  </div>
+                  <div className="col-span-5">
+                    <NicheAccount data={data} />
+                  </div>
+                  <div className="col-span-7">
+                    <AudienceGraph id={id} />
+                  </div>
                 </div>
-                <div className="col-span-5">
-                  {/* <AccountDispatch accounts={data.accounts} /> */}
-                  <NicheAccount data={data} />
-                  <AudienceGraph id={id} />
-                </div>
-              </div>
-              <SocialCoverage id={id} />
-              <PostMedia id={id} />
+                <SocialCoverage id={id} />
+                <PostMedia id={id} />
               </>
             )}
           </DrawerHeader>

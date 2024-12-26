@@ -96,7 +96,7 @@ function SocialMediaFilter() {
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[320px] p-0 bg-darkColor border-[0.2px] border-gray-500 hover:bg-darkColor">
+      <PopoverContent className="w-[280px] p-0 bg-darkColor border-[0.2px] border-gray-500 hover:bg-darkColor">
         <Command className="bg-darkColor">
           <CommandGroup>
             <CommandList>
