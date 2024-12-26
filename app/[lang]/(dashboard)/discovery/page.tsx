@@ -78,7 +78,7 @@ const Page = () => {
 
   return (
     <div className="grid grid-cols-12 gap-5">
-      <div className="col-span-3 mt-16 h-screen sticky top-5 mr-10">
+      <div className="col-span-3 mt-16 h-screen sticky top-5">
         <FilterDiscovery />
       </div>
       <div className="col-span-9 pb-12">
@@ -89,7 +89,7 @@ const Page = () => {
               <p>{formatNumber(data?.cursor.total)} results</p>
               <OrderBy />
             </div>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-5">
               {data &&
                 data.data.length > 0 &&
                 data.data.map((item) => (

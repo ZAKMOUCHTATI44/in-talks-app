@@ -31,6 +31,8 @@ interface SocialAccounts {
   verified: boolean;
   subscribers: number;
   score: string;
+  growth_rate : number
+  engagement_rate : number
 }
 
 interface Category {

@@ -82,7 +82,7 @@ const CardAccount = ({ account }: { account: Account }) => {
               {formatNumber(Number(account.insights.top.subscribers))}
             </p>
             <p className="text-xs bg-[#21BA4526] text-white px-3 py-1 rounded-md">
-              {formatNumber(Number(account.insights.top.growth))}
+              {formatNumber(Number(account.insights.top.score))}
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ const CardAccount = ({ account }: { account: Account }) => {
             account.posts.map((post) => (
               <div
                 key={post.id}
-                className="h-[80px] w-[80px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
+                className="h-[110px] w-[80px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
                 style={{
                   backgroundImage: `url(${BASE_URL}/media/post?id=${post.id})`,
                 }}

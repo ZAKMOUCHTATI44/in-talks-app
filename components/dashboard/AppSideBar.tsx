@@ -68,9 +68,9 @@ export default function AppSidebar() {
     },
   ];
   return (
-    <Sidebar className="border-none">
+    <Sidebar collapsible="icon" className="border-none">
       <SidebarContent className=" dark:bg-[#2F3349] dark:text-whiteColor text-[#2F3349]  shadow-sm">
-        <SidebarGroup>
+        <SidebarGroup className="group-data-[collapsible=icon]:hidden" >
           <Image
             className="py-2"
             src={"/logo.png"}

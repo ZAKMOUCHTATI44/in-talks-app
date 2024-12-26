@@ -13,19 +13,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const { authUser, loading } = useAuthUser();
 
-
   useEffect(() => {
     if (!loading) {
-      if (! authUser) {
-        router.push('/login')
+      if (!authUser) {
+        router.push("/login");
       }
     }
-  }, [router , authUser, loading]); 
-
+  }, [router, authUser, loading]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="dark:bg-bgDarkColor dark:text-whiteColor" suppressHydrationWarning>
+      <div
+        className="dark:bg-bgDarkColor dark:text-whiteColor"
+        suppressHydrationWarning
+      >
         <SidebarProvider>
           <AppSideBar />
           <main className="dark:bg-bgDarkColor bg-[#f8f7fa] px-5 w-full h-screen flex flex-col">

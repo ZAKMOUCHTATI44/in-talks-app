@@ -41,7 +41,7 @@ const PostMedia = ({ id, network }: { id: string; network?: string }) => {
             Popular Post
           </h2>
 
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-3 gap-5">
             {data.slice(0, 8).map((post) => (
               <PostCard post={post} key={post.id} />
             ))}

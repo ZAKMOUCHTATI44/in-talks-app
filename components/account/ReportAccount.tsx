@@ -17,6 +17,7 @@ import NicheAccount from "./reports/NicheAccount";
 import SocialCoverage from "./reports/SocialCoverage";
 import PostMedia from "./reports/PostMedia";
 import AudienceGraph from "./reports/AudienceGraph";
+import AccountDispatch from "./reports/AccountDispatch";
 
 function ReportAccount({
   id,
@@ -55,19 +56,20 @@ function ReportAccount({
               {isLoading && <Loading />}
               {data && (
                 <>
-                  <div className="grid grid-cols-7 gap-2">
-                    <div className="col-span-2">
+                  <div className="grid grid-cols-12 gap-2">
+                    <div className="col-span-3 sticky top-0 h-screen" style={{}}>
                       <CardDetail account={data} />
                     </div>
-                    <div className="col-span-5">
+                    <div className="col-span-9">
+                      <AccountDispatch accounts={data.accounts} name={data.name} />
                       <NicheAccount data={data} />
+                      <SocialCoverage id={id} />
+                      <AudienceGraph id={id} />
+                      {data.accounts.map((netwrok) => (
+                        <PostMedia key={netwrok.id} id={id} network={netwrok.network} />
+                      ))}
                     </div>
                   </div>
-                  <SocialCoverage id={id} />
-                  <AudienceGraph id={id} />
-                  {data.accounts.map((netwrok) => (
-                    <PostMedia id={id} network={netwrok.network} />
-                  ))}
                 </>
               )}
             </DrawerHeader>

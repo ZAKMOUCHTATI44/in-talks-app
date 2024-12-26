@@ -21,7 +21,6 @@ import { AxiosResponse } from "axios";
 import api from "@/lib/api";
 import Error from "../utils/Error";
 import { useQuery } from "@tanstack/react-query";
-import { BASE_URL } from "@/lib/hepler";
 import CardModal from "./reports/CardModal";
 
 interface Pagination {
