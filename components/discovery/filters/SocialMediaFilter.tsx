@@ -73,11 +73,13 @@ function SocialMediaFilter() {
   };
 
   React.useEffect(() => {
-    const updatedQuery = createQueryString(
-      "networks",
-      value.join(",").toString()
-    );
-    router.push(`?${updatedQuery}`);
+    if (value.length > 0) {
+      const updatedQuery = createQueryString(
+        "networks",
+        value.join(",").toString()
+      );
+      router.push(`?${updatedQuery}`);
+    }
   }, [createQueryString, router, value]);
 
   return (

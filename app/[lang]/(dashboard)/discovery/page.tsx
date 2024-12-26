@@ -6,12 +6,13 @@ import api from "@/lib/api";
 import { formatNumber } from "@/lib/number";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 
 import OrderBy from "@/components/discovery/filters/OrderBy";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PaginationDiscovery from "@/components/discovery/PaginationDiscovery";
 import Error from "@/components/utils/Error";
+import { useQueryHelper } from "@/components/utils/queryHelpers";
 interface Pagination {
   data: Account[];
   cursor: {
@@ -32,19 +33,22 @@ interface FilterDiscovery {
 }
 
 const Page = () => {
+  const { createQueryString } = useQueryHelper();
+  const router = useRouter();
+
   const searchParams = useSearchParams();
+  const sort = searchParams.get("sort"),
+    networks = searchParams.get("networks"),
+    range = searchParams.get("range"),
+    gender = searchParams.get("gender"),
+    country = searchParams.get("country"),
+    type = searchParams.get("type"),
+    page = searchParams.get("page");
 
   const queryBuilder = () => {
     let query = "creators/search?limit=12";
-    const sort = searchParams.get("sort"),
-      networks = searchParams.get("networks"),
-      range = searchParams.get("range"),
-      gender = searchParams.get("gender"),
-      country = searchParams.get("country"),
-      type = searchParams.get("type"),
-      page = searchParams.get("page");
 
-    if (sort) query += `&sort=${sort}`;
+    if (sort !== "0") query += `&sort=${sort}`;
     if (networks) query += `&networks=${networks}`;
     if (range) query += `&range=${range}`;
     if (gender) query += `&gender=${gender}`;
@@ -55,6 +59,13 @@ const Page = () => {
     return query;
   };
 
+  useEffect(() => {
+    const updatedQuery = createQueryString("page", "1");
+    router.push(`?${updatedQuery}`);
+
+  }, [sort, networks, range, gender, country, type]);
+
+  
   const fetch = (): Promise<Pagination> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 

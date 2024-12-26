@@ -5,10 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import React from "react";
 import PostCard from "./PostCard";
+import Image from "next/image";
 
-const PostMedia = ({ id }: { id: string }) => {
+const PostMedia = ({ id, network }: { id: string; network?: string }) => {
   const buildQueryString = (): string => {
-    return `/creators/${id}/posts`;
+    let query = `/creators/${id}/posts/`;
+    if (network) query += network;
+    return query;
   };
 
   const fetch = (): Promise<Post[]> =>
@@ -23,15 +26,29 @@ const PostMedia = ({ id }: { id: string }) => {
   if (isLoading) return <Loading />;
 
   return (
-    <>
-    {data && data.length > 0 && (
-      <div className="grid grid-cols-4 gap-5">
-        {data.map(post => (
-            <PostCard post={post} key={post.id} />
-        ))}
-      </div>
-    )}
-    </>
+    <div>
+      {data && data.length > 0 && (
+        <div>
+          <h2 className="my-12 text-xl flex justify-center items-center gap-2">
+            {network && (
+              <Image
+                src={`/social-media/${network}.png`}
+                alt=""
+                width={25}
+                height={25}
+              />
+            )}
+            Popular Post
+          </h2>
+
+          <div className="grid grid-cols-4 gap-5">
+            {data.slice(0, 8).map((post) => (
+              <PostCard post={post} key={post.id} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

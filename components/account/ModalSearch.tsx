@@ -22,6 +22,7 @@ import api from "@/lib/api";
 import Error from "../utils/Error";
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "@/lib/hepler";
+import CardModal from "./reports/CardModal";
 
 interface Pagination {
   data: Account[];
@@ -74,7 +75,10 @@ export function ModalSearch() {
             onValueChange={(e) => setValue(e)}
           />
           <CommandList>
-            <CommandEmpty>Not found .</CommandEmpty>
+            {data && data.data.length === 0 && (
+              <CommandEmpty>Not found .</CommandEmpty>
+            )}
+
             <CommandGroup>
               {!isLoading &&
                 data?.data.map((item) => (
@@ -87,21 +91,7 @@ export function ModalSearch() {
                       setOpen(false);
                     }}
                   >
-                    <div
-                      className="rounded-full h-11 w-11 flex justify-start"
-                      style={{
-                        background: "linear-gradient(45deg, #4ec6fb, #ff56e3)",
-                      }}
-                    >
-                      <div
-                        className="rounded-full mx-auto w-10 h-10 bg-contain p-0.5"
-                        style={{
-                          backgroundImage: `url(${BASE_URL}/media/account?id=${item.picture})`,
-                        }}
-                      ></div>
-                    </div>
-
-                    <p className="text-sm">{item.name}</p>
+                    <CardModal account={item} />
                   </CommandItem>
                 ))}
             </CommandGroup>

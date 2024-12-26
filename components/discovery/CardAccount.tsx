@@ -44,20 +44,20 @@ const CardAccount = ({ account }: { account: Account }) => {
           <div className=" absolute top-2 right-0 flex gap-1">
             <Button
               size={"icon"}
-              className="bg-[#F31260] hover:bg-[#F31260] hover:text-whiteColor border border-[#F31260] -600 text-white"
+              className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
             >
               <Heart />
             </Button>
 
-            <Button
-              onClick={() => setOpen(true)}
-              size={"icon"}
-              className="bg-[#17C964] hover:bg-[#17C964] hover:text-[#17C964] border border-gray-600 text-white"
-            >
-              <BarChart2 />
-            </Button>
-
-            <ReportAccount open={open} setOpen={setOpen} id={account.id} />
+            <ReportAccount open={open} setOpen={setOpen} id={account.id}>
+              <Button
+                onClick={() => setOpen(true)}
+                size={"icon"}
+                className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
+              >
+                <BarChart2 />
+              </Button>
+            </ReportAccount>
           </div>
         </div>
         <div className="py-3 border-t-[0.2px] border-gray-600">

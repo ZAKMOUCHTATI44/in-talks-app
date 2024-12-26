@@ -18,7 +18,7 @@ const OrderBy = () => {
   const data = [
     {
       label: "By Default",
-      value: "growth",
+      value: "0",
     },
     {
       label: "Rank",

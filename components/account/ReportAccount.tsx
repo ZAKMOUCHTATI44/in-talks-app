@@ -22,10 +22,12 @@ function ReportAccount({
   id,
   open,
   setOpen,
+  children,
 }: {
   id: string;
   open: boolean;
   setOpen: (e: boolean) => void;
+  children: React.ReactNode;
 }) {
   const buildQueryString = (): string => {
     return `/creators/${id}`;
@@ -43,31 +45,36 @@ function ReportAccount({
   if (error) return <Error />;
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerContent className="bg-bgDarkColor">
-        <div className="mx-auto w-full h-[90vh] overflow-y-scroll  gap-3 px-5">
-          <DrawerHeader>
-            <DrawerTitle className="hidden">ddad</DrawerTitle>
-            {isLoading && <Loading />}
-            {data && (
-              <>
-                <div className="grid grid-cols-7 gap-2">
-                  <div className="col-span-2">
-                    <CardDetail account={data} />
+    <div>
+      {children}
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerContent className="bg-bgDarkColor">
+          <div className="mx-auto w-full h-[90vh] overflow-y-scroll  gap-3 px-5">
+            <DrawerHeader>
+              <DrawerTitle className="hidden">ddad</DrawerTitle>
+              {isLoading && <Loading />}
+              {data && (
+                <>
+                  <div className="grid grid-cols-7 gap-2">
+                    <div className="col-span-2">
+                      <CardDetail account={data} />
+                    </div>
+                    <div className="col-span-5">
+                      <NicheAccount data={data} />
+                    </div>
                   </div>
-                  <div className="col-span-5">
-                    <NicheAccount data={data} />
-                  </div>
-                </div>
-                <SocialCoverage id={id} />
-                <AudienceGraph id={id} />
-                <PostMedia id={id} />
-              </>
-            )}
-          </DrawerHeader>
-        </div>
-      </DrawerContent>
-    </Drawer>
+                  <SocialCoverage id={id} />
+                  <AudienceGraph id={id} />
+                  {data.accounts.map((netwrok) => (
+                    <PostMedia id={id} network={netwrok.network} />
+                  ))}
+                </>
+              )}
+            </DrawerHeader>
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </div>
   );
 }
 
