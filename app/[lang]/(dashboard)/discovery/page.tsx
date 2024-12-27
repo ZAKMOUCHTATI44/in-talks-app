@@ -58,7 +58,11 @@ const Page = () => {
     if (range) query += `&range=${range}`;
     if (gender) query += `&gender=${gender}`;
     if (country) query += `&country=${country}`;
-    if (type) query += `&type=${type}`;
+    if (type) {
+      query += `&type=${type}`;
+    } else {
+      query += `&type=creators`;
+    }
     if (page) query += `&page=${page}`;
 
     return query;

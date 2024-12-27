@@ -9,11 +9,11 @@ const AccountType = () => {
   const data = [
     {
       label: "Creators",
-      value: "1",
+      value: "creators",
     },
     {
       label: "Brand",
-      value: "2",
+      value: "brands",
     },
   ];
 
