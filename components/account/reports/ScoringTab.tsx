@@ -55,11 +55,11 @@ const ScoringTab = ({
           scoring.views,
           scoring.activity,
         ],
-        backgroundColor: "rgba(255, 87, 235, 0.1)", 
+        backgroundColor: "rgba(0, 0, 0, 0.1)",
         borderColor: "#ff55e3",
         borderWidth: 2,
-        pointBackgroundColor: "#ff55e3", 
-        pointBorderColor: "#ffffff",
+        pointBackgroundColor: "#ffffff",
+        pointBorderColor: "#ff55e3",
       },
     ],
   };
@@ -74,13 +74,13 @@ const ScoringTab = ({
         suggestedMax: 100,
         ticks: {
           stepSize: 20,
-          display: false,
+          display: false, // Hides the ticks in the center
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.2)", 
+          color: "rgba(255, 255, 255, 0.2)", // Set grid color to white with transparency
         },
         pointLabels: {
-          color: "#12b5de",
+          color: "#FF56E3", // Set label color to white
           font: {
             size: 14,
           },
@@ -90,34 +90,32 @@ const ScoringTab = ({
     plugins: {
       tooltip: {
         enabled: true,
-        backgroundColor: "#000000", 
-        titleColor: "#0000", 
-        bodyColor: "#0000", 
-        borderColor: "#ff55e3",
+        callbacks: {
+          //   label: function (tooltipItem: any ) {
+          //     return `${tooltipItem.label}: ${tooltipItem.raw}`;
+          //   },
+        },
+        backgroundColor: "#000000",
         borderWidth: 1,
       },
       legend: {
-        display: false, // Hide legend
+        display: false,
         labels: {
-          color: "#000", // White color for legend text
         },
       },
     },
   };
 
   return (
-    <div className="flex flex-col px-5 pt-5 pb-2 rounded-md justify-center dark:bg-gray-800 bg-white">
-      <div className="flex gap-2 justify-center items-center">
+    <div className="flex flex-col px-5 pt-5 pb-2 rounded-md justify-center dark:bg-darkColor">
+      <div className="flex gap-2 justify-center">
         <Image
           src={`/social-media/${network}.png`}
-          alt={`${network} logo`}
+          alt=""
           width={25}
           height={25}
-          className="rounded-full"
         />
-        <p className="capitalize text-lg font-semibold dark:text-white text-gray-900">
-          {label}
-        </p>
+        <p className=" capitalize">{label}</p>
       </div>
       <Radar data={data} options={options} />
     </div>

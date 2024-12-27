@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { generatePDF } from "@/components/utils/pdfGenerator";
+// import { generatePDF } from "@/components/utils/pdfGenerator";
 import { BASE_URL } from "@/lib/hepler";
-import { Download } from "lucide-react";
+// import { Download } from "lucide-react";
 import React from "react";
 
 const CardDetail = ({ account }: { account: Account }) => {
@@ -56,11 +56,11 @@ const CardDetail = ({ account }: { account: Account }) => {
           ))}
         </div>
       </div>
-      <button onClick={() => generatePDF("pdf-content")}>Export to PDF</button>
+      {/* <button onClick={() => generatePDF("pdf-content")}>Export to PDF</button>
       <Button  className="w-full my-5 bg-mainColor flex justify-center gap-2 items-center">
         Download pdf 
-        <Download />
-      </Button>
+        <Download /> */}
+      {/* </Button> */}
     </div>
   );
 };

@@ -39,7 +39,7 @@ const CardAccount = ({ account }: { account: Account }) => {
                 </div>
               )}
             </h2>
-            <p className="text-xs">{account.title}</p>
+            <p className="text-xs capitalize">{account.title}</p>
           </div>
           <div className=" absolute top-2 right-0 flex gap-1">
             <Button
@@ -67,10 +67,10 @@ const CardAccount = ({ account }: { account: Account }) => {
         </div>
       </div>
       <div className="grid grid-cols-5 py-2 items-center">
-        <div>
+        <div className="flex flex-col gap-0">
           <div
             key={account.insights.top.id}
-            className="flex items-center gap-2 py-2 flex-col"
+            className="flex items-center gap-0 py-2 flex-col"
           >
             <div
               className="h-8 w-8 bg-contain bg-center bg-no-repeat"
@@ -82,7 +82,7 @@ const CardAccount = ({ account }: { account: Account }) => {
               {formatNumber(Number(account.insights.top.subscribers))}
             </p>
             <p className="text-xs dark:bg-[#21BA4526] bg-green-400 text-white px-3 py-1 rounded-md">
-              {formatNumber(Number(account.insights.top.score))}
+              +{formatNumber(Number(account.insights.top.growth))}
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ const CardAccount = ({ account }: { account: Account }) => {
             account.posts.map((post) => (
               <div
                 key={post.id}
-                className="h-[110px] w-[80px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
+                className="h-[90px] w-[90px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
                 style={{
                   backgroundImage: `url(${BASE_URL}/media/post?id=${post.id})`,
                 }}
@@ -101,7 +101,7 @@ const CardAccount = ({ account }: { account: Account }) => {
       </div>
       <div className="flex gap-5 py-2 border-t-[0.1px] border-gray-600">
         {account.accounts.length > 0 &&
-          account.accounts.map((item, index) => (
+          account.accounts.slice(1 , account.accounts.length ).map((item, index) => (
             <div key={item.id} className="flex items-center gap-2 py-2">
               <div
                 className="h-4 w-4 bg-contain bg-center bg-no-repeat"
