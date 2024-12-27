@@ -69,7 +69,7 @@ export default function AppSidebar() {
   ];
   return (
     <Sidebar collapsible="icon" className="border-none">
-      <SidebarContent className=" dark:bg-[#2F3349] dark:text-whiteColor text-[#2F3349]  shadow-sm">
+      <SidebarContent className="bg-white dark:bg-[#2F3349] dark:text-whiteColor text-[#2F3349]  shadow-sm">
         <SidebarGroup className="group-data-[collapsible=icon]:hidden" >
           <Image
             className="py-2"
@@ -78,17 +78,17 @@ export default function AppSidebar() {
             width={150}
             height={50}
           />
-          <SidebarGroupLabel className="mt-5 dark:text-whiteColor text-[#2F3349]">
+          <SidebarGroupLabel className="mt-5 dark:text-whiteColor text-[#2F2B3DAD]">
             Menu
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="py-1">
-                  <SidebarMenuButton asChild className="hover:bg-[#ff55e3]">
+                  <SidebarMenuButton asChild className="hover:bg-[#ff55e3] text-[#2F2B3DAD] dark:text-whiteColor">
                     <Link
                       href={item.url}
-                      className="!py-5 flex justify-center hover:bg-[#ff55e3] hover:text-black dark:hover:text-white relative"
+                      className="!py-5 flex justify-center hover:bg-[#ff55e3 hover:text-white relative"
                     >
                       <item.icon className="!w-5 !h-5" />
                       {/* <p className="text-base absolute bg-white">{item.title}</p> */}
@@ -105,7 +105,7 @@ export default function AppSidebar() {
                       logout();
                       router.push('/login')
                     }}
-                    className="!py-5 hover:bg-[#ff55e3] flex justify-center hover:text-black dark:hover:text-white"
+                    className="!py-5 hover:bg-[#ff55e3] flex justify-center hover:text-white text-[#2F2B3DAD] dark:text-whiteColor"
                   >
                     <LogOut className="!w-5 !h-5" />
                     {/* <p className="text-base">Se déconnecter</p> */}

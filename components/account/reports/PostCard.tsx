@@ -7,7 +7,7 @@ import React from "react";
 
 const PostCard = ({ post }: { post: Post }) => {
   return (
-    <div className="bg-darkColor py-5 px-2 shadow-md rounded-md flex flex-col justify-between">
+    <div className="dark:bg-darkColor  border border-gray-200 py-5 px-2 shadow-md rounded-md flex flex-col justify-between">
       <div>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-1">

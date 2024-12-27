@@ -9,7 +9,7 @@ type Lookalike = {
 
 const AudienceLooklikes = ({ data }: { data: Lookalike[] }) => {
   return (
-    <div className="bg-darkColor text-whiteColor p-5 rounded-md">
+    <div className="dark:bg-darkColor dark:text-whiteColor border border-gray-200 shadow-md p-5 rounded-md">
       <h5 className="text-base font-semibold mb-5 text-center">
         Audience Looklikes
       </h5>

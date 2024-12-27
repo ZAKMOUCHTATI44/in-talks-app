@@ -38,7 +38,7 @@ const OrderBy = () => {
           router.push(`?${createQueryString("sort", e)}`);
         }}
       >
-        <SelectTrigger className="w-[190px] bg-darkColor">
+        <SelectTrigger className="w-[190px] dark:bg-darkColor border-gray-600">
           <SelectValue placeholder="Order by" />
         </SelectTrigger>
         <SelectContent>

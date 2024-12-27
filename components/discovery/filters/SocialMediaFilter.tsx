@@ -91,22 +91,22 @@ function SocialMediaFilter() {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between bg-darkColor border-[0.2px] border-gray-500 hover:bg-darkColor"
+            className="w-full justify-between dark:bg-darkColor border-[0.2px] dark:border-gray-500 border-gray-300 dark:hover:bg-darkColor"
           >
-            <div className="flex gap-2 justify-start">Select network...</div>
+            <Label className="flex gap-2 justify-start">Select network...</Label>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[280px] p-0 bg-darkColor border-[0.2px] border-gray-500 hover:bg-darkColor">
-        <Command className="bg-darkColor">
+      <PopoverContent className="w-[290px] p-0 dark:bg-darkColor border-[0.2px] border-gray-500 hover:bg-darkColor ">
+        <Command className="dark:bg-darkColor">
           <CommandGroup>
             <CommandList>
               {data.map((item) => (
                 <CommandItem
                   key={item.value}
                   value={item.value}
-                  className="py-2 hover:bg-mainColor flex justify-between data-[selected=true]:bg-mainColor"
+                  className="py-2 hover:bg-mainColor hover:data-[selected=true]:text-white data-[selected=true]:text-white flex justify-between data-[selected=true]:bg-mainColor "
                   onSelect={() => {
                     handleSetValue(item.value);
                   }}

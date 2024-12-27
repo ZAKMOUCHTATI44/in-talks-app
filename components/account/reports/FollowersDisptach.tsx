@@ -67,7 +67,7 @@ const FollowersDisptach = ({ data }: { data: SocialAccounts[] }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-5  border-l-2 border-gray-600 pl-12">
+    <div className="flex flex-col gap-5  border-l-2 dark:border-gray-600 border-gray-200 pl-12">
       <Label >Followers Dispatch</Label>
       <div className="chart-container flex items-center gap-5 ">
         <ResponsiveContainer width={108} height={108}>

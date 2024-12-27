@@ -1,10 +1,13 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { generatePDF } from "@/components/utils/pdfGenerator";
 import { BASE_URL } from "@/lib/hepler";
+import { Download } from "lucide-react";
 import React from "react";
 
 const CardDetail = ({ account }: { account: Account }) => {
   return (
-    <div className="bg-darkColor text-whiteColor shadow-md py-5 px-2 rounded-md">
+    <div className="dark:bg-darkColor dark:text-whiteColor bg-white shadow-md py-5 px-2 rounded-md">
       <div className="flex flex-col gap-5 items-start">
         <div className="flex items-center gap-2">
           <div
@@ -40,19 +43,24 @@ const CardDetail = ({ account }: { account: Account }) => {
           </div>
         </div>
       
-        <p className="text-sm">{account.description}</p>
+        <p className="text-sm">{account.description.substring(0 , 300)}</p>
         <div className="flex justify-start gap-2">
           {account.categories.map((category) => (
             <Badge
               key={category.name}
               variant={"outline"}
-              className="bg-mainColor text-lg"
+              className="bg-mainColor text-sm text-white"
             >
               {category.name}
             </Badge>
           ))}
         </div>
       </div>
+      <button onClick={() => generatePDF("pdf-content")}>Export to PDF</button>
+      <Button  className="w-full my-5 bg-mainColor flex justify-center gap-2 items-center">
+        Download pdf 
+        <Download />
+      </Button>
     </div>
   );
 };

@@ -43,13 +43,18 @@ const Page = () => {
     gender = searchParams.get("gender"),
     country = searchParams.get("country"),
     type = searchParams.get("type"),
-    page = searchParams.get("page");
+    page = searchParams.get("page"),
+    niche = searchParams.get("niche"),
+    category = searchParams.get("category");
 
   const queryBuilder = () => {
     let query = "creators/search?limit=12";
 
     if (sort !== "0") query += `&sort=${sort}`;
     if (networks) query += `&networks=${networks}`;
+    if (networks) query += `&networks=${networks}`;
+    if (category && !niche) query += `&category=${niche}`;
+    if (niche) query += `&category=${niche}`;
     if (range) query += `&range=${range}`;
     if (gender) query += `&gender=${gender}`;
     if (country) query += `&country=${country}`;
@@ -62,10 +67,8 @@ const Page = () => {
   useEffect(() => {
     const updatedQuery = createQueryString("page", "1");
     router.push(`?${updatedQuery}`);
+  }, [sort, networks, range, gender, country, type, niche]);
 
-  }, [sort, networks, range, gender, country, type]);
-
-  
   const fetch = (): Promise<Pagination> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 

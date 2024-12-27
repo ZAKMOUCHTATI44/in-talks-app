@@ -59,14 +59,14 @@ export function ModalSearch() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[330px] justify-between bg-darkColor border border-gray-600"
+          className="w-[330px] justify-between text-[#2F2B3DAD] dark:text-whiteColor dark:bg-darkColor border dark:border-gray-600 border-gray-300"
         >
           Search for your influencer
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[330px] p-0 bg-darkColor">
-        <Command className="bg-darkColor">
+      <PopoverContent className="w-[330px] p-0 dark:bg-darkColor bg-white">
+        <Command className="dark:bg-darkColor">
           <CommandInput
             placeholder="Search for your influencer"
             className="h-9"
@@ -82,8 +82,8 @@ export function ModalSearch() {
               {!isLoading &&
                 data?.data.map((item) => (
                   <CommandItem
-                    className="hover:bg-mainColor flex data-[selected=true]:bg-mainColor"
-                    key={item.name}
+                    className="hover:bg-mainColor flex data-[selected=true]:bg-mainColor hover:!text-white"
+                    key={item.picture}
                     value={item.name}
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);

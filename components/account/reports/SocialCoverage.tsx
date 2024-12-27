@@ -133,7 +133,7 @@ const SocialCoverage = ({ id }: { id: string }) => {
             {/* className={`growth ${row.influenceScore?.comment === 'low' ? 'lower' : 'high'}`} */}
             {row.insights.score && (
               <div
-                className={`flex gap-1 items-center high bg-[#21BA4526] text-white px-3 py-2 rounded-md`}
+                className={`flex gap-1 items-center high dark:bg-[#21BA4526] bg-green-400 text-white px-3 py-2 rounded-md`}
               >
                 <span className={`circle high`}></span>
                 {row.insights.score} / 100
@@ -252,7 +252,7 @@ const SocialCoverage = ({ id }: { id: string }) => {
       {data && (
         <>
           <DataTable
-            className={`dark-datatable w-full`}
+            className={`dark-datatable w-full border-gray-200 bg-white shadow-md`}
             columns={columns}
             data={data.accounts}
           />

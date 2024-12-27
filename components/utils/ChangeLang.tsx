@@ -51,13 +51,13 @@ const ChangeLang = () => {
 
   return (
     <Select defaultValue="fr" value={lang} onValueChange={handleChange} >
-      <SelectTrigger className="w-[80px] !outline-none bg-transparent border-transparent">
+      <SelectTrigger className="w-[80px] !outline-none bg-transparent border-transparent border-gray-200">
        <GetSelectedValue lang={langCurrent} />
       </SelectTrigger>
       <SelectContent className="dark:bg-darkColor">
         <SelectGroup>
           {langs.map((item) => (
-            <SelectItem key={item.title} value={item.key} className="hover:bg-darkColor">
+            <SelectItem key={item.title} value={item.key} className="hover:bg-darkColor hover:text-white">
               <div className="flex gap-2">
                 {/* <Image src={item.icon} alt={item.title} className="w-6 h-6" /> */}
                 {item.title}

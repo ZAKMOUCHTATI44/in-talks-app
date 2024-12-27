@@ -63,7 +63,7 @@ const PaginationDiscovery = ({ totalPage }: { totalPage: number }) => {
             {pageNumbers().map((page) => (
               <PaginationItem key={page}>
                 <PaginationLink
-                  className={`hover:bg-mainColor ${currentPage === page ? "bg-mainColor" : ""}`}
+                  className={`hover:bg-mainColor hover:text-white ${currentPage === page ? "bg-mainColor text-white" : ""}`}
                   isActive={currentPage === page}
                   onClick={() => goToPage(page)}
                 >

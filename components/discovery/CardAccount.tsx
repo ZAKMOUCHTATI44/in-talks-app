@@ -9,7 +9,7 @@ import ReportAccount from "../account/ReportAccount";
 const CardAccount = ({ account }: { account: Account }) => {
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className="bg-darkColor p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px] border-gray-600">
+    <div className="dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px] dark:border-gray-600 border-gray-300">
       <div>
         <div className="flex flex-col items-center pt-8 gap-2 relative pb-4">
           <div
@@ -81,7 +81,7 @@ const CardAccount = ({ account }: { account: Account }) => {
             <p className="text-sm">
               {formatNumber(Number(account.insights.top.subscribers))}
             </p>
-            <p className="text-xs bg-[#21BA4526] text-white px-3 py-1 rounded-md">
+            <p className="text-xs dark:bg-[#21BA4526] bg-green-400 text-white px-3 py-1 rounded-md">
               {formatNumber(Number(account.insights.top.score))}
             </p>
           </div>

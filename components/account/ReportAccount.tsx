@@ -49,8 +49,8 @@ function ReportAccount({
     <div>
       {children}
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent className="bg-bgDarkColor">
-          <div className="mx-auto w-full h-[90vh] overflow-y-scroll  gap-3 px-5">
+        <DrawerContent className="dark:bg-bgDarkColor">
+          <div className="mx-auto w-full h-[90vh] overflow-y-scroll  gap-3 px-5" id="pdf-content">
             <DrawerHeader>
               <DrawerTitle className="hidden">ddad</DrawerTitle>
               {isLoading && <Loading />}

@@ -5,6 +5,7 @@ import AccountCategory from "./filters/AccountCategory";
 import GenderFilter from "./filters/GenderFilter";
 import CountryFilter from "./filters/CountryFilter";
 import AccountType from "./filters/AccountType";
+import NicheFilter from "./filters/NicheFilter";
 // import { Button } from "../ui/button";
 // import { Filter, RotateCcw } from "lucide-react";
 // import { useRouter } from "next/navigation";
@@ -16,12 +17,12 @@ const FilterDiscovery = () => {
 
 
   return (
-    <div className="py-5 px-2 flex flex-col gap-5 bg-white dark:bg-darkColor rounded-lg shadow-md border border-gray-700">
+    <div className="py-5 px-2 flex flex-col gap-5 bg-white dark:bg-darkColor rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <div className="py-5 flex flex-col gap-5 items-center">
       
         <SocialMediaFilter />
         <CategoriesFilter />
-        {/* <SelectCategory /> */}
+        <NicheFilter />
         <AccountCategory />
         <GenderFilter />
         <CountryFilter />

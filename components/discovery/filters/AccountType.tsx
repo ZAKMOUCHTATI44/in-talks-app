@@ -37,8 +37,8 @@ const AccountType = () => {
             />
             <label
               htmlFor={item.value}
-              className="w-full text-center text-sm select-none cursor-pointer rounded-md border border-gray-600
-   py-1 px-6 text-whiteColor transition-colors duration-200 ease-in-out peer-checked:text-white peer-checked:bg-mainColor peer-checked:border-mainColor "
+              className="w-full text-center text-gray-800 dark:text-whiteColor text-sm select-none cursor-pointer rounded-md border border-gray-600
+   py-1 px-6 transition-colors duration-200 ease-in-out peer-checked:text-white peer-checked:bg-mainColor peer-checked:border-mainColor "
             >
               {item.label}
             </label>

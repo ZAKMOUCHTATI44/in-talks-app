@@ -11,6 +11,7 @@ import {
 // import { getCurrentAuth } from "@/lib/authHelper";
 import Avatar from "./Avatar";
 import { useAuthUser } from "@/lib/useAuthUser";
+import { ChevronDown, LogOut, User2 } from "lucide-react";
 
 export default function UserAvatar() {
   // const session = getCurrentAuth()
@@ -25,11 +26,12 @@ export default function UserAvatar() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="outline-none">
+        <button className="outline-none flex items-center gap-1">
           <Avatar alt={authUser?.name} />
+          <ChevronDown className="h-4 w-4" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-bgDarkColor" align="end" forceMount>
+      <DropdownMenuContent className="w-56 dark:bg-bgDarkColor dark:text-whiteColor" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
@@ -40,17 +42,16 @@ export default function UserAvatar() {
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="text-whiteColor" />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="hover:bg-darkColor">
+          <DropdownMenuItem className="flex gap-2 items-center">
+            <User2 className="h-4 w-4" />
             Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="flex gap-2 items-center">
+          <LogOut />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>

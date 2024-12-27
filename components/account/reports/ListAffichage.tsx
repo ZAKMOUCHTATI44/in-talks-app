@@ -10,7 +10,7 @@ interface Props {
 }
 const ListAffichage = ({ props }: { props: Props }) => {
   return (
-    <div className="bg-darkColor text-whiteColor p-5 rounded-md">
+    <div className="dark:bg-darkColor bg-white shadow-md dark:text-whiteColor  border border-gray-200 p-5 rounded-md">
       <h5 className="text-base font-semibold mb-5 text-center">
         {props.title}
       </h5>

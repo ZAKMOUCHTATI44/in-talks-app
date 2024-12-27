@@ -14,7 +14,7 @@ const Avatar = ({ image, alt }: { image?: string; alt: string }) => {
           className="rounded-full w-8 h-8"
         />
       ) : (
-        <p className="h-8 w-8 bg-mainColor rounded-full flex items-center justify-center font-bold">{alt.charAt(0)}</p>
+        <p className="h-8 w-8 bg-mainColor rounded-full flex items-center justify-center text-whiteColor">{alt.charAt(0)}</p>
       )}
     </div>
   );

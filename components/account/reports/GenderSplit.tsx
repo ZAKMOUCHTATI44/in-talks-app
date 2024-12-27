@@ -35,7 +35,7 @@ const GenderSplit = ({ props }: { props: GenderProps }) => {
   }
 
   return (
-    <div className='p-5 bg-darkColor rounded-md'>
+    <div className='p-5 rounded-md dark:bg-darkColor  border border-gray-200 shadow-md'>
       <p className='text-sm'>Gender split</p>
       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         <div style={{ position: 'relative', width: '150px', marginTop: '20px' }}>

@@ -104,14 +104,23 @@
   background-color: var(--bg-dark);
 }
 
-
-.dark-datatable .rdt_TableHeadRow,
-.dark-datatable .rdt_TableBody,
-.dark-datatable .rdt_Pagination,
-.dark-datatable .rdt_Pagination button,
-.dark-datatable .rdt_TableRow,
-.dark-datatable .cPTFZC {
+html.dark .dark-datatable .rdt_TableHeadRow,
+html.dark .dark-datatable .rdt_TableBody,
+html.dark .dark-datatable .rdt_Pagination,
+html.dark .dark-datatable .rdt_Pagination button,
+html.dark .dark-datatable .rdt_TableRow,
+html.dark .dark-datatable .cPTFZC {
   background-color: #2f3348 !important;
   color: white !important;
   fill: white !important;
+}
+
+#pdf-content {
+  page-break-inside: avoid;
+}
+
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
 }

@@ -55,11 +55,11 @@ const ScoringTab = ({
           scoring.views,
           scoring.activity,
         ],
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
+        backgroundColor: "rgba(255, 87, 235, 0.1)", 
         borderColor: "#ff55e3",
         borderWidth: 2,
-        pointBackgroundColor: "#ffffff",
-        pointBorderColor: "#ff55e3",
+        pointBackgroundColor: "#ff55e3", 
+        pointBorderColor: "#ffffff",
       },
     ],
   };
@@ -74,13 +74,13 @@ const ScoringTab = ({
         suggestedMax: 100,
         ticks: {
           stepSize: 20,
-          display: false, // Hides the ticks in the center
+          display: false,
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.2)", // Set grid color to white with transparency
+          color: "rgba(255, 255, 255, 0.2)", 
         },
         pointLabels: {
-          color: "#ffffff", // Set label color to white
+          color: "#12b5de",
           font: {
             size: 14,
           },
@@ -90,36 +90,34 @@ const ScoringTab = ({
     plugins: {
       tooltip: {
         enabled: true,
-        callbacks: {
-          //   label: function (tooltipItem: any ) {
-          //     return `${tooltipItem.label}: ${tooltipItem.raw}`;
-          //   },
-        },
-        backgroundColor: "#000000",
-        titleColor: "#ffffff",
-        bodyColor: "#ffffff",
-        borderColor: "#ffffff",
+        backgroundColor: "#000000", 
+        titleColor: "#0000", 
+        bodyColor: "#0000", 
+        borderColor: "#ff55e3",
         borderWidth: 1,
       },
       legend: {
-        display: false,
+        display: false, // Hide legend
         labels: {
-          color: "#ffffff", // Set legend text color to white
+          color: "#000", // White color for legend text
         },
       },
     },
   };
 
   return (
-    <div className="flex flex-col px-5 pt-5 pb-2 rounded-md justify-center bg-darkColor">
-      <div className="flex gap-2 justify-center">
+    <div className="flex flex-col px-5 pt-5 pb-2 rounded-md justify-center dark:bg-gray-800 bg-white">
+      <div className="flex gap-2 justify-center items-center">
         <Image
           src={`/social-media/${network}.png`}
-          alt=""
+          alt={`${network} logo`}
           width={25}
           height={25}
+          className="rounded-full"
         />
-        <p className=" capitalize">{label}</p>
+        <p className="capitalize text-lg font-semibold dark:text-white text-gray-900">
+          {label}
+        </p>
       </div>
       <Radar data={data} options={options} />
     </div>

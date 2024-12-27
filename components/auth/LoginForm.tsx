@@ -34,25 +34,31 @@ const LoginForm = ({
     createAccount: string;
   };
 }) => {
+  const router = useRouter();
 
-  const router = useRouter()
-
-  const {saveAuthUser} = useAuthUser()
+  const { saveAuthUser } = useAuthUser();
   const loginSchema = Yup.object().shape({
     email: Yup.string().required(content.username.validation),
     password: Yup.string().required(content.password.validation),
   });
 
-  const handleSubmit =async (values: LoginSchema) => {
-
+  const handleSubmit = async (
+    values: LoginSchema,
+    { setErrors }: { setErrors: (errors: Record<string, string>) => void }
+  ) => {
     try {
-      const res = await api.post('/login' , {username : values.email , password : values.password})
-      console.log(res)
-      saveAuthUser({...res.data , email :values.email})
-      router.push('/')
+      const res = await api.post("/login", {
+        username: values.email,
+        password: values.password,
+      });
+
+      console.log(res);
+
+      saveAuthUser({ ...res.data, email: values.email });
+      router.push("/");
     } catch (error) {
       console.log(error)
-
+      setErrors({ email: "Invalid email or password" });
     }
   };
 
@@ -67,7 +73,7 @@ const LoginForm = ({
       validationSchema={loginSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting ,  handleChange, values, errors }) => (
+      {({ isSubmitting, handleChange, values, errors }) => (
         <Form className="flex flex-col gap-5 text-white">
           <InputWithLabel
             name="email"
@@ -93,15 +99,18 @@ const LoginForm = ({
             </Link>
           </div>
           <Button className="bg-mainColor text-white hover:bg-transparent hover:text-mainColor border border-mainColor h-auto py-2">
-            {isSubmitting ?  <LoaderCircle className="loader-circle animate-spin h-12 w-12" /> : "Login"}
+            {isSubmitting ? (
+              <LoaderCircle className="loader-circle animate-spin h-12 w-12" />
+            ) : (
+              "Login"
+            )}
           </Button>
           <div className="flex justify-center text-white">
             <Link
               href={"register"}
               className="text-center text-sm"
-              dangerouslySetInnerHTML={{__html :content.createAccount }}
-            >
-            </Link>
+              dangerouslySetInnerHTML={{ __html: content.createAccount }}
+            ></Link>
           </div>
         </Form>
       )}

@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useQueryHelper } from "@/components/utils/queryHelpers";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Error from "@/components/utils/Error";
 
 interface Response {
@@ -27,35 +27,39 @@ interface Response {
     image: string;
   }[];
 }
-const CategoriesFilter = () => {
+const NicheFilter = () => {
   const { createQueryString } = useQueryHelper();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get("category");
 
   const fetchGategories = (): Promise<Response[]> =>
-    api.get("/categories").then((res: AxiosResponse) => res.data);
+    api.get(`/categories/test2/${category}`).then((res: AxiosResponse) => res.data);
 
   const { isLoading, error, data } = useQuery<Response[], Error>({
-    queryKey: ["/categories", "categories"],
+    queryKey: [`/categories/test2/${category}`],
     queryFn: fetchGategories,
+    enabled : !!category
   });
 
   if (error) return <Error />;
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <Label>Category </Label>
+      <Label>niches </Label>
       <Select
         onValueChange={(e) => {
-          router.push(`?${createQueryString("category", e)}`);
+          router.push(`?${createQueryString("niche", e)}`);
         }}
       >
         <SelectTrigger>
-          <SelectValue placeholder="Category" />
+          <SelectValue placeholder="Niches" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>
-            Category
+              Niches
             </SelectLabel>
             {!isLoading &&
               data &&
@@ -75,4 +79,5 @@ const CategoriesFilter = () => {
   );
 };
 
-export default CategoriesFilter;
+
+export default NicheFilter
