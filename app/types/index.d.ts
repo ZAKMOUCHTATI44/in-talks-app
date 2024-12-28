@@ -43,6 +43,7 @@ interface Category {
 interface Account {
   id: string;
   type : string
+  rank : string
   name: string;
   picture: string;
   title: string;

@@ -18,7 +18,7 @@ interface Pagination {
   cursor: {
     total: number;
     page: number;
-    count: 12;
+    count: number;
   };
 }
 
@@ -54,21 +54,13 @@ const Page = () => {
       query = `brands/search?limit=12`;
     }
 
-
-
     if (sort !== "0") query += `&sort=${sort}`;
-    if (networks) query += `&networks=${networks}`;
     if (networks) query += `&networks=${networks}`;
     if (category && !niche) query += `&category=${niche}`;
     if (niche) query += `&category=${niche}`;
     if (range) query += `&range=${range}`;
     if (gender) query += `&gender=${gender}`;
     if (country) query += `&country=${country}`;
-    // if (type) {
-    //   query += `&type=${type}`;
-    // } else {
-    //   query += `&type=creators`;
-    // }
     if (page) query += `&page=${page}`;
 
     return query;

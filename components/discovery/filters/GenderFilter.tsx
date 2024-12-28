@@ -21,7 +21,6 @@ const GenderFilter = () => {
     {
       label: "All",
       value: "0",
-      image: "/icons/male.png",
     },
     {
       label: "Male",
@@ -39,7 +38,7 @@ const GenderFilter = () => {
     <div className="flex flex-col gap-2 w-full">
       <Label>Gender</Label>
       <Select
-        value={searchParams.get("gender") || undefined }
+        value={searchParams.get("gender") || undefined}
         onValueChange={(e) => {
           router.push(`?${createQueryString("gender", e)}`);
         }}
@@ -53,12 +52,14 @@ const GenderFilter = () => {
             {data.map((item) => (
               <SelectItem key={item.value} value={item.value} className="py-2">
                 <div className="flex items-center gap-2">
-                  <Image
-                    src={item.image}
-                    alt={item.value}
-                    width={20}
-                    height={20}
-                  />
+                  {item.image && (
+                    <Image
+                      src={item.image}
+                      alt={item.value}
+                      width={20}
+                      height={20}
+                    />
+                  )}
                   {item.label}
                 </div>
               </SelectItem>

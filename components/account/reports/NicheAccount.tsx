@@ -12,7 +12,6 @@ const NicheAccount = ({ data }: { data: Account }) => {
           Marketing & Sales
         </p>
       </div>
-
       <FollowersDisptach data={data.accounts} />
 
     </div>

@@ -48,7 +48,7 @@ export default function AppSidebar() {
     },
     {
       title: lang === "fr" ? "Classement" : "Ranking",
-      url: "#",
+      url: "ranking",
       icon: TrendingUp,
     },
     {
