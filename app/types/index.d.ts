@@ -52,7 +52,7 @@ interface Account {
   nationality: string;
   country: Country;
   verified: boolean;
-  categories: Category[];
+  // categories: Category[];
   insights: {
     top: Insights;
     audience: [];

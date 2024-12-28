@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { BarChart2, Heart } from "lucide-react";
 import ReportAccount from "../account/ReportAccount";
-import { Badge } from "../ui/badge";
 
 const CardAccount = ({ account }: { account: Account }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -43,7 +42,7 @@ const CardAccount = ({ account }: { account: Account }) => {
             <p className="text-xs capitalize">{account.title}</p>
             <div className="flex pt-3">
               {account.categories.map(category => (
-                <Button className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
+                <Button key={category} className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
                   {category}
                 </Button>
               ))}

@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 // import { generatePDF } from "@/components/utils/pdfGenerator";
 import { BASE_URL } from "@/lib/hepler";
 // import { Download } from "lucide-react";
@@ -47,11 +46,11 @@ const CardDetail = ({ account }: { account: Account }) => {
         <div className="flex justify-start gap-2">
           {account.categories.map((category) => (
             <Badge
-              key={category.name}
+              key={category}
               variant={"outline"}
               className="bg-mainColor text-sm text-white"
             >
-              {category.name}
+              {category}
             </Badge>
           ))}
         </div>
