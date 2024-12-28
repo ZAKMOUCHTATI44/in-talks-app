@@ -45,6 +45,7 @@ interface Account {
   name: string;
   picture: string;
   title: string;
+  categories : string[]
   picture: string;
   description: string;
   gender: string;

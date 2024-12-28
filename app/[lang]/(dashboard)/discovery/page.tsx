@@ -48,7 +48,13 @@ const Page = () => {
     category = searchParams.get("category");
 
   const queryBuilder = () => {
+
     let query = "creators/search?limit=12";
+    if (type === "brands") {
+      query = `brands/search?limit=12`;
+    }
+
+
 
     if (sort !== "0") query += `&sort=${sort}`;
     if (networks) query += `&networks=${networks}`;
@@ -58,11 +64,11 @@ const Page = () => {
     if (range) query += `&range=${range}`;
     if (gender) query += `&gender=${gender}`;
     if (country) query += `&country=${country}`;
-    if (type) {
-      query += `&type=${type}`;
-    } else {
-      query += `&type=creators`;
-    }
+    // if (type) {
+    //   query += `&type=${type}`;
+    // } else {
+    //   query += `&type=creators`;
+    // }
     if (page) query += `&page=${page}`;
 
     return query;

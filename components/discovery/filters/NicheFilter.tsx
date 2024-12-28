@@ -47,7 +47,7 @@ const NicheFilter = () => {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <Label>niches </Label>
+      <Label>Niches </Label>
       <Select
         onValueChange={(e) => {
           router.push(`?${createQueryString("niche", e)}`);

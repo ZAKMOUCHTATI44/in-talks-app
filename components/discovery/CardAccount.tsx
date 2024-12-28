@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { BarChart2, Heart } from "lucide-react";
 import ReportAccount from "../account/ReportAccount";
+import { Badge } from "../ui/badge";
 
 const CardAccount = ({ account }: { account: Account }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -40,6 +41,13 @@ const CardAccount = ({ account }: { account: Account }) => {
               )}
             </h2>
             <p className="text-xs capitalize">{account.title}</p>
+            <div className="flex pt-3">
+              {account.categories.map(category => (
+                <Button className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
+                  {category}
+                </Button>
+              ))}
+            </div>
           </div>
           <div className=" absolute top-2 right-0 flex gap-1">
             <Button
@@ -91,7 +99,7 @@ const CardAccount = ({ account }: { account: Account }) => {
             account.posts.map((post) => (
               <div
                 key={post.id}
-                className="h-[90px] w-[90px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
+                className="h-[75px] w-[75px] rounded-md bg-cover bg-no-repeat bg-center hover:grayscale"
                 style={{
                   backgroundImage: `url(${BASE_URL}/media/post?id=${post.id})`,
                 }}
