@@ -42,8 +42,8 @@ const CardAccount = ({ account }: { account: Account }) => {
             <p className="text-xs capitalize">{account.title}</p>
             <div className="flex pt-3">
               {account.categories.map(category => (
-                <Button key={category} className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
-                  {category}
+                <Button key={category.name} className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
+                  {category.name}
                 </Button>
               ))}
             </div>

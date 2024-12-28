@@ -46,11 +46,11 @@ const CardDetail = ({ account }: { account: Account }) => {
         <div className="flex justify-start gap-2">
           {account.categories.map((category) => (
             <Badge
-              key={category}
+              key={category.name}
               variant={"outline"}
               className="bg-mainColor text-sm text-white"
             >
-              {category}
+              {category.name}
             </Badge>
           ))}
         </div>
