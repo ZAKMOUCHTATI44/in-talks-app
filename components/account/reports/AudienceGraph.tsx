@@ -75,9 +75,15 @@ interface ResponseType {
   audience: Audience;
 }
 
-const AudienceGraph = ({ id }: { id: string }) => {
+const AudienceGraph = ({ id , type }: { id: string , type ?:string }) => {
   const buildQueryString = (): string => {
-    return `/creators/${id}/audience`;
+     
+    let query =`/creators/${id}/audience`;
+    if(type === "brands") {
+
+      query = `/brands/${id}/audience`;
+    }
+    return query
   };
 
   const fetch = (): Promise<ResponseType[]> =>

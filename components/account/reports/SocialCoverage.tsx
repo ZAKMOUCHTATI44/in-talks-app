@@ -60,9 +60,16 @@ interface Data {
   activity_weekday: WeekDayType[];
 }
 
-const SocialCoverage = ({ id }: { id: string }) => {
+const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
   const buildQueryString = (): string => {
-    return `/creators/${id}/social-coverage`;
+  
+    let query = `/creators/${id}/social-coverage`;
+    if(type === "brands") {
+
+      query = `/brands/${id}/social-coverage`;
+    }
+    return query
+
   };
 
   const fetch = (): Promise<Data> =>

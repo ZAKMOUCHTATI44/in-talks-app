@@ -1,10 +1,12 @@
 import { Label } from "@/components/ui/label";
 import { useQueryHelper } from "@/components/utils/queryHelpers";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const AccountType = () => {
   const { createQueryString } = useQueryHelper();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
 
   const data = [
     {
@@ -27,6 +29,7 @@ const AccountType = () => {
             <input
               type="radio"
               defaultChecked={item.value === "creators"}
+              checked={item.value === searchParams.get('type')}
               name="profil"
               value={item.value}
               id={item.value}

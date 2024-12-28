@@ -56,7 +56,7 @@ const CardAccount = ({ account }: { account: Account }) => {
               <Heart />
             </Button>
 
-            <ReportAccount open={open} setOpen={setOpen} id={account.id}>
+            <ReportAccount type={account.type} open={open} setOpen={setOpen} id={account.id}>
               <Button
                 onClick={() => setOpen(true)}
                 size={"icon"}

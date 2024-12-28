@@ -21,6 +21,7 @@ import AccountDispatch from "./reports/AccountDispatch";
 
 function ReportAccount({
   id,
+  type,
   open,
   setOpen,
   children,
@@ -29,9 +30,15 @@ function ReportAccount({
   open: boolean;
   setOpen: (e: boolean) => void;
   children: React.ReactNode;
+  type?:string
 }) {
   const buildQueryString = (): string => {
-    return `/creators/${id}`;
+    let query = `/creators/${id}`;
+    if(type === "brands") {
+
+      query = `/brands/${id}`;
+    }
+    return query;
   };
 
   const fetch = (): Promise<Account> =>
@@ -63,10 +70,10 @@ function ReportAccount({
                     <div className="col-span-9">
                       <AccountDispatch accounts={data.accounts} name={data.name} />
                       <NicheAccount data={data} />
-                      <SocialCoverage id={id} />
-                      <AudienceGraph id={id} />
+                      <SocialCoverage type={type} id={id} />
+                      <AudienceGraph type={type} id={id} />
                       {data.accounts.map((netwrok) => (
-                        <PostMedia key={netwrok.id} id={id} network={netwrok.network} />
+                        <PostMedia type={type} key={netwrok.id} id={id} network={netwrok.network} />
                       ))}
                     </div>
                   </div>

@@ -19,6 +19,11 @@ const GenderFilter = () => {
 
   const data = [
     {
+      label: "All",
+      value: "0",
+      image: "/icons/male.png",
+    },
+    {
       label: "Male",
       value: "M",
       image: "/icons/male.png",

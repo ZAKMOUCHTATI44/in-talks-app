@@ -7,9 +7,21 @@ import React from "react";
 import PostCard from "./PostCard";
 import Image from "next/image";
 
-const PostMedia = ({ id, network }: { id: string; network?: string }) => {
+const PostMedia = ({
+  id,
+  network,
+  type,
+}: {
+  id: string;
+  network?: string;
+  type?: string;
+}) => {
   const buildQueryString = (): string => {
     let query = `/creators/${id}/posts/`;
+    if (type === "brands") {
+      query = `/brands/${id}/posts/`;
+    }
+
     if (network) query += network;
     return query;
   };

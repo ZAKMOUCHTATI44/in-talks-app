@@ -42,6 +42,7 @@ interface Category {
 
 interface Account {
   id: string;
+  type : string
   name: string;
   picture: string;
   title: string;
