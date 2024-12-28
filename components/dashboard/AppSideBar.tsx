@@ -91,7 +91,7 @@ export default function AppSidebar() {
                       className="!py-5 flex justify-center hover:bg-[#ff55e3 hover:text-white relative"
                     >
                       <item.icon className="!w-5 !h-5" />
-                      {/* <p className="text-base absolute bg-white">{item.title}</p> */}
+                      {/* <p className="text-xs absolute">{item.title}</p> */}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

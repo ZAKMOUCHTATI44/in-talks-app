@@ -84,11 +84,12 @@ const DataTableInfluencersRanking = ({ data }: { data: Pagination }) => {
       id: "niche",
       maxWidth: "250px",
       selector: (row) => row.title,
-      cell(row, rowIndex, column, id) {
+      cell(row) {
         return (
           <div>
             {row.categories.map((category) => (
               <Button
+              key={category.name}
                 size={"sm"}
                 className="text-xs capitalize bg-bgDarkColor text-whiteColor rounded-md"
               >
