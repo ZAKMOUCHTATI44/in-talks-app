@@ -8,7 +8,7 @@ import Loading from "../utils/Loading";
 import FavListCard from "./FavListCard";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import EmptyFavList from "../favlists/EmptyFavList";
 import CreateNewFav from "../favlists/CreateNewFav";
 
@@ -18,7 +18,7 @@ interface Pagination {
 }
 const FavListPage = () => {
   const queryBuilder = () => {
-    let query = "lists";
+    const query = "lists";
     return query;
   };
 

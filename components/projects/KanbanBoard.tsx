@@ -10,7 +10,6 @@ import ActionStep from "./ActionStep";
 import CreateNewStep from "./CreateNewStep";
 import DeleteProject from "./DeleteProject";
 import DailogAddCreators from "./DailogAddCreators";
-import { Edit } from "lucide-react";
 import EditProjectName from "./EditProjectName";
 
 const KanbanBoard = ({ id }: { id: string }) => {
@@ -84,8 +83,6 @@ const KanbanBoard = ({ id }: { id: string }) => {
               <EditProjectName id={id} queryName={buildQueryString()} name={data.label} description={data.description} />
               <CreateNewStep id={id} queryName={buildQueryString()} />
               <DeleteProject id={id} queryName={buildQueryString()} />
-              {/* <AddNewStatusProjet id={data?.id} />
-              <DeleteProjet id={data?.id} /> */}
             </div>
           </div>
 

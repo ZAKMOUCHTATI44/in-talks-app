@@ -6,7 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Edit, MoreVertical, Pencil, Trash } from "lucide-react";
+import { MoreVertical, Pencil, Trash } from "lucide-react";
 import { Form, Formik } from "formik";
 import {
   Dialog,
@@ -18,7 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import EditStep from "./EditStep";
 import * as Yup from "yup";
 import api from "@/lib/api";
 import { useQueryClient } from "@tanstack/react-query";
@@ -60,7 +59,7 @@ function EditStepName({ id, queryName  ,name }: { id: string; queryName: string 
 
   const handleSubmit = async (values: Step) => {
     try {
-      const res = await api.patch(
+      await api.patch(
         `/projects-steps/${id}`,
         JSON.stringify(values)
       );
@@ -89,7 +88,7 @@ function EditStepName({ id, queryName  ,name }: { id: string; queryName: string 
           validationSchema={schemaValidation}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue, handleChange, values, errors }) => (
+          {({ handleChange, values, errors }) => (
             <Form className="flex flex-col gap-5 dark:text-whiteColor">
               <DialogHeader>
                 <DialogTitle>Add new step</DialogTitle>

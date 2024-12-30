@@ -35,7 +35,7 @@ const DeleteProject = ({id , queryName } : {id : string , queryName : string}) =
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="bg-red-500 text-white hover:bg-red-500">
             <Trash className="w-4 h-4" />

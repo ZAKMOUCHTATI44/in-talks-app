@@ -20,22 +20,29 @@ interface ProjectRequest {
   name: string;
   description?: string;
 }
-function CreateNewProject({ id, queryName , name , description}: { id: string; queryName: string , name : string , description : string}) {
-
+function CreateNewProject({
+  id,
+  queryName,
+  name,
+  description,
+}: {
+  id: string;
+  queryName: string;
+  name: string;
+  description: string;
+}) {
   const queryClient = useQueryClient();
 
-  const [open , setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false);
 
   const projectSchema = Yup.object().shape({
     name: Yup.string().required("le nom est requis"),
   });
 
-
   const handleSubmit = async (values: ProjectRequest) => {
     try {
-      const res = await api.patch(`/projects/${id}`, JSON.stringify(values));
+      await api.patch(`/projects/${id}`, JSON.stringify(values));
       queryClient.invalidateQueries({ queryKey: [queryName] });
-
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +62,7 @@ function CreateNewProject({ id, queryName , name , description}: { id: string; q
           validateOnBlur={false}
           initialValues={{
             name,
-            description
+            description,
           }}
           validationSchema={projectSchema}
           onSubmit={handleSubmit}

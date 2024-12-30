@@ -10,11 +10,7 @@ import { Plus } from "lucide-react";
 import InputWithLabel from "../utils/InputWithLabel";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import api from "@/lib/api";
-import { Textarea } from "../ui/textarea";
-import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -32,7 +28,7 @@ function CreateNewStep({ id, queryName }: { id: string; queryName: string }) {
 
   const handleSubmit = async (values: Step) => {
     try {
-      const res = await api.post(
+      await api.post(
         `/projects/${id}/steps`,
         JSON.stringify(values)
       );
@@ -61,7 +57,7 @@ function CreateNewStep({ id, queryName }: { id: string; queryName: string }) {
           validationSchema={schemaValidation}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue, handleChange, values, errors }) => (
+          {({ handleChange, values, errors }) => (
             <Form className="flex flex-col gap-5 dark:text-whiteColor">
               <DialogHeader>
                 <DialogTitle>Add new step</DialogTitle>
