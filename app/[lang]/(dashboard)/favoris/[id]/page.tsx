@@ -3,7 +3,7 @@ import React from "react";
 import Error from "@/components/utils/Error";
 import Loading from "@/components/utils/Loading";
 import api from "@/lib/api";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import DataTableFavlists from "@/components/favlists/DataTableFavlists";
 import EditFavName from "@/components/favlists/EditFavName";
