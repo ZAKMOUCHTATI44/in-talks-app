@@ -18,7 +18,7 @@ const AudienceLooklikes = ({ data }: { data: Lookalike[] }) => {
         {data.map((item) => (
           <div key={item.username} className="py-2 flex items-center gap-2">
             <img src={item.picture_url} alt={item.username} width={45} height={45} className=" rounded-full" />
-            <p>
+            <p className="text-wrap">
                 {item.username}
             </p>
           </div>

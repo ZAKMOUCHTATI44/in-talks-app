@@ -14,16 +14,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import api from "@/lib/api";
 import { Textarea } from "../ui/textarea";
-import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProjectRequest {
   name: string;
   template: string;
   description?: string;
 }
-function CreateNewProject() {
+function CreateNewProject({queryName } : {queryName ?: string}) {
 
-  const router = useRouter()
+  const queryClient = useQueryClient();
   const projectSchema = Yup.object().shape({
     name: Yup.string().required("le nom est requis"),
     template: Yup.string().required("template est requis"),
@@ -33,7 +33,9 @@ function CreateNewProject() {
   const handleSubmit = async (values: ProjectRequest) => {
     try {
       const res = await api.post("/projects", JSON.stringify(values));
-      router.push(`/projects/${res.data.id}`)
+      console.log(res)
+      if(queryName)  queryClient.invalidateQueries({ queryKey: [queryName] });
+
     } catch (error) {
       console.log(error);
     }

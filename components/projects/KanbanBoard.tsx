@@ -11,6 +11,7 @@ import CreateNewStep from "./CreateNewStep";
 import DeleteProject from "./DeleteProject";
 import DailogAddCreators from "./DailogAddCreators";
 import EditProjectName from "./EditProjectName";
+import DeleteCreator from "../favlists/DeleteCreator";
 
 const KanbanBoard = ({ id }: { id: string }) => {
   const [draggedTask, setDraggedTask] = useState<Account | null>(null);
@@ -73,14 +74,16 @@ const KanbanBoard = ({ id }: { id: string }) => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center p-5">
             <div>
-            <h1 className="text-2xl font-bold">{data?.label}</h1>
-            <p className="text-sm">
-              {data.description}
-            </p>
-
+              <h1 className="text-2xl font-bold">{data?.label}</h1>
+              <p className="text-sm">{data.description}</p>
             </div>
             <div className="flex items-center gap-2">
-              <EditProjectName id={id} queryName={buildQueryString()} name={data.label} description={data.description} />
+              <EditProjectName
+                id={id}
+                queryName={buildQueryString()}
+                name={data.label}
+                description={data.description}
+              />
               <CreateNewStep id={id} queryName={buildQueryString()} />
               <DeleteProject id={id} queryName={buildQueryString()} />
             </div>
@@ -136,11 +139,21 @@ const KanbanBoard = ({ id }: { id: string }) => {
                             }}
                           ></div>
                         </div>
-                        <div>
+                        <div
+                          className="flex justify-between"
+                          style={{
+                            width: "-webkit-fill-available",
+                          }}
+                        >
                           <p className="text-sm font-medium mb-1">
                             {creator.name}
                           </p>
-                          {/* <p className="text-xs text-gray-500">{influencer.nicheName}</p> */}
+                          <DeleteCreator
+                            id={id}
+                            from="PROJECT"
+                            queryName={buildQueryString()}
+                            creator={creator.id}
+                          />
                         </div>
                       </div>
                     </div>

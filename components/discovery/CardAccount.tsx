@@ -6,10 +6,24 @@ import { Button } from "../ui/button";
 import { BarChart2, Heart } from "lucide-react";
 import ReportAccount from "../account/ReportAccount";
 
-const CardAccount = ({ account }: { account: Account }) => {
+const CardAccount = ({
+  account,
+  selected,
+  setSelectAccount
+}: {
+  account: Account;
+  selected: boolean;
+  setSelectAccount: (e: Account) => void;
+}) => {
   const [open, setOpen] = useState<boolean>(false);
+
   return (
-    <div className="dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px] dark:border-gray-600 border-gray-300">
+    <div
+
+      className={`dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px]${
+        selected ? " border-mainColor " : ' dark:border-gray-600 border-gray-300 '
+      }`}
+    >
       <div>
         <div className="flex flex-col items-center pt-8 gap-2 relative pb-4">
           <div
@@ -41,8 +55,11 @@ const CardAccount = ({ account }: { account: Account }) => {
             </h2>
             <p className="text-xs capitalize">{account.title}</p>
             <div className="flex pt-3">
-              {account.categories.map(category => (
-                <Button key={category.name} className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize">
+              {account.categories.map((category) => (
+                <Button
+                  key={category.name}
+                  className="bg-transparent text-whiteColor border border-gray-600 hover:bg-transparent py-0 capitalize"
+                >
                   {category.name}
                 </Button>
               ))}
@@ -51,12 +68,20 @@ const CardAccount = ({ account }: { account: Account }) => {
           <div className=" absolute top-2 right-0 flex gap-1">
             <Button
               size={"icon"}
-              className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
+              onClick={() => {
+                setSelectAccount(account)
+              }}
+              className={`border border-gray-600 text-gray-500 ${selected ? " bg-[#eb4254] text-white" : "bg-transparent hover:bg-transparent "}`}
             >
               <Heart />
             </Button>
 
-            <ReportAccount type={account.type} open={open} setOpen={setOpen} id={account.id}>
+            <ReportAccount
+              type={account.type}
+              open={open}
+              setOpen={setOpen}
+              id={account.id}
+            >
               <Button
                 onClick={() => setOpen(true)}
                 size={"icon"}
@@ -108,19 +133,21 @@ const CardAccount = ({ account }: { account: Account }) => {
       </div>
       <div className="flex gap-5 py-2 border-t-[0.1px] border-gray-600">
         {account.accounts.length > 0 &&
-          account.accounts.slice(1 , account.accounts.length ).map((item, index) => (
-            <div key={item.id} className="flex items-center gap-2 py-2">
-              <div
-                className="h-4 w-4 bg-contain bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `url(${`/social-media/${item.network}.png`})`,
-                }}
-              />
-              {index < 4 && (
-                <p className="text-xs">{formatNumber(item.subscribers)}</p>
-              )}
-            </div>
-          ))}
+          account.accounts
+            .slice(1, account.accounts.length)
+            .map((item, index) => (
+              <div key={item.id} className="flex items-center gap-2 py-2">
+                <div
+                  className="h-4 w-4 bg-contain bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: `url(${`/social-media/${item.network}.png`})`,
+                  }}
+                />
+                {index < 4 && (
+                  <p className="text-xs">{formatNumber(item.subscribers)}</p>
+                )}
+              </div>
+            ))}
       </div>
     </div>
   );

@@ -43,6 +43,7 @@ function CreateNewProject({
     try {
       await api.patch(`/projects/${id}`, JSON.stringify(values));
       queryClient.invalidateQueries({ queryKey: [queryName] });
+      setOpen(false)
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +71,7 @@ function CreateNewProject({
           {({ handleChange, values, errors }) => (
             <Form className="flex flex-col gap-5 dark:text-whiteColor">
               <DialogHeader>
-                <DialogTitle>Create New Project</DialogTitle>
+                <DialogTitle>Edit Project</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <InputWithLabel
@@ -92,9 +93,9 @@ function CreateNewProject({
               <div className="w-full flex justify-center">
                 <Button
                   type="submit"
-                  className="bg-green-500 text-white hover:bg-green-700 w-full"
+                  className="bg-orange-500 text-white hover:bg-orange-700 w-full"
                 >
-                  Create
+                  Edit
                 </Button>
               </div>
             </Form>

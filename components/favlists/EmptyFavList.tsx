@@ -2,6 +2,7 @@ import React from "react";
 import { Medal, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import Link from "next/link";
 const EmptyFavList = () => {
   return (
     <div className="flex w-auto items-center justify-center">
@@ -18,18 +19,24 @@ const EmptyFavList = () => {
             </p>
             <div className="flex gap-3">
               <Button
+                asChild
                 className="border text-mainColor border-mainColor"
                 variant={"ghost"}
               >
-                Add from search
-                <Search />
+                <Link href={"/discovery"}>
+                  Add from search
+                  <Search />
+                </Link>
               </Button>
               <Button
                 className="border text-mainColor border-mainColor"
                 variant={"ghost"}
+                asChild
               >
-                Add from rankings
-                <Medal />
+                <Link href={"/ranking"}>
+                  Add from rankings
+                  <Medal />
+                </Link>
               </Button>
             </div>
           </div>

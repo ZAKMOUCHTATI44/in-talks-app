@@ -2,7 +2,6 @@
 import DataTableInfluencersRanking from "@/components/ranking/DataTableInfluencersRanking";
 import FilterRanking from "@/components/ranking/FilterRanking";
 import Error from "@/components/utils/Error";
-import Loading from "@/components/utils/Loading";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -52,8 +51,7 @@ const Page = () => {
     <div>
       <div className="flex flex-col gap-5">
         <FilterRanking />
-        {isLoading && <Loading />}
-        {data && <DataTableInfluencersRanking data={data} />}
+        {data && <DataTableInfluencersRanking isLoading={isLoading} data={data} />}
       </div>
     </div>
   );

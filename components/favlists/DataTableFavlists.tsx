@@ -6,39 +6,13 @@ import DataTable, { TableColumn } from "react-data-table-component";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { useQueryHelper } from "../utils/queryHelpers";
+import DeleteCreator from "./DeleteCreator";
 
-interface Pagination {
-  data: Account[];
-  cursor: {
-    total: number;
-    page: number;
-    count: number;
-  };
-}
-
-const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , isLoading : boolean }) => {
+const DataTableFavlists = ({ data , id , queryName  }: { data: Account[] , id : string , queryName : string }) => {
   const router = useRouter();
   const { createQueryString } = useQueryHelper();
 
   const columns: TableColumn<Account>[] = [
-    {
-      name: "Ranking",
-      sortable: true,
-      id: "rank",
-      width: "110px",
-      selector: (row) => row.id,
-      cell(row) {
-        return (
-          <div className="flex justify-center text-whiteColor">
-            {/* {[1, 2, 3].includes(row) ? (
-              <img width={25} height={25} src={`/images/icons/${row.rank}.png`} alt={row.fullName} />
-            ) : (
-            )} */}
-            <p className="text-lg">{row.rank}</p>
-          </div>
-        );
-      },
-    },
     {
       name: "Creator",
       sortable: true,
@@ -89,7 +63,7 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
           <div>
             {row.categories.map((category) => (
               <Button
-              key={category.name}
+                key={category.name}
                 size={"sm"}
                 className="text-xs capitalize bg-bgDarkColor text-whiteColor rounded-md"
               >
@@ -152,18 +126,24 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
         );
       },
     },
+    {
+      name: "Action",
+      sortable: true,
+      cell(row) {
+        return <DeleteCreator id={id} from="LIST" queryName={queryName} creator={row.id} />;
+      },
+    },
   ];
 
   return (
     <div className={`dark-datatable`}>
       <DataTable
         columns={columns}
-        data={data.data || []}
-        paginationTotalRows={data.cursor.total}
+        data={data || []}
+        paginationTotalRows={data.length}
         paginationPerPage={50}
         paginationRowsPerPageOptions={[50, 100, 200]}
         paginationServer={true}
-        progressPending={isLoading}
         pagination
         onChangePage={(e) => {
           router.push(`?${createQueryString("page", e.toString())}`);
@@ -174,4 +154,4 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
   );
 };
 
-export default DataTableInfluencersRanking;
+export default DataTableFavlists;

@@ -51,7 +51,7 @@ const PaginationDiscovery = ({ totalPage }: { totalPage: number }) => {
   return (
     <>
       {totalPage > 1 && (
-        <Pagination className="py-12">
+        <Pagination className="mt-12">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
