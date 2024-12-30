@@ -149,7 +149,7 @@ const KanbanBoard = ({ id }: { id: string }) => {
                             {creator.name}
                           </p>
                           <DeleteCreator
-                            id={id}
+                            id={column.id}
                             from="PROJECT"
                             queryName={buildQueryString()}
                             creator={creator.id}

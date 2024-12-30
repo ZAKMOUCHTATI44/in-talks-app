@@ -30,7 +30,7 @@ const DeleteCreator = ({
   const handleDelete = async () => {
     let query = `lists/${id}/creators`;
     if (from === "PROJECT") {
-      query = `/projects/steps/${id}/creators`;
+      query = `/projects-steps/${id}/creators`;
     }
 
     setOpen(false);
