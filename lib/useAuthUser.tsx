@@ -12,23 +12,23 @@ export function useAuthUser() {
   const [loading, setLoading] = useState(true); // Add loading state
 
   const loadAuthUser = useCallback(() => {
-    if (typeof sessionStorage !== "undefined") {
-      const user = sessionStorage.getItem("authUser");
+    if (typeof localStorage !== "undefined") {
+      const user = localStorage.getItem("authUser");
       setAuthUser(user ? JSON.parse(user) : null);
       setLoading(false); // Set loading to false once the data is loaded
     }
   }, []);
 
   const saveAuthUser = useCallback((user: AuthUser) => {
-    if (typeof sessionStorage !== "undefined") {
-      sessionStorage.setItem("authUser", JSON.stringify(user));
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("authUser", JSON.stringify(user));
     }
     setAuthUser(user);
   }, []);
 
   const clearAuthUser = useCallback(() => {
-    if (typeof sessionStorage !== "undefined") {
-      sessionStorage.removeItem("authUser");
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem("authUser");
     }
     setAuthUser(null);
   }, []);

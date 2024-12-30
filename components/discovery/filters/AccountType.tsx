@@ -28,8 +28,7 @@ const AccountType = () => {
           <div key={item.label} className="flex w-full">
             <input
               type="radio"
-              defaultChecked={item.value === "creators"}
-              checked={item.value === searchParams.get('type')}
+              defaultChecked={searchParams.get('type') ? item.value === searchParams.get('type') :item.value === "creators" }
               name="profil"
               value={item.value}
               id={item.value}

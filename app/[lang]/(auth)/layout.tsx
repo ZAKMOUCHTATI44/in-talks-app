@@ -1,19 +1,24 @@
 "use client";
 import ChangeLang from "@/components/utils/ChangeLang";
-import { getCurrentAuth } from "@/lib/authHelper";
+import { useAuthUser } from "@/lib/useAuthUser";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const user = getCurrentAuth();
+
+  const { authUser, loading } = useAuthUser();
 
   useEffect(() => {
-    if (user) {
-      router.push("/");
+    if (!loading) {
+      if (authUser) {
+        router.push("/");
+      }
     }
-  }, [user, router]);
+  }, [router, authUser, loading]);
+
+
   return (
     <div>
       <div className="min-h-screen grid grid-cols-5 bg-darkColor text-whiteColor">

@@ -74,7 +74,7 @@ const LoginForm = ({
       onSubmit={handleSubmit}
     >
       {({ isSubmitting, handleChange, values, errors }) => (
-        <Form className="flex flex-col gap-5 text-white">
+        <Form className="flex flex-col gap-5 dark:text-white">
           <InputWithLabel
             name="email"
             onChange={handleChange}

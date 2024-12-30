@@ -31,8 +31,8 @@ interface SocialAccounts {
   verified: boolean;
   subscribers: number;
   score: string;
-  growth_rate : number
-  engagement_rate : number
+  growth_rate: number;
+  engagement_rate: number;
 }
 
 interface Category {
@@ -42,12 +42,12 @@ interface Category {
 
 interface Account {
   id: string;
-  type : string
-  rank : string
+  type: string;
+  rank: string;
   name: string;
   picture: string;
   title: string;
-  categories : Category[]
+  categories: Category[];
   picture: string;
   description: string;
   gender: string;
@@ -64,7 +64,6 @@ interface Account {
   posts: Post[];
 }
 
-
 interface Post {
   id: string;
   account: string;
@@ -80,4 +79,27 @@ interface Post {
   views: number;
   interactions: number;
   ER: number;
+}
+
+interface FavList {
+  id: string;
+  label: string;
+  description: string;
+  creators: Account[];
+  creators_count: number;
+}
+
+interface Step {
+  id: string;
+  id: string
+  label: string
+  position: number;
+  creators : Account[]
+}
+interface Project {
+  id: string;
+  label: string;
+  description: string;
+  creators_count: number;
+  steps : Step[]
 }

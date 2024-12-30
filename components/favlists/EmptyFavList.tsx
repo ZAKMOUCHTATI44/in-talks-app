@@ -1,21 +1,15 @@
 import React from "react";
 import { Medal, Search } from "lucide-react";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandInput,
-  CommandList,
-} from "@/components/ui/command";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 const EmptyFavList = () => {
   return (
-    <div className=" flex w-auto items-center justify-center">
-      <Command className="py-5 px-2 text-whiteColor bg-bgDarkColor rounded-lg border shadow-md md:w-[450px]">
+    <div className="flex w-auto items-center justify-center">
+      <div className="bg-darkColor py-5 px-2 text-whiteColor rounded-lg border shadow-md md:w-[450px]">
         <h2>Your CRM is empty</h2>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty className="flex flex-col my-12 items-center px-12 text-center gap-5">
+        <Input placeholder="Type a command or search..." />
+        <div className="!h-auto">
+          <div className="flex flex-col my-12 items-center px-12 text-center gap-5">
             <div className="text-7xl flex justify-center">🔍</div>
             <p className="text-xl ">Add multiple creators at once!</p>
             <p className="text-sm text-gray-500">
@@ -38,9 +32,9 @@ const EmptyFavList = () => {
                 <Medal />
               </Button>
             </div>
-          </CommandEmpty>
-        </CommandList>
-      </Command>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

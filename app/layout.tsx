@@ -5,7 +5,7 @@ import { Locale } from "@/i18n.config";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const montserrat = Montserrat({
-  subsets: ["latin"],
+  subsets: ["cyrillic-ext"],
 });
 
 // const roboto = Roboto({
