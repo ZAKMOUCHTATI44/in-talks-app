@@ -98,7 +98,7 @@ const AudienceGraph = ({ id , type }: { id: string , type ?:string }) => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="">
+    <div className="mb-12">
       {data && (
         <div>
           {data.map((item) => (

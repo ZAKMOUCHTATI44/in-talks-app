@@ -6,20 +6,17 @@ import GenderFilter from "./filters/GenderFilter";
 import CountryFilter from "./filters/CountryFilter";
 import AccountType from "./filters/AccountType";
 import NicheFilter from "./filters/NicheFilter";
+import { Button } from "../ui/button";
+import { Filter, RotateCcw } from "lucide-react";
 // import { Button } from "../ui/button";
 // import { Filter, RotateCcw } from "lucide-react";
-// import { useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 
 const FilterDiscovery = () => {
-  // const router = useRouter()
-
-
-
+  const router = useRouter();
   return (
     <div className="py-5 px-2 flex flex-col gap-5 bg-white dark:bg-darkColor rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <div className="py-5 flex flex-col gap-5 items-center">
-      
         <SocialMediaFilter />
         <CategoriesFilter />
         <NicheFilter />
@@ -27,17 +24,20 @@ const FilterDiscovery = () => {
         <GenderFilter />
         <CountryFilter />
         <AccountType />
-        {/* <div className="flex w-full gap-2">
+        <div className="flex w-full gap-2">
           <Button className="bg-mainColor text-white hover:bg-mainColor w-full">
             <Filter />
             Filter
           </Button>
-          <Button onClick={() => {
-            router.push("/discovery")
-          }} className="bg-transparent border border-mainColor text-mainColor">
+          <Button
+            onClick={() => {
+              router.push("/discovery");
+            }}
+            className="bg-transparent border border-mainColor text-mainColor"
+          >
             <RotateCcw />
           </Button>
-        </div> */}
+        </div>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const PostCard = ({ post }: { post: Post }) => {
           </div>
         </div>
         <div
-          className="w-full h-[340px] bg-darkColor bg-cover my-5 rounded-md backdrop-blur-sm"
+          className="w-full h-[280px] bg-darkColor bg-cover my-5 rounded-md backdrop-blur-sm"
           style={{
             backgroundImage: `url(${BASE_URL}/media/post?id=${post.id})`,
           }}
@@ -49,7 +49,7 @@ const PostCard = ({ post }: { post: Post }) => {
 
       <div>
         <p className="text-xs">{post.date}</p>
-        <p className="text-sm py-2">
+        <p className="text-xs py-2">
           {post.caption && `${post.caption.substring(0, 100)} ...`}
         </p>
         <div className="flex items-center gap-2">

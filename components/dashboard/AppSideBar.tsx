@@ -28,9 +28,8 @@ import Link from "next/link";
 
 export default function AppSidebar() {
   const { lang }: { lang: Locale } = useParams();
-  const router = useRouter()
+  const router = useRouter();
   const pathname = usePathname();
-
 
   const items = [
     {
@@ -72,7 +71,7 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-none">
       <SidebarContent className="bg-white dark:bg-[#2F3349] dark:text-whiteColor text-[#2F3349]  shadow-sm">
-        <SidebarGroup className="group-data-[collapsible=icon]:hidden" >
+        <SidebarGroup className="group-data-[collapsible=icon]:hidden">
           <Image
             className="py-2"
             src={"/in-talks.png"}
@@ -87,13 +86,18 @@ export default function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="py-1">
-                  <SidebarMenuButton asChild className="hover:bg-[#ff55e3] text-[#2F2B3DAD] dark:text-whiteColor">
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-[#ff55e3] text-[#2F2B3DAD] dark:text-whiteColor"
+                  >
                     <Link
                       href={`/${item.url}`}
                       // className="!py-5 flex hover:bg-[#ff55e3 hover:text-white relative"
-                                      className={`link ${
-                  `${pathname}` === `/${lang}/${item.url}` ? "bg-mainColor" : ""
-                } py-5 hover:bg-bgDarkColor mx-1 rounded-md transition-all ease-out duration-700  flex justify-start items-center gap-2 hover:bg-[#ff55e3 hover:text-white relative `}
+                      className={`link ${
+                        `${pathname}` === `/${lang}/${item.url}`
+                          ? "bg-mainColor text-white"
+                          : ""
+                      } py-5 hover:bg-bgDarkColor mx-1 rounded-md transition-all ease-out duration-700  flex justify-start items-center gap-2 hover:bg-[#ff55e3 hover:text-white relative `}
                     >
                       <item.icon className="!w-5 !h-5" />
                       <p className="text-sm">{item.title}</p>
@@ -103,19 +107,17 @@ export default function AppSidebar() {
               ))}
 
               <SidebarMenuItem className="py-1">
-                <SidebarMenuButton asChild  className="hover:bg-[#ff55e3]">
+                <SidebarMenuButton asChild className="hover:bg-[#ff55e3]">
                   <a
                     href={"#"}
                     onClick={() => {
                       logout();
-                      router.push('/login')
+                      router.push("/login");
                     }}
                     className="!py-5 hover:bg-[#ff55e3] flex hover:text-white text-[#2F2B3DAD] dark:text-whiteColor"
                   >
                     <LogOut className="!w-5 !h-5" />
-                    <p className="text-sm">
-                    Se déconnecter
-                    </p>
+                    <p className="text-sm">Se déconnecter</p>
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -207,7 +209,6 @@ export default function AppSidebar() {
 //           Menu
 //         </p>
 
-     
 //         <ul className="flex flex-col gap-2 ">
 //           {items.map((item) => (
 //             <li key={item.title}>
@@ -222,7 +223,7 @@ export default function AppSidebar() {
 //                     <TooltipTrigger asChild>
 //                       <>
 //                       <item.icon className="!w-5 !h-5" />
-                   
+
 //                       </>
 //                     </TooltipTrigger>
 //                     <TooltipContent>

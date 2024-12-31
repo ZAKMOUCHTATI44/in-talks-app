@@ -110,7 +110,7 @@ const AudienceGrowthChart = ({
   }
 
   return (
-    <div className="mt-5 dark:bg-darkColor border border-gray-200 dark:border-gray-600 my-5 pt-5 rounded-lg">
+    <div className="dark:bg-darkColor border border-gray-200 dark:border-gray-600  pt-5 rounded-lg">
       <div className="flex px-5 gap-2 pb-10">
         <Image
           src={`/social-media/${network}.png`}

@@ -41,7 +41,7 @@ const PostMedia = ({
     <div>
       {data && data.length > 0 && (
         <div>
-          <h2 className="my-12 text-xl flex justify-center items-center gap-2">
+          <h2 className="my-5 text-xl flex justify-center items-center gap-2">
             {network && (
               <Image
                 src={`/social-media/${network}.png`}
@@ -53,7 +53,7 @@ const PostMedia = ({
             Popular Post
           </h2>
 
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-4 gap-5">
             {data.slice(0, 8).map((post) => (
               <PostCard post={post} key={post.id} />
             ))}

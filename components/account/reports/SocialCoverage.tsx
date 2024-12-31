@@ -255,7 +255,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
   ];
 
   return (
-    <div className="my-5">
+    <div className="my-5 flex flex-col gap-5">
       {data && (
         <>
           <DataTable
@@ -263,13 +263,13 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
             columns={columns}
             data={data.accounts}
           />
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-3 gap-5">
             {data.accounts.map((item) => (
                 <AudienceGrowthChart key={item.network} network={item.network} data={item.audience.history.data} />
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-5 my-5">
+          <div className="grid grid-cols-3 gap-5">
             {data.accounts.map(item => (
               <ScoringTab key={item.id} scoring={item.scoring} label={`${item.network} Score`} network={item.network} />
             ))}

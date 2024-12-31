@@ -36,7 +36,7 @@ const AgeSplit = ({ props }: { props: AgeGroup[] }) => {
   }
 
   return (
-    <div className='p-5 dark:bg-darkColor  border border-gray-200 shadow-md rounded-md'>
+    <div className='p-5 dark:bg-darkColor  border border-gray-200 dark:border-gray-600 shadow-md rounded-md'>
       <p className='text-sm'>Age split</p>
       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         <div style={{ position: 'relative', width: '150px', marginTop: '20px' }}>

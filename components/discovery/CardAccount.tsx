@@ -1,27 +1,27 @@
 import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import { BarChart2, Heart } from "lucide-react";
-import ReportAccount from "../account/ReportAccount";
+import Link from "next/link";
 
 const CardAccount = ({
   account,
   selected,
-  setSelectAccount
+  setSelectAccount,
 }: {
   account: Account;
   selected: boolean;
   setSelectAccount: (e: Account) => void;
 }) => {
-  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div
-
       className={`dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px]${
-        selected ? " border-mainColor " : ' dark:border-gray-600 border-gray-300 '
+        selected
+          ? " border-mainColor "
+          : " dark:border-gray-600 border-gray-300 "
       }`}
     >
       <div>
@@ -69,27 +69,26 @@ const CardAccount = ({
             <Button
               size={"icon"}
               onClick={() => {
-                setSelectAccount(account)
+                setSelectAccount(account);
               }}
-              className={`border border-gray-600 text-gray-500 ${selected ? " bg-[#eb4254] text-white" : "bg-transparent hover:bg-transparent "}`}
+              className={`border border-gray-600 text-gray-500 ${
+                selected
+                  ? " bg-[#eb4254] text-white"
+                  : "bg-transparent hover:bg-transparent "
+              }`}
             >
               <Heart />
             </Button>
 
-            <ReportAccount
-              type={account.type}
-              open={open}
-              setOpen={setOpen}
-              id={account.id}
+            <Button
+              asChild
+              size={"icon"}
+              className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
             >
-              <Button
-                onClick={() => setOpen(true)}
-                size={"icon"}
-                className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
-              >
-                <BarChart2 />
-              </Button>
-            </ReportAccount>
+              <Link href={`/report/${account.id}`}>
+              <BarChart2 className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
         <div className="py-3 border-t-[0.2px] border-gray-600">

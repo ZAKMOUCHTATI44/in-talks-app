@@ -1,22 +1,19 @@
 import { BASE_URL } from "@/lib/hepler";
 import { Users } from "lucide-react";
-import { useRouter } from "next/navigation";
 import React from "react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const FavListCard = ({ fav }: { fav: FavList }) => {
-  const router = useRouter();
 
   return (
     <div
-      onClick={() => {
-        router.push(`/favoris/${fav.id}`);
-      }}
-      className="bg-darkColor w-full rounded-md py-2 text-whiteColor"
+      className="bg-darkColor w-full rounded-md py-2 text-whiteColor flex flex-col justify-between"
     >
-      <h2 className="capitalize border-b border-gray-600 pb-3 px-3">
+      <h2 className="capitalize border-b border-gray-600 px-3 py-2">
         {fav.label}
       </h2>
-      <div className="px-3 py-5">
+      <div className="px-3 pt-5">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5" />
@@ -43,6 +40,12 @@ const FavListCard = ({ fav }: { fav: FavList }) => {
           </div>
         </div>
         <p className="pt-5 text-sm">{fav.description}</p>
+        <Button asChild className="mt-3 bg-darkColor text-whiteColor border border-gray-600 w-full hover:bg-mainColor hover:text-white" >
+          <Link href={`/favoris/${fav.id}`}>
+          <Users />
+          Voir les creators
+          </Link>
+        </Button>
       </div>
     </div>
   );

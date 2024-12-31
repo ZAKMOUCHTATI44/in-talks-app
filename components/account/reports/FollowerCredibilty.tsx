@@ -57,7 +57,7 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
   }
 
   return (
-    <div className='p-5 dark:bg-darkColor  border border-gray-200 shadow-md text-center rounded-md'>
+    <div className='p-5 dark:bg-darkColor  border border-gray-200 dark:border-gray-600 shadow-md text-center rounded-md'>
       <p className='text-sm'>Followers Credibility</p>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '15px' }}>
         <div style={{ position: 'relative', width: '150px' }}>

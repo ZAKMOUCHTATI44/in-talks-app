@@ -47,9 +47,8 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
       width: "450px",
       cell: (row) => (
         <Link
-          href={`/influenceurs/show/${row.id}`}
+          href={`/report/${row.id}`}
           style={{ textDecoration: "none" }}
-          target="_blank"
         >
           <div className="flex items-center py-2 gap-2">
             <span>

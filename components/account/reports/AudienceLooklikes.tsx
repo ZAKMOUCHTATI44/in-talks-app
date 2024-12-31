@@ -9,7 +9,7 @@ type Lookalike = {
 
 const AudienceLooklikes = ({ data }: { data: Lookalike[] }) => {
   return (
-    <div className="dark:bg-darkColor dark:text-whiteColor border border-gray-200 shadow-md p-5 rounded-md">
+    <div className="dark:bg-darkColor dark:text-whiteColor border dark:border-gray-600 border-gray-200 shadow-md p-5 rounded-md">
       <h5 className="text-base font-semibold mb-5 text-center">
         Audience Looklikes
       </h5>
@@ -18,7 +18,7 @@ const AudienceLooklikes = ({ data }: { data: Lookalike[] }) => {
         {data.map((item) => (
           <div key={item.username} className="py-2 flex items-center gap-2">
             <img src={item.picture_url} alt={item.username} width={45} height={45} className=" rounded-full" />
-            <p className="text-wrap">
+            <p className="text-wrap text-xs">
                 {item.username}
             </p>
           </div>
