@@ -91,15 +91,46 @@ interface FavList {
 
 interface Step {
   id: string;
-  id: string
-  label: string
+  id: string;
+  label: string;
   position: number;
-  creators : Account[]
+  creators: Account[];
 }
 interface Project {
   id: string;
   label: string;
   description: string;
   creators_count: number;
-  steps : Step[]
+  steps: Step[];
+}
+
+interface SocialMention {
+  id: string;
+  picture: string;
+  name: string;
+  post: {
+    id: string;
+    url: string;
+    date: string;
+  };
+  evaluation: number;
+}
+
+interface WebMention {
+  id: null;
+  picture: string;
+  domain: string;
+  link: {
+    title: string;
+    date: string;
+    url: string;
+    evaluation: number;
+  };
+}
+
+interface Mentions {
+  mentions: {
+    social: SocialMention[];
+    web: WebMention[];
+  };
 }

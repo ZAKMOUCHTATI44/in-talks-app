@@ -5,8 +5,7 @@ import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import "@/app/css/creator-netwrok.css";
-import ListAffichage from "./ListAffichage";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Mention {
   id: string;
@@ -29,7 +28,7 @@ interface Data {
 
 const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
   const buildQueryString = (): string => {
-    if(type) console.log("appp")
+    if (type) console.log("appp");
     const query = `/creators/${id}/network`;
     return query;
   };
@@ -48,7 +47,7 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
   return (
     <div>
       {data && (
-        <div className="grid grid-cols-3 ">
+        <div className="grid grid-cols-3 items-start pb-32">
           <div className="col-span-2 mt-[350px] relative mx-auto">
             <BoxCreators
               size={220}
@@ -65,6 +64,8 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
               duration={55}
               data={data.mentions.in.slice(8, 12)}
             />
+            <MiddleElement />
+
             {/* 
           
           <BoxCreators
@@ -73,17 +74,70 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
             data={data.mentions.in.slice(0, 5)}
           /> */}
             {/* <BoxCreators size={440} duration={30} data={data.slice(8, 12)} /> */}
-            <MiddleElement />
           </div>
           <div className="mt-12">
-            <ListAffichage props={{
-                title :"Most Hashtags",
-                data : data.hashtags.IG.map(item => ({
-                    key : item.toString(),
-                  
-                }))
-            }} />
+            <Tabs defaultValue="hasTagged" className="">
+              <TabsList className="grid w-full grid-cols-2 bg-darkColor">
+                <TabsTrigger value="hasTagged">Has Tagged</TabsTrigger>
+                <TabsTrigger value="wasTagged">Has Tagged</TabsTrigger>
+              </TabsList>
+              <TabsContent value="hasTagged">
+                <div className="h-[500px] overflow-scroll flex flex-col gap-2">
+                  {data.mentions.in.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor">
+                      <div className="flex items-center gap-2 ">
+                        <div
+                          className="rounded-full h-[60px] w-[60px] flex justify-start"
+                          style={{
+                            background:
+                              "linear-gradient(45deg, #4ec6fb, #ff56e3)",
+                          }}
+                        >
+                          <img
+                            src={item.picture}
+                            alt={item.name}
+                            className="rounded-full mx-auto w-[58px] h-[58px] bg-contain p-0.5"
+                          />
+                        </div>
+                        <h2 className="text-sm">{item.name}</h2>
+                      </div>
 
+                      <p className="bg-bgDarkColor h-8 w-8 flex justify-center items-center rounded-full">
+                        {item.count}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="wasTagged">
+                <div className="h-[500px] overflow-scroll flex flex-col gap-2">
+                  {data.mentions.out.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor">
+                      <div className="flex items-center gap-2 ">
+                        <div
+                          className="rounded-full h-[60px] w-[60px] flex justify-start"
+                          style={{
+                            background:
+                              "linear-gradient(45deg, #4ec6fb, #ff56e3)",
+                          }}
+                        >
+                          <img
+                            src={item.picture}
+                            alt={item.name}
+                            className="rounded-full mx-auto w-[58px] h-[58px] bg-contain p-0.5"
+                          />
+                        </div>
+                        <h2 className="text-sm">{item.name}</h2>
+                      </div>
+
+                      <p className="bg-bgDarkColor h-8 w-8 flex justify-center items-center rounded-full">
+                        {item.count}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       )}

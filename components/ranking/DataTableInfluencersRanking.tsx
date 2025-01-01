@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -16,9 +16,21 @@ interface Pagination {
   };
 }
 
-const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , isLoading : boolean }) => {
+const DataTableInfluencersRanking = ({
+  data,
+  isLoading,
+}: {
+  data: Pagination;
+  isLoading: boolean;
+}) => {
   const router = useRouter();
   const { createQueryString } = useQueryHelper();
+
+  const [page, setPage] = useState<number>(1);
+
+  useEffect(() => {
+    router.push(`?${createQueryString("page", page.toString())}`);
+  });
 
   const columns: TableColumn<Account>[] = [
     {
@@ -44,12 +56,9 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
       sortable: true,
       id: "name",
       selector: (row) => row.name,
-      width: "450px",
+      minWidth: "450px",
       cell: (row) => (
-        <Link
-          href={`/report/${row.id}`}
-          style={{ textDecoration: "none" }}
-        >
+        <Link href={`/report/${row.id}`} style={{ textDecoration: "none" }}>
           <div className="flex items-center py-2 gap-2">
             <span>
               <div
@@ -81,14 +90,14 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
       name: "Niche",
       sortable: true,
       id: "niche",
-      maxWidth: "250px",
+      minWidth: "250px",
       selector: (row) => row.title,
       cell(row) {
         return (
           <div>
             {row.categories.map((category) => (
               <Button
-              key={category.name}
+                key={category.name}
                 size={"sm"}
                 className="text-xs capitalize bg-bgDarkColor text-whiteColor rounded-md"
               >
@@ -103,7 +112,7 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
       name: "Country",
       sortable: true,
       id: "country",
-      maxWidth: "150px",
+      minWidth: "150px",
       cell(row) {
         return (
           <div className="flex justify-center flex-col items-center">
@@ -121,7 +130,7 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
       width: "150px",
       cell(row) {
         return (
-          <div className="flex flex-col gap-2 py-2">
+          <div className={`flex  gap-2 py-2 flex-col gap-2`}>
             {Object.entries(row.accounts)
               .slice(0, 4)
               .map(([key, value]) => (
@@ -154,21 +163,23 @@ const DataTableInfluencersRanking = ({ data , isLoading }: { data: Pagination , 
   ];
 
   return (
-    <div className={`dark-datatable`}>
-      <DataTable
-        columns={columns}
-        data={data.data || []}
-        paginationTotalRows={data.cursor.total}
-        paginationPerPage={50}
-        paginationRowsPerPageOptions={[50, 100, 200]}
-        paginationServer={true}
-        progressPending={isLoading}
-        pagination
-        onChangePage={(e) => {
-          router.push(`?${createQueryString("page", e.toString())}`);
-          console.log(e);
-        }}
-      />
+    <div>
+      <div className={`dark-datatable`}>
+        <DataTable
+          columns={columns}
+          data={data.data || []}
+          paginationTotalRows={data.cursor.total}
+          paginationPerPage={50}
+          paginationRowsPerPageOptions={[50, 100, 200]}
+          paginationServer={true}
+          progressPending={isLoading}
+          paginationDefaultPage={1}
+          pagination
+          onChangePage={(e) => {
+            setPage(e);
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -51,6 +51,10 @@
         "label": "Phone",
         "validation":"phone is Required"
       },
+      "company": {
+        "label": "Company",
+        "validation":"company is Required"
+      },
       "cta": "Create Account",
       "createAccount": " Already registered with InTalks . ? <span class=\" text-mainColor \">  Sign in  </span>"
     }

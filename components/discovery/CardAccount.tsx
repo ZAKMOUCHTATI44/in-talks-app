@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { BarChart2, Heart } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CardAccount = ({
   account,
@@ -16,8 +17,14 @@ const CardAccount = ({
   setSelectAccount: (e: Account) => void;
 }) => {
 
+  const router = useRouter()
+
   return (
     <div
+
+    onClick={() => {
+      router.push(`/report/${account.id}`)
+    }}
       className={`dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px]${
         selected
           ? " border-mainColor "

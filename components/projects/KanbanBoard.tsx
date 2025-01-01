@@ -42,16 +42,53 @@ const KanbanBoard = ({ id }: { id: string }) => {
     e.preventDefault();
   };
 
-  const handleDrop = async (columnId: string) => {
-    try {
-      await api.patch(`/projects-steps/${draggedColumn}/creators`, {
+  const handleDrop = (columnId: string) => {
+    if (!draggedTask || !draggedColumn) return;
+
+    // Optimistically update the UI
+    const updatedSteps = data?.steps.map((step) => {
+      if (step.id === draggedColumn) {
+        // Remove the task from the current column
+        return {
+          ...step,
+          creators: step.creators.filter(
+            (creator) => creator.id !== draggedTask.id
+          ),
+        };
+      } else if (step.id === columnId) {
+        // Add the task to the new column
+        return {
+          ...step,
+          creators: [...step.creators, draggedTask],
+        };
+      }
+      return step;
+    });
+
+    queryClient.setQueryData([buildQueryString()], {
+      ...data,
+      steps: updatedSteps,
+    });
+
+    // Reset dragged state
+    setDraggedTask(null);
+    setDraggedColumn(null);
+
+    // Make the API call to persist the change
+    api
+      .patch(`/projects-steps/${draggedColumn}/creators`, {
         step: columnId,
-        creator: draggedTask?.id,
+        creator: draggedTask.id,
+      })
+      .then(() => {
+        // Invalidate the query to fetch fresh data
+        queryClient.invalidateQueries({ queryKey: [buildQueryString()] });
+      })
+      .catch((error) => {
+        console.error(error);
+        // Optionally revert optimistic update on failure
+        queryClient.invalidateQueries({ queryKey: [buildQueryString()] });
       });
-      queryClient.invalidateQueries({ queryKey: [buildQueryString()] });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const handleAddInfluencers = async (

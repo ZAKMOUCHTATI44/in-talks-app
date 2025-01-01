@@ -54,7 +54,7 @@ export default function AppSidebar() {
     },
     {
       title: lang === "fr" ? "Écoute sociale" : "Social Listening",
-      url: "#",
+      url: "social-listening",
       icon: MessageCircleQuestion,
     },
     {

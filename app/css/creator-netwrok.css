@@ -6,6 +6,9 @@
   animation: rotating-backwards infinite var(--duration, 30s) linear;
   top: 100%;
 }
+
+
+
 .group-icon {
   z-index: 99;
 }
@@ -39,6 +42,18 @@
   bottom: 0%;
   right: 0px;
 }
+
+.box-4 {
+  position: absolute;
+  top: 40%;
+  left: -30px;
+}
+.box-5 {
+  position: absolute;
+  bottom: 40%;
+}
+
+
 
 .box-network::after {
   content: "";

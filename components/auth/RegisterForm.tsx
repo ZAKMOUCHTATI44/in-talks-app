@@ -6,12 +6,17 @@ import InputWithLabel from "@/components/utils/InputWithLabel";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import PhoneNumber from "../utils/PhoneNumber";
+import api from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 interface RegsiterSchema {
   lastName: string;
   firstName: string;
   email: string;
   phone: string;
+  company: string;
+  password: string;
+  passwordConfirmation: string;
 }
 
 const RegisterForm = ({
@@ -34,10 +39,16 @@ const RegisterForm = ({
       label: string;
       validation: string;
     };
+    company: {
+      label: string;
+      validation: string;
+    };
     cta: string;
     createAccount: string;
   };
 }) => {
+
+  const router =useRouter()
   const RegisterValidation = Yup.object().shape({
     firstName: Yup.string().required(content.firstName.validation),
     lastName: Yup.string().required(content.lastName.validation),
@@ -45,8 +56,22 @@ const RegisterForm = ({
     phone: Yup.string().required(content.phone.validation),
   });
 
-  const handleSubmit = (values: RegsiterSchema) => {
-    console.log(values);
+  const handleSubmit = async (values: RegsiterSchema) => {
+    try {
+      const res = await api.post("/sign-up", {
+        firstname: values.firstName,
+        lastname: values.lastName,
+        email: values.email,
+        phonenumber: values.phone,
+        password : values.password,
+        // company: values.company,
+      });
+
+      router.push(`/login`)
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,12 +83,15 @@ const RegisterForm = ({
         firstName: "",
         lastName: "",
         phone: "",
+        company: "",
+        password: "",
+        passwordConfirmation: "",
       }}
       validationSchema={RegisterValidation}
       onSubmit={handleSubmit}
     >
       {({ handleChange, values, errors, setFieldValue }) => (
-        <Form className="flex flex-col gap-5">
+        <Form className="flex flex-col gap-5 text-white">
           <div className="grid grid-cols-2 gap-5">
             <InputWithLabel
               name="firstName"
@@ -94,7 +122,32 @@ const RegisterForm = ({
             error={errors.phone}
           />
 
-          <Button className="bg-mainColor hover:bg-transparent hover:text-mainColor border border-mainColor h-auto py-2">
+          <InputWithLabel
+            name="company"
+            onChange={handleChange}
+            value={values.company}
+            label={content.company.label}
+            error={errors.company}
+          />
+
+          <InputWithLabel
+            type="password"
+            name="password"
+            onChange={handleChange}
+            value={values.password}
+            label={"Password"}
+            error={errors.password}
+          />
+          <InputWithLabel
+            type="password"
+            name="passwordConfirmation"
+            onChange={handleChange}
+            value={values.passwordConfirmation}
+            label={"Password Confirmation"}
+            error={errors.passwordConfirmation}
+          />
+
+          <Button className="bg-mainColor text-white hover:bg-transparent hover:text-mainColor border border-mainColor h-auto py-2">
             {content.cta}
           </Button>
           <div className="flex justify-center">
