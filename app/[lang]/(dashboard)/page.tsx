@@ -1,138 +1,71 @@
-// "use client";
-// import React from "react";
-// import Error from "@/components/utils/Error";
-// import api from "@/lib/api";
-// import { useQuery } from "@tanstack/react-query";
-// import { AxiosResponse } from "axios";
-// import "@/app/css/creator-netwrok.css";
-// import Loading from "@/components/utils/Loading";
+"use client";
+import SocialCard from "@/components/dashbord/SocialCard";
+import Error from "@/components/utils/Error";
+import Loading from "@/components/utils/Loading";
+import api from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import React from "react";
+import "@/app/css/slide.css";
+import Circle from "@/components/dashbord/Circle";
 
-// interface Pagination {
-//   data: Account[];
-//   cursor: {
-//     total: number;
-//     page: number;
-//     count: number;
-//   };
-// }
-
-// const Page = () => {
-//   const queryBuilder = () => {
-//     const query = "creators/search?limit=12";
-
-//     return query;
-//   };
-
-//   const fetch = (): Promise<Pagination> =>
-//     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
-
-//   const { isLoading, error, data } = useQuery<Pagination, Error>({
-//     queryKey: ["creators-search", queryBuilder()],
-//     queryFn: fetch,
-//   });
-
-//   if (error) return <Error />;
-
-//   if (isLoading) return <Loading />;
-
-//   return (
-//     <div>
-//       <div className="min-h-[85vh] bg-darkColor">
-//         <BoxCreators
-//           size={220}
-//           duration={30}
-//           data={data?.data.slice(0, 4).map((item) => String(item.insights.top.id))}
-//         />
-//         {/* <BoxCreators
-//           size={330}
-//           duration={40}
-//           data={data.mentions.in.slice(4, 8)}
-//         />
-//         <BoxCreators
-//           size={430}
-//           duration={55}
-//           data={data.mentions.in.slice(8, 12)}
-//         /> */}
-//         <MiddleElement />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const BoxCreators = ({
-//   size,
-//   duration,
-//   data,
-// }: {
-//   size: number;
-//   duration: number;
-//   data: string[];
-// }) => {
-//   return (
-//     <div
-//       className="box-network"
-//       style={
-//         {
-//           "--size": `${size}px`,
-//           "--duration": `${duration}s`,
-//           height: `${size}px`,
-//           width: `${size}px`,
-//           border: "0.3px solid #EFEFEF",
-//         } as React.CSSProperties
-//       }
-//     >
-//       {data.map((item, index) => (
-//         <div className={`group-icon `} key={item} style={{ zIndex: "99px" }}>
-//           <div className={`box-${index} children-container `}>
-//             <img
-//               src={item}
-//               style={{
-//                 width: "55px",
-//                 height: "55px",
-//                 borderRadius: "50%",
-//               }}
-//               alt=""
-//             />
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// const MiddleElement = () => {
-//   return (
-//     <div
-//       style={{
-//         inset: "50%",
-//         width: "75px",
-//         height: "75px",
-//         zIndex: 199,
-//         translate: " -50% -50%",
-//         position: "absolute",
-//       }}
-//     >
-//       <img
-//         src="https://api.inflauditor.ma/media/account?id=StVDrkoqyoxN2yb1TyyTno"
-//         width={75}
-//         height={75}
-//         style={{
-//           borderRadius: "50%",
-//         }}
-//         alt=""
-//       />
-//     </div>
-//   );
-// };
-
-// export default Page;
-
-import React from 'react'
-
-const page = () => {
-  return (
-    <div>page</div>
-  )
+interface Pagination {
+  data: Account[];
+  cursor: {
+    total: number;
+    page: number;
+    count: number;
+  };
 }
 
-export default page
+const Page = () => {
+  const queryBuilder = () => {
+    const query = "creators/ranking?limit=12&sort=rank";
+
+    return query;
+  };
+
+  const fetch = (): Promise<Pagination> =>
+    api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
+
+  const { isLoading, error, data } = useQuery<Pagination, Error>({
+    queryKey: ["creators-ranking", queryBuilder()],
+    queryFn: fetch,
+  });
+
+  if (error) return <Error />;
+
+  if (isLoading) return <Loading />;
+
+  return (
+    <>
+     <div className="">
+     <div className=" absolute">
+        <div className="slider-container overflow-hidden relative my-12">
+          <div className="slider-track grid grid-cols-3 gap-3">
+            {data &&
+              data.data
+                .slice(0, 10)
+                .map((account) => (
+                  <SocialCard key={account.id} account={account} />
+                ))}
+            {/* Repeat items for seamless sliding */}
+            {data &&
+              data.data
+                .slice(0, 10)
+                .map((account) => (
+                  <SocialCard key={account.id + "-copy"} account={account} />
+                ))}
+          </div>
+        </div>
+      </div>
+
+     </div>
+      <div className="w-full relative mt-[600px]">
+        <Circle />
+      </div>
+    </>
+  );
+};
+
+export default Page;

@@ -16,15 +16,10 @@ const CardAccount = ({
   selected: boolean;
   setSelectAccount: (e: Account) => void;
 }) => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div
-
-    onClick={() => {
-      router.push(`/report/${account.id}`)
-    }}
       className={`dark:bg-darkColor bg-white p px-2 flex flex-col justify-between shadow-md rounded-md border-[0.2px]${
         selected
           ? " border-mainColor "
@@ -93,18 +88,28 @@ const CardAccount = ({
               className="bg-transparent hover:bg-transparent border border-gray-600 text-gray-500"
             >
               <Link href={`/report/${account.id}`}>
-              <BarChart2 className="h-4 w-4" />
+                <BarChart2 className="h-4 w-4" />
               </Link>
             </Button>
           </div>
         </div>
-        <div className="py-3 border-t-[0.2px] border-gray-600">
+        <div
+          onClick={() => {
+            router.push(`/report/${account.id}`);
+          }}
+          className="py-3 border-t-[0.2px] border-gray-600"
+        >
           <p className="text-xs text-justify leading-5">
             {account.description.substring(0, 200)}
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-5 py-2 items-center">
+      <div
+        onClick={() => {
+          router.push(`/report/${account.id}`);
+        }}
+        className="grid grid-cols-5 py-2 items-center"
+      >
         <div className="flex flex-col gap-0">
           <div
             key={account.insights.top.id}
@@ -137,7 +142,12 @@ const CardAccount = ({
             ))}
         </div>
       </div>
-      <div className="flex gap-5 py-2 border-t-[0.1px] border-gray-600">
+      <div
+        onClick={() => {
+          router.push(`/report/${account.id}`);
+        }}
+        className="flex gap-5 py-2 border-t-[0.1px] border-gray-600"
+      >
         {account.accounts.length > 0 &&
           account.accounts
             .slice(1, account.accounts.length)

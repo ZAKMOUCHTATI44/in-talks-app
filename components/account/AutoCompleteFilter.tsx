@@ -88,7 +88,7 @@ export const AutoCompleteFilter = ({
   };
 
   return (
-    <CommandPrimitive onKeyDown={handleKeyDown} className="border-b-0">
+    <CommandPrimitive onKeyDown={handleKeyDown} className={`${type ==="creators" ? " w-[350px] " : "" } border-b-0`}>
       <div>
         <CommandInput
           ref={inputRef}

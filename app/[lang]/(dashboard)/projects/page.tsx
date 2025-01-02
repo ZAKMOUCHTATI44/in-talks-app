@@ -3,8 +3,9 @@ import ProjectPage from "@/components/projects/ProjectPage";
 
 const Page = () => {
   return (
-
-    <ProjectPage />
+    <div className="px-5">
+      <ProjectPage />
+    </div>
   );
 };
 

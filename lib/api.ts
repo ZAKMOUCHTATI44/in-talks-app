@@ -15,13 +15,12 @@ api.interceptors.response.use(
   },
   (error) => {
     console.log(JSON.stringify(error));
+    logout();
     if (error.response?.status === 401) {
       logout();
       // return Promise.reject(new Error("Unauthorized - Please login again."));
     }
 
-    // Pass through other errors
-    return Promise.reject(error);
   }
 );
 

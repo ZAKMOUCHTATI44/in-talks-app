@@ -29,7 +29,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       >
         <SidebarProvider>
           <AppSideBar />
-          <main className="dark:bg-bgDarkColor bg-[#f8f7fa] px-5 w-full min-h-screen flex flex-col">
+          <main className="dark:bg-bgDarkColor bg-[#f8f7fa] w-full min-h-screen flex flex-col">
             <TopBar />
             <div
               className="dark:bg-bgDarkColor bg-[#f8f7fa]"

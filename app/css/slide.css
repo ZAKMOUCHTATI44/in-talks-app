@@ -1,0 +1,37 @@
+/* Slider Container */
+.slider-container {
+  width: 100%;
+  overflow: hidden; 
+  position: relative;
+}
+
+/* Slider Track */
+.slider-track {
+  display: flex; 
+  animation: slide 35s linear infinite; 
+  width: calc(320px* 20);
+
+}
+
+.slider-item {
+  flex: 0 0 200px;
+  width: 400px;
+}
+
+/* Animation Keyframes */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-4000px); 
+  }
+}
+@keyframes slide-2 {
+  100% {
+    transform: translateX(0);
+  }
+  0% {
+    transform: translateX(-4000px); 
+  }
+}

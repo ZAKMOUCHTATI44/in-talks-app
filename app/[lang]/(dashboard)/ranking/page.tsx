@@ -49,7 +49,7 @@ const Page = () => {
 
   return (
     <div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 px-5">
         <FilterRanking />
         {data && <DataTableInfluencersRanking isLoading={isLoading} data={data} />}
       </div>

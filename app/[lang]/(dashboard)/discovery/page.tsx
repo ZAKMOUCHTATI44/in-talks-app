@@ -106,7 +106,7 @@ const Page = () => {
   if (error) return <Error />;
 
   return (
-    <div className="grid grid-cols-12 gap-5">
+    <div className="grid grid-cols-12 gap-5 px-5">
       <div className="col-span-3 mt-16 h-screen sticky top-5">
         <FilterDiscovery />
       </div>

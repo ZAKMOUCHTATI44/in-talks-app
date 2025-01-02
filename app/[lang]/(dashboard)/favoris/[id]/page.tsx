@@ -35,7 +35,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   return (
     <div>
       {data && (
-        <div>
+        <div className="px-5">
           <div className="flex justify-between items-center p-5">
             <div>
               <h1 className="text-2xl font-bold">{data?.label}</h1>

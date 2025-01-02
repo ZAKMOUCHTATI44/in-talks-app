@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const TopBar = () => {
   const router = useRouter()
   return (
-    <div className="dark:bg-darkColor bg-white shadow-sm my-5 py-3 px-5 flex justify-between items-center">
+    <div className="dark:bg-darkColor bg-white shadow-sm my-5 py-3 px-5 flex justify-between items-center mx-5">
       <AutoCompleteFilter
         type="creators"
         onValueChange={(account) => {
