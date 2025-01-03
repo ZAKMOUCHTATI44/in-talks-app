@@ -45,7 +45,7 @@ const ProjectPage = () => {
           Search
           <Search />
         </Button>
-        <CreateNewProject />
+        <CreateNewProject queryName={queryBuilder()} />
       </div>
       <div className="grid grid-cols-3 gap-2 py-5 ">
         {data &&

@@ -40,9 +40,27 @@ const Circle = () => {
       <div className="relative mt-[360px]">
         {data && (
           <>
-            <BoxCreators size={440} duration={30} data={data.slice(0, 4)} />
-            <BoxCreators size={550} duration={40} data={data.slice(4, 8)} />
-            <BoxCreators size={660} duration={50} data={data.slice(8, 12)} />
+            <BoxCreators
+              className="transform rotate-[25deg]"
+              size={440}
+              duration={30}
+              data={data.slice(0, 6)}
+            />
+            <BoxCreators
+              className=""
+              size={560}
+              duration={30}
+              data={data.slice(6, 12)}
+            />
+            <BoxCreators
+              className="transform rotate-[75deg]"
+              size={660}
+              duration={30}
+              data={data.slice(12, 18)}
+            />
+            {/* */}
+            {/*
+             */}
           </>
           // <div>
           //     {JSON.stringify(data.slice(0.3))}
@@ -70,14 +88,16 @@ const BoxCreators = ({
   size,
   duration,
   data,
+  className,
 }: {
   size: number;
   duration: number;
   data: Data[];
+  className: string;
 }) => {
   return (
     <div
-      className="box-network"
+      className={`box-network px-12 ${className}`}
       style={
         {
           "--size": `${size}px`,
@@ -117,17 +137,17 @@ const BoxCreators = ({
 };
 
 const MiddleElement = () => {
-  const router = useRouter()
+  const router = useRouter();
   return (
-    <div
-      className="inset-1/2 z-50 -translate-x-1/2 -top-[40px] -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2"
-    >
+    <div className="inset-1/2 z-50 -translate-x-1/2 -top-[40px] -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2">
       <h2 className="text-white text-xl font-semibold">Network Watch</h2>
       <p className="text-whiteColor">Explore Creator Partnerships & Networks</p>
-      <AutoCompleteFilter type="Brand" onValueChange={(account) => {
-
-        router.push(`/social-listening/${account.id}`)
-      }} />
+      <AutoCompleteFilter
+        type="Brand"
+        onValueChange={(account) => {
+          router.push(`/social-listening/${account.id}`);
+        }}
+      />
     </div>
   );
 };

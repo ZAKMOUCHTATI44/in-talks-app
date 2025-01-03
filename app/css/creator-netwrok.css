@@ -7,53 +7,66 @@
   top: 100%;
 }
 
-
-
 .group-icon {
   z-index: 99;
 }
 .group-icon {
   z-index: 99;
+}
+
+.group-icon:hover {
 }
 /* .box-network:hover {
-  animation-play-state: paused;
+ background-color: red;
 } */
 
 .children-container {
   animation: rotating infinite var(--duration, 30s) linear;
 }
+.children-container:hover {
+  animation-play-state: paused;
+}
 .box-0 {
   position: absolute;
   top: 0%;
-  right: 0px;
+  right: 10%;
 }
 .box-1 {
   position: absolute;
   top: 0%;
-  left: 0px;
+  left: 10%;
 }
 .box-2 {
   position: absolute;
-  bottom: 0%;
-  left: 0px;
+  bottom: 40%;
+  left: -10%;
 }
 .box-3 {
   position: absolute;
   bottom: 0%;
-  right: 0px;
+  left: 10%;
 }
 
 .box-4 {
   position: absolute;
-  top: 40%;
-  left: -30px;
+  bottom: 0%;
+  right: 10%;
 }
 .box-5 {
   position: absolute;
   bottom: 40%;
+  right: -30px;
 }
-
-
+.box-6 {
+  position: absolute;
+  top: 40%;
+  left: -30px;
+}
+.box-7 {
+  position: absolute;
+  top: 40%;
+  left: -30px;
+}
 
 .box-network::after {
   content: "";

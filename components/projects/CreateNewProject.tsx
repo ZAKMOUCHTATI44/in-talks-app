@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import api from "@/lib/api";
 import { Textarea } from "../ui/textarea";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 interface ProjectRequest {
   name: string;
@@ -23,6 +24,7 @@ interface ProjectRequest {
 }
 function CreateNewProject({queryName } : {queryName ?: string}) {
 
+  const [open , setOpen] = useState<boolean>(false)
   const queryClient = useQueryClient();
   const projectSchema = Yup.object().shape({
     name: Yup.string().required("le nom est requis"),
@@ -34,6 +36,8 @@ function CreateNewProject({queryName } : {queryName ?: string}) {
     try {
       const res = await api.post("/projects", JSON.stringify(values));
       console.log(res)
+
+      setOpen(false)
       if(queryName)  queryClient.invalidateQueries({ queryKey: [queryName] });
 
     } catch (error) {
@@ -42,7 +46,7 @@ function CreateNewProject({queryName } : {queryName ?: string}) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-green-500 text-white hover:bg-green-400 hover:text-white ">
           Create new Project

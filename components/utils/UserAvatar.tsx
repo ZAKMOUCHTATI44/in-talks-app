@@ -12,6 +12,7 @@ import {
 import Avatar from "./Avatar";
 import { useAuthUser } from "@/lib/useAuthUser";
 import { ChevronDown, LogOut, User2 } from "lucide-react";
+import Link from "next/link";
 
 export default function UserAvatar() {
   // const session = getCurrentAuth()
@@ -44,9 +45,11 @@ export default function UserAvatar() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="text-whiteColor" />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="flex gap-2 items-center">
+          <DropdownMenuItem asChild className="flex gap-2 items-center">
+            <Link href={"/account"}>
             <User2 className="h-4 w-4" />
             Profile
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

@@ -194,6 +194,12 @@ const ShowDetailProject = ({
 
   return (
     <div className="flex flex-col gap-3">
+
+      {data && (
+        <h2 className="font-semibold">
+          Project :  {data.label}
+        </h2>
+      )}
       {data &&
         data.steps.length > 0 &&
         data.steps.map((item) => (
@@ -209,6 +215,8 @@ const ShowDetailProject = ({
             }`}
           >
             {item.label}
+
+           
           </Button>
         ))}
     </div>
@@ -233,6 +241,7 @@ const ProjectCard = ({
         selected ? " border-mainColor " : "border-gray-600"
       }`}
     >
+  
       <div className="flex flex-col">
         <p>{project.label}</p>
         <div className="flex items-center gap-2">

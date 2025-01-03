@@ -9,6 +9,7 @@ import api from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 import { useAuthUser } from "@/lib/useAuthUser";
+import GoogleProvider from "./GoogleProvider";
 
 interface LoginSchema {
   email: string;
@@ -105,6 +106,8 @@ const LoginForm = ({
               "Login"
             )}
           </Button>
+
+          <GoogleProvider />
           <div className="flex justify-center text-white">
             <Link
               href={"register"}

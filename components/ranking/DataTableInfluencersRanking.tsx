@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -27,10 +27,6 @@ const DataTableInfluencersRanking = ({
   const { createQueryString } = useQueryHelper();
 
   const [page, setPage] = useState<number>(1);
-
-  useEffect(() => {
-    router.push(`?${createQueryString("page", page.toString())}`);
-  });
 
   const columns: TableColumn<Account>[] = [
     {
@@ -165,7 +161,7 @@ const DataTableInfluencersRanking = ({
   return (
     <div>
       <div className={`dark-datatable`}>
-        <DataTable
+        {/* <DataTable
           columns={columns}
           data={data.data || []}
           paginationTotalRows={data.cursor.total}
@@ -178,7 +174,24 @@ const DataTableInfluencersRanking = ({
           onChangePage={(e) => {
             setPage(e);
           }}
+        /> */}
+        <DataTable
+          columns={columns}
+          data={data.data}
+          progressPending={isLoading}
+          pagination
+          paginationServer
+          paginationTotalRows={200}
+          paginationPerPage={50}
+          onChangeRowsPerPage={(e) => {
+            setPage(e);
+            router.push(`?${createQueryString("page", page.toString())}`);
+            // if (e != page) {
+            //   setPage(e);
+            // }
+          }}
         />
+        ;
       </div>
     </div>
   );

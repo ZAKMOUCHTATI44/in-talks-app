@@ -32,7 +32,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   if (error) return <Error />;
 
   return (
-    <div>
+    <div className="px-5">
       {isLoading && <Loading />}
       {data && (
         <>

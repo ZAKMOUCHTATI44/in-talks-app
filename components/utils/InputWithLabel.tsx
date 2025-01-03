@@ -45,10 +45,10 @@ const InputWithLabel = ({
           {type === "password" && (
             <div className="absolute right-2 top-2">
               {typeInput === "password" && (
-                <Eye onClick={() => handleChnage("text")} />
+                <Eye className="h-4 w-4" onClick={() => handleChnage("text")} />
               )}
               {typeInput === "text" && (
-                <EyeOffIcon onClick={() => handleChnage("password")} />
+                <EyeOffIcon className="h-4 w-4" onClick={() => handleChnage("password")} />
               )}
             </div>
           )}

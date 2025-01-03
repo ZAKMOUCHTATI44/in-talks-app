@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import "@/app/css/creator-netwrok.css";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BASE_URL } from "@/lib/hepler";
 
 interface Mention {
   id: string;
@@ -20,6 +21,8 @@ interface Data {
     in: Mention[];
     out: Mention[];
   };
+  id: string;
+  picture: string;
   hashtags: {
     IG: string[];
     TW: string[] | null;
@@ -64,7 +67,7 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
               duration={55}
               data={data.mentions.in.slice(8, 12)}
             />
-            <MiddleElement />
+            <MiddleElement picture={data.picture} />
 
             {/* 
           
@@ -84,7 +87,10 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
               <TabsContent value="hasTagged">
                 <div className="h-[500px] overflow-scroll flex flex-col gap-2">
                   {data.mentions.in.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor">
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor"
+                    >
                       <div className="flex items-center gap-2 ">
                         <div
                           className="rounded-full h-[60px] w-[60px] flex justify-start"
@@ -112,7 +118,10 @@ const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
               <TabsContent value="wasTagged">
                 <div className="h-[500px] overflow-scroll flex flex-col gap-2">
                   {data.mentions.out.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor">
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between py-2 px-3 rounded-lg relative bg-darkColor"
+                    >
                       <div className="flex items-center gap-2 ">
                         <div
                           className="rounded-full h-[60px] w-[60px] flex justify-start"
@@ -186,7 +195,7 @@ const BoxCreators = ({
   );
 };
 
-const MiddleElement = () => {
+const MiddleElement = ({ picture }: { picture: string }) => {
   return (
     <div
       style={{
@@ -199,13 +208,13 @@ const MiddleElement = () => {
       }}
     >
       <img
-        src="https://api.inflauditor.ma/media/account?id=StVDrkoqyoxN2yb1TyyTno"
+        src={`${BASE_URL}/media/account?id=${picture}`}
         width={75}
         height={75}
         style={{
           borderRadius: "50%",
         }}
-        alt=""
+        alt="KHdkabd"
       />
     </div>
   );
