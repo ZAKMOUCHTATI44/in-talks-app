@@ -31,8 +31,8 @@ interface Data {
 
 const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
   const buildQueryString = (): string => {
-    if (type) console.log("appp");
-    const query = `/creators/${id}/network`;
+    let query = `/creators/${id}/network`;
+    if (type) query = `/brands/${id}/network`;
     return query;
   };
 
