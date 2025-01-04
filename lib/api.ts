@@ -16,8 +16,8 @@ api.interceptors.response.use(
   (error) => {
     console.log(JSON.stringify(error));
     if (error.response?.status === 401) {
-      // logout();
-      // window.location.href = "/login";
+      logout();
+      window.location.href = "/login";
       // return Promise.reject(new Error("Unauthorized - Please login again."));
     }
   }
