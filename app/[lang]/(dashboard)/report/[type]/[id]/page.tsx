@@ -14,9 +14,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreatorNetwork from "@/components/account/reports/CreatorNetwork";
 import DownloadAsPdf from "@/components/account/DownloadAsPdf";
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string; type: string } }) => {
   const buildQueryString = (): string => {
-    const query = `/creators/${params.id}`;
+    let query = `/creators/${params.id}`;
+
+    if (params.type === "brands") {
+      query = `/brands/${params.id}`;
+    }
     return query;
   };
 
@@ -51,13 +55,15 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TabsTrigger value="socialCoverage">
                   Social Coverage
                 </TabsTrigger>
-                <TabsTrigger value="creatorNetwrok">Creator Network</TabsTrigger>
+                <TabsTrigger value="creatorNetwrok">
+                  Creator Network
+                </TabsTrigger>
                 <TabsTrigger value="audience">Audience</TabsTrigger>
               </TabsList>
               <TabsContent value="posts">
                 {data.accounts.map((netwrok) => (
                   <PostMedia
-                    type={"creators"}
+                    type={params.type}
                     key={netwrok.id}
                     id={params.id}
                     network={netwrok.network}
@@ -65,13 +71,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                 ))}
               </TabsContent>
               <TabsContent value="socialCoverage">
-                <SocialCoverage type={"creators"} id={params.id} />
+                <SocialCoverage type={params.type} id={params.id} />
               </TabsContent>
               <TabsContent value="creatorNetwrok">
-                <CreatorNetwork type={"creators"} id={params.id} />
+                <CreatorNetwork type={params.type} id={params.id} />
               </TabsContent>
               <TabsContent value="audience">
-                <AudienceGraph type={"creators"} id={params.id} />
+                <AudienceGraph type={params.type} id={params.id} />
               </TabsContent>
             </Tabs>
 

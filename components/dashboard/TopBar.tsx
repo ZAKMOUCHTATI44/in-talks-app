@@ -14,7 +14,7 @@ const TopBar = () => {
         type="creators"
         onValueChange={(account) => {
           // console.log(account);
-          router.push(`/report/${account.id}`)
+          router.push(`/report/${account.type}/${account.id}`)
         }}
       />
       <div className="flex items-center gap-2">
