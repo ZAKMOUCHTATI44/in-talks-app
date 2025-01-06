@@ -32,7 +32,7 @@ interface Data {
 const CreatorNetwork = ({ id, type }: { id: string; type?: string }) => {
   const buildQueryString = (): string => {
     let query = `/creators/${id}/network`;
-    if (type) query = `/brands/${id}/network`;
+    if (type === "brands") query = `/brands/${id}/network`;
     return query;
   };
 

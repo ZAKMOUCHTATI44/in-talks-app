@@ -271,6 +271,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
 
           <div className="grid grid-cols-3 gap-5">
             {data.accounts.map(item => (
+              
               <ScoringTab key={item.id} scoring={item.scoring} label={`${item.network} Score`} network={item.network} />
             ))}
           </div>
