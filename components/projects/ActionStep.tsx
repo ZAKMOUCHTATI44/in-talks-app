@@ -59,8 +59,8 @@ function EditStepName({ id, queryName  ,name }: { id: string; queryName: string 
 
   const handleSubmit = async (values: Step) => {
     try {
-      await api.patch(
-        `/projects-steps/${id}`,
+      await api.put(
+        `/step-project/${id}`,
         JSON.stringify(values)
       );
       queryClient.invalidateQueries({ queryKey: [queryName] });
@@ -121,13 +121,21 @@ function EditStepName({ id, queryName  ,name }: { id: string; queryName: string 
 const DeleteStep = ({ id, queryName }: { id: string; queryName: string }) => {
   const [open, setOpen] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  // const { toast } = useToast()
 
   const handleDelete = async () => {
     setOpen(false);
     try {
-      const res = await api.delete(`/projects-steps/${id}`);
+      const res = await api.delete(`/step-project/${id}`);
       console.log(res);
       queryClient.invalidateQueries({ queryKey: [queryName] });
+
+      // toast({
+      //   variant:"default",
+      //   title: "Scheduled: Catch up",
+      //   description: "Friday, February 10, 2023 at 5:57 PM",
+      // })
+
     } catch (error) {
       console.log(error);
     }

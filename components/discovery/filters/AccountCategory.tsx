@@ -19,19 +19,19 @@ const AccountCategory = () => {
   const data = [
     {
       label: "Nano (1k - 30k)",
-      value: "1-30",
+      value: "1000-30000",
     },
     {
       label: "Micro (31k - 300k)",
-      value: "31-300",
+      value: "3001-300000",
     },
     {
       label: "Macro (300k - 2M)",
-      value: "301-2000",
+      value: "300001-2000000",
     },
     {
       label: "Celebrities ( +2M)",
-      value: "2001",
+      value: "200000",
     },
   ];
 

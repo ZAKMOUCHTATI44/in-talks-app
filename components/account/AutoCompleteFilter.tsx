@@ -15,10 +15,6 @@ import { useQuery } from "@tanstack/react-query";
 import CardModal from "./reports/CardModal";
 import Error from "../utils/Error";
 
-interface Pagination {
-  data: Account[];
-  total: string;
-}
 
 type AutoCompleteProps = {
   onValueChange: (value: Account) => void;
@@ -38,24 +34,19 @@ export const AutoCompleteFilter = ({
   const [inputValue, setInputValue] = useState<string>("");
 
   const buildQueryString = (): string => {
-    let queryString = "/search";
-
-    if (type === "Brand") {
-      queryString = "/brands/search";
-    }
+    let queryString = "/accounts/search?limit=10";
 
     const name = inputValue;
-
     if (name != null) {
-      queryString += `?q=${name}`;
+      queryString += `&name=${name}`;
     }
     return queryString;
   };
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise<Account[]> =>
     api.get(buildQueryString()).then((res: AxiosResponse) => res.data);
 
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
+  const { isLoading, error, data } = useQuery<Account[], Error>({
     queryKey: [buildQueryString(), inputValue],
     queryFn: fetch,
     enabled: inputValue !== "",
@@ -115,9 +106,9 @@ export const AutoCompleteFilter = ({
                 </div>
               </CommandPrimitive.Loading>
             ) : null}
-            {data && data.data && data.data.length > 0 && !isLoading ? (
+            {data && data.length > 0 && !isLoading ? (
               <CommandGroup>
-                {data.data.map((option) => {
+                {data.map((option) => {
                   const isSelected = selected?.name === option.name;
                   return (
                     <CommandItem

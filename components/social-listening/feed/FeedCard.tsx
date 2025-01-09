@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/hepler";
 import Link from "next/link";
 import React from "react";
 
@@ -12,7 +11,7 @@ const FeedCard = ({ data }: { data: WebMention }) => {
                 background: "linear-gradient(45deg, #4ec6fb, #ff56e3)",
               }}
             >
-              <img src={`${BASE_URL}/media/account?id=${data.picture}`} width={74} height={74}  className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5" alt="" />
+              <img src={`${data.picture}`} width={74} height={74}  className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5" alt="" />
               {/* <div
               className="rounded-full mx-auto w-[72px] h-[72px] bg-contain p-0.5"
               style={{
@@ -23,10 +22,11 @@ const FeedCard = ({ data }: { data: WebMention }) => {
           </div>
 
       <div className="col-span-3">
+      <p>{data.link.title}</p>
         <Link href={data.link.url} className="text-sm">
           {data.domain}
         </Link>
-        <p>{data.link.title}</p>
+       
         <p className="text-sm">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
           suscipit inventore, sunt nam animi harum nemo quam mollitia quas

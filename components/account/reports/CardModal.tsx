@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/hepler";
 import React from "react";
 
 const CardModal = ({ account }: { account: Account }) => {
@@ -14,7 +13,7 @@ const CardModal = ({ account }: { account: Account }) => {
           <div
             className="rounded-full mx-auto w-10 h-10 bg-contain p-0.5"
             style={{
-              backgroundImage: `url(${BASE_URL}/media/account?id=${account.picture})`,
+              backgroundImage: `url(${account.pictureUrl})`,
             }}
           ></div>
         </div>

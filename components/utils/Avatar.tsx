@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 
-const Avatar = ({ image, alt }: { image?: string; alt: string }) => {
+const Avatar = ({ image, alt }: { image?: string | undefined | null ; alt: string }) => {
   return (
     <div>
       {image ? (

@@ -14,31 +14,25 @@ import { AxiosResponse } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import Error from "../utils/Error";
-import { BASE_URL } from "@/lib/hepler";
 import Loading from "../utils/Loading";
-interface Pagination {
-  data: Account[];
-  total: string;
-}
-
 const DailogAddCreators = ({handleChange} : {handleChange : (id : string) => void }) => {
   const [value, setValue] = React.useState("");
 
   const [open , setOpen] = useState<boolean>(false)
   const buildQueryString = (): string => {
-    let queryString = "/search";
+    let queryString = "/accounts/search";
     const name = value;
 
     if (name != null) {
-      queryString += `?q=${name}`;
+      queryString += `?name=${name}`;
     }
     return queryString;
   };
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise<Account[]> =>
     api.get(buildQueryString()).then((res: AxiosResponse) => res.data);
 
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
+  const { isLoading, error, data } = useQuery<Account[], Error>({
     queryKey: [buildQueryString(), value],
     queryFn: fetch,
     enabled: value !== "",
@@ -75,16 +69,15 @@ const DailogAddCreators = ({handleChange} : {handleChange : (id : string) => voi
 
             {isLoading && <Loading />}
             {data &&
-              data.data &&
-              data.data.length > 0 &&
-              data.data.map((account) => (
+              data.length > 0 &&
+              data.map((account) => (
                 <div
                 onClick={() => {
                     setOpen(false)
                     handleChange(account.id)
                     setValue('')
                 }}
-                key={account.id}  className="flex items-center gap-2 py-3 hover:bg-mainColor rounded-md px-2">
+                key={account.id}  className="flex items-center gap-2 py-1 hover:bg-mainColor rounded-md px-2">
                   <div
                     className="rounded-full h-11 w-11 flex justify-start"
                     style={{
@@ -94,7 +87,7 @@ const DailogAddCreators = ({handleChange} : {handleChange : (id : string) => voi
                     <div
                       className="rounded-full mx-auto w-10 h-10 bg-contain p-0.5"
                       style={{
-                        backgroundImage: `url(${BASE_URL}/media/account?id=${account.picture})`,
+                        backgroundImage: `url(${account.pictureUrl})`,
                       }}
                     ></div>
                   </div>

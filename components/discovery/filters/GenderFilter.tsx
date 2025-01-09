@@ -24,12 +24,12 @@ const GenderFilter = () => {
     },
     {
       label: "Male",
-      value: "M",
+      value: "Male",
       image: "/icons/male.png",
     },
     {
       label: "Female",
-      value: "F",
+      value: "Female",
       image: "/icons/female.png",
     },
   ];

@@ -16,27 +16,25 @@ import {
 import { useQueryHelper } from "@/components/utils/queryHelpers";
 import { useRouter } from "next/navigation";
 import Error from "@/components/utils/Error";
+import { useSession } from "next-auth/react";
 
 interface Response {
   id: string;
   name: string;
-  image: string;
-  sub: {
-    id: string;
-    name: string;
-    image: string;
-  }[];
+  slug: string;
 }
 const CategoriesFilter = () => {
   const { createQueryString } = useQueryHelper();
   const router = useRouter();
+  const { data: session } = useSession();
 
   const fetchGategories = (): Promise<Response[]> =>
-    api.get("/categories").then((res: AxiosResponse) => res.data);
+    api.get("/category").then((res: AxiosResponse) => res.data);
 
   const { isLoading, error, data } = useQuery<Response[], Error>({
-    queryKey: ["/categories", "categories"],
+    queryKey: ["/category"],
     queryFn: fetchGategories,
+    enabled: !!session?.user.accessToken,
   });
 
   if (error) return <Error />;
@@ -54,9 +52,7 @@ const CategoriesFilter = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>
-            Category
-            </SelectLabel>
+            <SelectLabel>Category</SelectLabel>
             {!isLoading &&
               data &&
               data.map((item) => (

@@ -23,33 +23,33 @@ import { useRouter } from "next/navigation";
 
 const data = [
   {
-    label: "Twitter",
-    value: "TT",
-    image: "/social-media/twitter.png",
-  },
-  {
     label: "Instagram",
-    value: "IG",
+    value: "instagram",
     image: "/social-media/IG.png",
   },
   {
-    label: "LinkedIn",
-    value: "LD",
-    image: "/social-media/LD.png",
-  },
-  {
-    label: "YouTube",
-    value: "YT",
-    image: "/social-media/YT.png",
-  },
-  {
     label: "TikTok",
-    value: "TK",
+    value: "tiktok",
     image: "/social-media/TK.png",
   },
   {
+    label: "YouTube",
+    value: "youtube",
+    image: "/social-media/YT.png",
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin",
+    image: "/social-media/LD.png",
+  },
+  {
+    label: "Twitter",
+    value: "twitter",
+    image: "/social-media/twitter.png",
+  },
+  {
     label: "Snapchat",
-    value: "SC",
+    value: "snapchat",
     image: "/social-media/SC.png",
   },
 ];

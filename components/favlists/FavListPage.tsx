@@ -11,23 +11,22 @@ import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import EmptyFavList from "../favlists/EmptyFavList";
 import CreateNewFav from "../favlists/CreateNewFav";
+import { useSession } from "next-auth/react";
 
-interface Pagination {
-  data: FavList[];
-  count: number;
-}
 const FavListPage = () => {
   const queryBuilder = () => {
-    const query = "lists";
+    const query = "favorites";
     return query;
   };
+  const { data: session } = useSession();
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise<FavList[]> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
-    queryKey: ["favlists", queryBuilder()],
+  const { isLoading, error, data } = useQuery<FavList[], Error>({
+    queryKey: [queryBuilder()],
     queryFn: fetch,
+    enabled: !!session?.user.accessToken,
   });
 
   if (error) return <Error />;
@@ -45,19 +44,18 @@ const FavListPage = () => {
           Search
           <Search />
         </Button>
-        <CreateNewFav />
+        <CreateNewFav queryName={queryBuilder()} />
       </div>
       <div className="grid grid-cols-3 gap-2 py-5 ">
         {data &&
-          data.data &&
-          data.data.length > 0 &&
-          data.data.map((fav) => <FavListCard key={fav.id} fav={fav} />)}
+          data.length > 0 &&
+          data.map((fav) => <FavListCard key={fav.id} fav={fav} />)}
 
-        {data && data.data && data.data.length === 0 &&  (
-            <div className="w-full flex items-center justify-center col-span-3">
-                <EmptyFavList />
-            </div>
-        )}  
+        {data && data.length === 0 && (
+          <div className="w-full flex items-center justify-center col-span-3">
+            <EmptyFavList />
+          </div>
+        )}
       </div>
     </div>
   );

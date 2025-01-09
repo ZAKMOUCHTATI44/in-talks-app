@@ -6,70 +6,62 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import DataTable, { TableColumn } from "react-data-table-component";
 import Image from "next/image";
-import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import AudienceGrowthChart from "./AudienceGrowthChart";
-import ScoringTab from "./ScoringTab";
 
 interface SocialCoverageType {
   id: string;
-  name: string;
   network: string;
-  handle: string;
+  name: string;
+  username: string;
+  pictureUrl: string;
   bio: string;
+  followers: number;
+  score: string;
+  engagementRate: string;
+  engagementAvg: string;
+  avgViews: string;
+  activity: string;
+  audienceScore: number;
+  growthScore: string;
+  engagementScore: number;
+  viewsScore: number;
+  activityScore: number;
   verified: boolean;
-  insights: {
-    subscribers: number;
-    score: number;
-    activity: string;
-    engagement_average: string;
-    engagement_rate: number;
-    growth: number;
-    growth_rate: number;
-    views_average: number;
-  };
-  audience: {
-    history: {
-      data: {
-        date: string;
-        value: string;
-        displayedValue: string;
-        timestamp: number;
-      }[];
-      title: string;
-      network: string;
-    };
-  };
-  scoring: Scoring;
 }
 
-interface Scoring {
-  audience: number;
-  growth: number;
-  engagement: number;
-  views: number;
-  activity: number;
+interface AudienceEvolution {
+  network:string
+  data: {
+    id: string;
+    date: string;
+    value: number;
+    displayedValue: string;
+    timestamp: string;
+  }[];
 }
-interface WeekDayType {
-  posts: number;
-  ratio: string;
-  day: number;
-}
+// interface Scoring {
+//   audience: number;
+//   growth: number;
+//   engagement: number;
+//   views: number;
+//   activity: number;
+// }
+// interface WeekDayType {
+//   posts: number;
+//   ratio: string;
+//   day: number;
+// }
 interface Data {
-  accounts: SocialCoverageType[];
-  activity_weekday: WeekDayType[];
+  networks: SocialCoverageType[];
+  networkEvolutionStats : AudienceEvolution[]
+  // activity_weekday: WeekDayType[];
 }
 
-const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
+const SocialCoverage = ({ id }: { id: string }) => {
   const buildQueryString = (): string => {
-  
-    let query = `/creators/${id}/social-coverage`;
-    if(type === "brands") {
-
-      query = `/brands/${id}/social-coverage`;
-    }
-    return query
-
+    const query = `/accounts/social/${id}`;
+    return query;
   };
 
   const fetch = (): Promise<Data> =>
@@ -102,7 +94,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
           </span>
           <span>
             <img
-              src={`${BASE_URL}/media/account?id=${row.id}`}
+              src={`${row.pictureUrl}`}
               style={{ borderRadius: "50%" }}
               alt={row.name}
               width={35}
@@ -111,7 +103,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
           </span>
           <div>
             <h6>{row.name}</h6>
-            <p className="text-sm">@{row.handle}</p>
+            <p className="text-sm">@{row.username}</p>
           </div>
           {row.verified ? (
             <span>
@@ -132,18 +124,17 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
       name: "Influence Score",
       sortable: true,
       id: "influenceScore.score",
-      selector: (row) => row.insights.score,
+      selector: (row) => row.score,
       width: "140px",
       cell(row) {
         return (
           <>
-            {/* className={`growth ${row.influenceScore?.comment === 'low' ? 'lower' : 'high'}`} */}
-            {row.insights.score && (
+            {row.score && (
               <div
                 className={`flex gap-1 items-center high dark:bg-[#21BA4526] bg-green-400 text-white px-3 py-2 rounded-md`}
               >
                 <span className={`circle high`}></span>
-                {row.insights.score} / 100
+                {Number(row.score).toFixed(2)} / 100
               </div>
             )}
           </>
@@ -155,9 +146,9 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
       width: "150px",
       sortable: true,
       id: "follower_Count",
-      selector: (row) => row.insights.subscribers,
+      selector: (row) => row.followers,
       cell(row) {
-        return <p>{formatNumber(Number(row.insights.subscribers))}</p>;
+        return <p>{formatNumber(Number(row.followers))}</p>;
       },
     },
 
@@ -167,7 +158,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
       sortable: true,
       id: "growth",
       cell(row) {
-        return <p>{row.insights.activity}</p>;
+        return <p>{row.activity}</p>;
       },
     },
 
@@ -180,7 +171,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
         return (
           <p style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <span className={`circle h-2 w-2 bg-green-500 rounded-full`}></span>{" "}
-            {(row.insights.engagement_rate * 100).toFixed(2)} %
+            {row.engagementRate}
           </p>
         );
       },
@@ -204,9 +195,9 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
               <span
                 className={`circle h-2 w-2 bg-green-500 rounded-full`}
               ></span>{" "}
-              {row.insights.growth_rate} %
+              {row.growthScore} %
             </p>
-            <p className="text-sm">{formatNumber(row.insights.growth)}</p>
+            <p className="text-sm">{formatNumber(Number(row.growthScore))}</p>
           </div>
         );
       },
@@ -227,7 +218,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
             }}
           >
             <span className={`circle h-2 w-2 bg-green-500 rounded-full`}></span>{" "}
-            {formatNumber(Number(row.insights.engagement_average))}
+            {formatNumber(Number(row.engagementAvg))}
           </p>
         );
       },
@@ -247,7 +238,7 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
             }}
           >
             <span className={`circle h-2 w-2 bg-green-500 rounded-full`}></span>{" "}
-            {formatNumber(row.insights.views_average)}
+            {formatNumber(Number(row.avgViews))}
           </p>
         );
       },
@@ -261,20 +252,20 @@ const SocialCoverage = ({ id , type }: { id: string , type ?: string }) => {
           <DataTable
             className={`dark-datatable w-full border-gray-200 bg-white shadow-md`}
             columns={columns}
-            data={data.accounts}
+            data={data.networks}
           />
           <div className="grid grid-cols-3 gap-5">
-            {data.accounts.map((item) => (
-                <AudienceGrowthChart key={item.network} network={item.network} data={item.audience.history.data} />
+            {data.networkEvolutionStats.map((item) => (
+                <AudienceGrowthChart key={item.network} network={item.network} data={item} />
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-5">
+          {/* <div className="grid grid-cols-3 gap-5">
             {data.accounts.map(item => (
               
               <ScoringTab key={item.id} scoring={item.scoring} label={`${item.network} Score`} network={item.network} />
             ))}
-          </div>
+          </div> */}
         </>
       )}
     </div>

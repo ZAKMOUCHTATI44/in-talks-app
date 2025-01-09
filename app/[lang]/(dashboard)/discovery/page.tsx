@@ -7,23 +7,23 @@ import { formatNumber } from "@/lib/number";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
-import OrderBy from "@/components/discovery/filters/OrderBy";
 import { useRouter, useSearchParams } from "next/navigation";
 import PaginationDiscovery from "@/components/discovery/PaginationDiscovery";
 import Error from "@/components/utils/Error";
 import { useQueryHelper } from "@/components/utils/queryHelpers";
 import { Check, RotateCcw } from "lucide-react";
-import { BASE_URL } from "@/lib/hepler";
 import ManageFavoritesDiscovery from "@/components/discovery/ManageFavoritesDiscovery";
 import ManageProjectsDiscovery from "@/components/discovery/ManageProjectsDiscovery";
+import { useSession } from "next-auth/react";
 
 interface Pagination {
   data: Account[];
-  cursor: {
-    total: number;
-    page: number;
-    count: number;
-  };
+  total: number,
+  perPage: number,
+  currentPage: number,
+  lastPage: number,
+  nextPage: number,
+  prevPage: number
 }
 
 interface FilterDiscovery {
@@ -60,6 +60,8 @@ const Page = () => {
   };
 
   const router = useRouter();
+  const { data: session } = useSession();
+
 
   const searchParams = useSearchParams();
   const sort = searchParams.get("sort"),
@@ -69,23 +71,30 @@ const Page = () => {
     country = searchParams.get("country"),
     type = searchParams.get("type"),
     page = searchParams.get("page"),
-    niche = searchParams.get("niche"),
     category = searchParams.get("category");
 
   const queryBuilder = () => {
-    let query = "creators/search?limit=12";
-    if (type === "brands") {
-      query = `brands/search?limit=12`;
-    }
+    let query = "accounts?size=12";
 
     if (sort !== "0") query += `&sort=${sort}`;
-    if (networks) query += `&networks=${networks}`;
-    if (category && !niche) query += `&category=${niche}`;
-    if (niche) query += `&category=${niche}`;
-    if (range) query += `&range=${range}`;
+    if (networks) query += `&network=${networks}`;
+    if (category) query += `&category=${category}`;
+    if (range){ 
+      const [min, max] = range.split('-'); // Split the value by '-'
+
+      if(min) {
+        query += `&minFollowers=${min}`
+      }
+      if(max) {
+        query += `&maxFollowers=${max}`;
+      }
+    
+    }
     if (gender) query += `&gender=${gender}`;
     if (country) query += `&country=${country}`;
     if (page) query += `&page=${page}`;
+
+    if(type) query+=`&accountType=${type}`
 
     return query;
   };
@@ -93,7 +102,7 @@ const Page = () => {
   useEffect(() => {
     const updatedQuery = createQueryString("page", "1");
     router.push(`?${updatedQuery}`);
-  }, [sort, networks, range, gender, country, type, niche]);
+  }, [sort, networks, range, gender, country, type ]);
 
   const fetch = (): Promise<Pagination> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
@@ -101,6 +110,7 @@ const Page = () => {
   const { isLoading, error, data } = useQuery<Pagination, Error>({
     queryKey: ["creators-search", queryBuilder()],
     queryFn: fetch,
+    enabled :!! session?.user.accessToken
   });
 
   if (error) return <Error />;
@@ -115,8 +125,8 @@ const Page = () => {
         {data && (
           <>
             <div className="flex justify-between items-center h-16">
-              <p>{formatNumber(data?.cursor.total)} results</p>
-              <OrderBy />
+              <p>{formatNumber(data?.total)} results</p>
+              {/* <OrderBy /> */}
             </div>
             <div className="grid grid-cols-3 gap-5">
               {data &&
@@ -150,7 +160,7 @@ const Page = () => {
               )}
             </div>
             <PaginationDiscovery
-              totalPage={Math.round(data.cursor.total / data.cursor.count)}
+              totalPage={Math.round(data.total / 12)}
             />
           </>
         )}
@@ -185,7 +195,7 @@ const SelectedInfluencers = ({
                   <div
                     className="rounded-full mx-auto w-[34px] h-[34px] bg-contain p-0.5"
                     style={{
-                      backgroundImage: `url(${BASE_URL}/media/account?id=${influencer.insights.top.id})`,
+                      backgroundImage: `url(${influencer.networks[0].pictureUrl})`,
                     }}
                   ></div>
                 </div>

@@ -10,31 +10,35 @@ const ReactApexcharts = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-type Data = {
-  date: string;
-  value: string;
-  displayedValue: string;
-  timestamp: number;
-};
+interface AudienceEvolution {
+  network:string
+  data: {
+    id: string;
+    date: string;
+    value: number;
+    displayedValue: string;
+    timestamp: string;
+  }[];
+}
 
 const AudienceGrowthChart = ({
   network,
   data,
 }: {
   network: string;
-  data: Data[];
+  data: AudienceEvolution;
 }) => {
   const [chartOptions, setChartOptions] = useState<ApexOptions | null>(null);
   const [chartSeries, setChartSeries] = useState<{ data: number[] }[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && data?.length > 0) {
+    if (typeof window !== "undefined" && data.data?.length > 0) {
       const socialMediaColors = [
-        { platform: "TW", color: "#1DA1F2" },
-        { platform: "IG", color: "#E4405F" },
-        { platform: "LK", color: "#0077B5" },
-        { platform: "YT", color: "#FF0000" },
-        { platform: "TK", color: "#000000" },
+        { platform: "twitter", color: "#1DA1F2" },
+        { platform: "instagram", color: "#E4405F" },
+        { platform: "linkedin", color: "#0077B5" },
+        { platform: "youtube", color: "#FF0000" },
+        { platform: "tiktok", color: "#000000" },
       ];
 
       const currentColor =
@@ -100,7 +104,7 @@ const AudienceGrowthChart = ({
       });
 
       setChartSeries([
-        { data: data.map((item) => Number(item.value)) },
+        { data: data.data.map((item) => Number(item.value)) },
       ]);
     }
   }, [data, network]);
@@ -122,14 +126,14 @@ const AudienceGrowthChart = ({
       </div>
       <div className="flex justify-between px-2">
         <div className="text-start">
-          <p className="text-sm">{data[0]?.displayedValue || "N/A"}</p>
-          <p className="text-xs">{data[0]?.date || "N/A"}</p>
+          <p className="text-sm">{data.data[0]?.displayedValue || "N/A"}</p>
+          <p className="text-xs">{data.data[0]?.date || "N/A"}</p>
         </div>
         <div className="text-end">
           <p className="text-sm">
-            {data[data.length - 1]?.displayedValue || "N/A"}
+            {data.data[data.data.length - 1]?.displayedValue || "N/A"}
           </p>
-          <p className="text-xs">{data[data.length - 1]?.date || "N/A"}</p>
+          <p className="text-xs">{data.data[data.data.length - 1]?.date || "N/A"}</p>
         </div>
       </div>
       <ReactApexcharts

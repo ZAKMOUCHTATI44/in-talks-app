@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import Link from "next/link";
 import React from "react";
@@ -36,7 +35,7 @@ const DataTableFavlists = ({ data , id , queryName  }: { data: Account[] , id : 
                 <div
                   className="rounded-full mx-auto w-[48px] h-[48px] bg-contain p-0.5"
                   style={{
-                    backgroundImage: `url(${BASE_URL}/media/account?id=${row.insights.top.id})`,
+                    backgroundImage: `url(${row.pictureUrl})`,
                   }}
                 ></div>
               </div>
@@ -80,14 +79,15 @@ const DataTableFavlists = ({ data , id , queryName  }: { data: Account[] , id : 
       id: "country",
       maxWidth: "150px",
       cell(row) {
+        console.log(row)
         return (
           <div className="flex justify-center flex-col items-center">
             <img src="/icons/504.png" alt="" height={25} width={25} />
-            <p className="capitalize">{row.country.data.label}</p>
+            <p className="capitalize">Morocoo</p>
           </div>
         );
       },
-      selector: (row) => row.country.data.label,
+      // selector: (row) => row.country.data.label,
     },
     {
       name: "Followers",
@@ -97,7 +97,7 @@ const DataTableFavlists = ({ data , id , queryName  }: { data: Account[] , id : 
       cell(row) {
         return (
           <div className="flex flex-col gap-2 py-2">
-            {Object.entries(row.accounts)
+            {Object.entries(row.networks)
               .slice(0, 4)
               .map(([key, value]) => (
                 <div className="flex gap-1 items-center" key={key}>
@@ -107,22 +107,10 @@ const DataTableFavlists = ({ data , id , queryName  }: { data: Account[] , id : 
                     src={`/social-media/${value.network}.png`}
                     alt={value.network}
                   />
-                  {formatNumber(Number(value.subscribers))}
+                  {formatNumber(Number(value.followers))}
                 </div>
               ))}
           </div>
-        );
-      },
-    },
-    {
-      name: "Growth",
-      sortable: true,
-      id: "growth",
-      cell(row) {
-        return (
-          <p className="text-xs dark:bg-[#21BA4526] bg-green-400 text-white px-3 py-1 rounded-md">
-            + {row.insights.top.growth} %
-          </p>
         );
       },
     },

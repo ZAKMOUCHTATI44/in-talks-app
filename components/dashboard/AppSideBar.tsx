@@ -21,14 +21,13 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { Locale } from "@/i18n.config";
-import { logout } from "@/lib/authHelper";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function AppSidebar() {
   const { lang }: { lang: Locale } = useParams();
-  const router = useRouter();
   const pathname = usePathname();
 
   const items = [
@@ -111,8 +110,7 @@ export default function AppSidebar() {
                   <a
                     href={"#"}
                     onClick={() => {
-                      logout();
-                      router.push("/login");
+                      signOut()
                     }}
                     className="!py-5 hover:bg-[#ff55e3] flex hover:text-white text-[#2F2B3DAD] dark:text-whiteColor"
                   >

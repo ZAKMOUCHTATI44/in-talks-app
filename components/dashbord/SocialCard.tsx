@@ -1,5 +1,4 @@
 import { BASE_URL } from "@/lib/hepler";
-import { formatNumber } from "@/lib/number";
 import Image from "next/image";
 import React from "react";
 
@@ -17,14 +16,14 @@ const SocialCard = ({ account }: { account: Account }) => {
             <div
                 className="rounded-full mx-auto w-[66px] h-[66px] bg-contain p-0.5"
                 style={{
-                backgroundImage: `url(${BASE_URL}/media/account?id=${account.insights.top.id})`,
+                backgroundImage: `url(${BASE_URL}/media/account?id=${account.pictureUrl})`,
                 }}
             ></div>
             </div>
             <div className="flex flex-col gap-2">
             <h2 className="text-sm flex items-center gap-2">
                 {account.name}
-                {account.verified && (
+                {/* {account && (
                 <div className="">
                     <Image
                     src={"/social-media/verified.png"}
@@ -33,7 +32,7 @@ const SocialCard = ({ account }: { account: Account }) => {
                     height={15}
                     />
                 </div>
-                )}
+                )} */}
             </h2>
             <div className="bg-[linear-gradient(45deg,#4ec6fb,#ff56e3)] h-[0.5px] w-full"></div>
             <div className="flex gap-2 items-center">
@@ -48,7 +47,7 @@ const SocialCard = ({ account }: { account: Account }) => {
         </div>
         <div className="flex gap-2">
         {/* Card Footer */}
-        {account.accounts.length > 0 &&
+        {/* {account.accounts.length > 0 &&
           account.accounts
             .slice(0, account.accounts.length)
             .map((item, index) => (
@@ -63,7 +62,7 @@ const SocialCard = ({ account }: { account: Account }) => {
                   <p className="text-xs">{formatNumber(item.subscribers)}</p>
                 )}
               </div>
-            ))}
+            ))} */}
 
         </div>
       </div>

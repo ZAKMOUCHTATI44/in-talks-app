@@ -1,23 +1,9 @@
 "use client";
 import ChangeLang from "@/components/utils/ChangeLang";
-import { useAuthUser } from "@/lib/useAuthUser";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-
-  const { authUser, loading } = useAuthUser();
-
-  useEffect(() => {
-    if (!loading) {
-      if (authUser) {
-        router.push("/");
-      }
-    }
-  }, [router, authUser, loading]);
-
 
   return (
     <div>

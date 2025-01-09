@@ -83,7 +83,7 @@ export function ModalSearch() {
                 data?.data.map((item) => (
                   <CommandItem
                     className="hover:bg-mainColor flex data-[selected=true]:bg-mainColor hover:!text-white"
-                    key={item.picture}
+                    key={item.name}
                     value={item.name}
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);

@@ -15,9 +15,6 @@ import Error from "../utils/Error";
 import CardDetail from "./reports/CardDetail";
 import NicheAccount from "./reports/NicheAccount";
 import SocialCoverage from "./reports/SocialCoverage";
-import PostMedia from "./reports/PostMedia";
-import AudienceGraph from "./reports/AudienceGraph";
-import AccountDispatch from "./reports/AccountDispatch";
 
 function ReportAccount({
   id,
@@ -68,13 +65,13 @@ function ReportAccount({
                       <CardDetail account={data} />
                     </div>
                     <div className="col-span-9">
-                      <AccountDispatch accounts={data.accounts} name={data.name} />
+                      {/* <AccountDispatch accounts={data.accounts} name={data.name} /> */}
                       <NicheAccount data={data} />
-                      <SocialCoverage type={type} id={id} />
-                      <AudienceGraph type={type} id={id} />
+                      <SocialCoverage  id={id} />
+                      {/* <AudienceGraph id={id} />
                       {data.accounts.map((netwrok) => (
                         <PostMedia type={type} key={netwrok.id} id={id} network={netwrok.network} />
-                      ))}
+                      ))} */}
                     </div>
                   </div>
                 </>

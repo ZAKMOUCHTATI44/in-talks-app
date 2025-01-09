@@ -10,12 +10,12 @@ const AccountType = () => {
 
   const data = [
     {
-      label: "Creators",
-      value: "creators",
+      label: "Creator",
+      value: "Creator",
     },
     {
       label: "Brand",
-      value: "brands",
+      value: "Brand",
     },
   ];
 
@@ -28,7 +28,7 @@ const AccountType = () => {
           <div key={item.label} className="flex w-full">
             <input
               type="radio"
-              defaultChecked={searchParams.get('type') ? item.value === searchParams.get('type') :item.value === "creators" }
+              defaultChecked={searchParams.get('type') ? item.value === searchParams.get('type') :item.value === "Creator" }
               name="profil"
               value={item.value}
               id={item.value}

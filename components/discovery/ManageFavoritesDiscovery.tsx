@@ -10,18 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { BASE_URL } from "@/lib/hepler";
 import CreateNewFav from "../favlists/CreateNewFav";
 import { AxiosResponse } from "axios";
 import api from "@/lib/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Error from "../utils/Error";
 import Loading from "../utils/Loading";
+import { useSession } from "next-auth/react";
 
-interface Pagination {
-  data: FavList[];
-  count: number;
-}
 
 const ManageFavoritesDiscovery = ({
   selectedInfluencers,
@@ -32,19 +28,23 @@ const ManageFavoritesDiscovery = ({
 }) => {
   const queryClient = useQueryClient();
 
+  const { data: session } = useSession();
+
+
   const [selected, setSelected] = useState<FavList | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const queryBuilder = () => {
-    const query = "lists";
+    const query = "favorites";
     return query;
   };
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise<FavList[]> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
+  const { isLoading, error, data } = useQuery<FavList[], Error>({
     queryKey: [queryBuilder()],
     queryFn: fetch,
+    enabled: !!session?.user.accessToken,
   });
 
   if (error) return <Error />;
@@ -52,8 +52,8 @@ const ManageFavoritesDiscovery = ({
   const addInfluencersToFavList = async () => {
     if (selected) {
       try {
-        const res = await api.post(`/lists/${selected.id}/creators`, {
-          creators: Array.from(selectedInfluencers).map((item) => item.id),
+        const res = await api.post(`/favorites/${selected.id}/add-accounts`, {
+          accounts: Array.from(selectedInfluencers).map((item) => item.id),
         });
         setOpen(false);
         queryClient.invalidateQueries({ queryKey: [queryBuilder()] });
@@ -92,7 +92,7 @@ const ManageFavoritesDiscovery = ({
                         <div
                           className="rounded-full mx-auto w-[34px] h-[34px] bg-contain p-0.5"
                           style={{
-                            backgroundImage: `url(${BASE_URL}/media/account?id=${influencer.insights.top.id})`,
+                            backgroundImage: `url(${influencer.pictureUrl})`,
                           }}
                         ></div>
                       </div>
@@ -109,9 +109,8 @@ const ManageFavoritesDiscovery = ({
           {isLoading && <Loading />}
           <div className="flex flex-col gap-2 h-[400px] overflow-y-scroll">
             {data &&
-              data.data &&
-              data.data.length > 0 &&
-              data.data.map((fav) => (
+              data.length > 0 &&
+              data.map((fav) => (
                 <FavCard
                   key={fav.id}
                   fav={fav}
@@ -156,10 +155,10 @@ const FavCard = ({
       }`}
     >
       <div className="flex ml-5">
-        {fav.creators.length > 0 &&
-          fav.creators.slice(0, 4).map((item) => (
+        {fav.pictures.length > 0 &&
+          fav.pictures.slice(0, 4).map((item) => (
             <div
-              key={item.id}
+              key={item}
               className={`rounded-full h-[40px] w-[40px] mx-auto flex justify-start ml-[-20px]`}
               style={{
                 background: "linear-gradient(45deg, #4ec6fb, #ff56e3)",
@@ -168,17 +167,17 @@ const FavCard = ({
               <div
                 className="rounded-full mx-auto w-[38px] h-[38px] bg-contain p-0.5"
                 style={{
-                  backgroundImage: `url(${BASE_URL}/media/account?id=${item.picture})`,
+                  backgroundImage: `url(${item})`,
                 }}
               ></div>
             </div>
           ))}
       </div>
       <div className="flex flex-col">
-        <p>{fav.label}</p>
+        <p>{fav.name}</p>
         <div className="flex items-center gap-2">
           <Users className="h-5 w-5" />
-          <p>{fav.creators_count}</p>
+          <p>{fav.accountsCount}</p>
         </div>
       </div>
     </Button>

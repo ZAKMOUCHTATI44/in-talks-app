@@ -22,6 +22,23 @@ interface Insights {
   growth: string;
 }
 
+interface Post {
+  id: string;
+  mediaUrl: string;
+  thumbnailUrl: string;
+  date: string;
+  username: string;
+  caption: string;
+  network: string;
+  pictureUrl: string;
+  commentCountRaw: number | null;
+  viewCountRaw: number | null;
+  shareCountRaw: number | null;
+  engagementCountRaw: number | null;
+  engagementRateRaw: number | null;
+  likeCountRaw: number | null;
+}
+
 interface SocialAccounts {
   id: string;
   name: string;
@@ -38,69 +55,77 @@ interface SocialAccounts {
 interface Category {
   name: string;
   slug: string;
+  id: string;
+}
+
+interface Network {
+  id: string;
+  network: string;
+  name: string;
+  username: string;
+  pictureUrl: string;
+  bio: string;
+  followers: number;
+  score: number;
+  verified: true;
 }
 
 interface Account {
   id: string;
-  type: string;
-  rank: string;
+  pictureUrl: string;
   name: string;
-  picture: string;
   title: string;
-  categories: Category[];
-  picture: string;
   description: string;
-  gender: string;
-  nationality: string;
-  country: Country;
-  verified: boolean;
+  country: string;
+  countryCode: string;
+  city: string;
+  topPost: string[];
+  networks: Network[];
+  categories: Category[];
+  // id: string;
+  // name : string
+  // title : string
+  // description: string;
+  // type: string;
+  // rank: string;
+  // name: string;
+  // picture: string;
   // categories: Category[];
-  insights: {
-    top: Insights;
-    audience: [];
-    engagement: [];
-  };
-  accounts: SocialAccounts[];
-  posts: Post[];
-}
-
-interface Post {
-  id: string;
-  account: string;
-  network: string;
-  handle: string;
-  type: string;
-  url: string;
-  caption: string;
-  date: string;
-  likes: number;
-  comments: number;
-  shares: number;
-  views: number;
-  interactions: number;
-  ER: number;
+  // picture: string;
+  // gender: string;
+  // nationality: string;
+  // country: Country;
+  // verified: boolean;
+  // // categories: Category[];
+  // insights: {
+  //   top: Insights;
+  //   audience: [];
+  //   engagement: [];
+  // };
+  // accounts: SocialAccounts[];
+  // posts: Post[];
 }
 
 interface FavList {
   id: string;
-  label: string;
+  name: string;
   description: string;
-  creators: Account[];
-  creators_count: number;
+  accountsCount : string
+  accounts: Account[];
+  pictures: string[];
 }
 
 interface Step {
   id: string;
-  id: string;
-  label: string;
+  name: string;
   position: number;
-  creators: Account[];
+  accounts: Account[];
 }
 interface Project {
   id: string;
-  label: string;
+  name: string;
   description: string;
-  creators_count: number;
+  accountCount: number;
   steps: Step[];
 }
 
@@ -117,12 +142,13 @@ interface SocialMention {
 }
 
 interface WebMention {
-  id: null;
+  id: string;
   picture: string;
   domain: string;
   link: {
     title: string;
     date: string;
+    text : string
     url: string;
     evaluation: number;
   };

@@ -1,13 +1,25 @@
 import axios from "axios";
-import { logout } from "./authHelper";
+import { signOut } from "next-auth/react";
 
 const api = axios.create({
-  baseURL: "https://api.inflauditor.ma",
-  withCredentials: true,
+  // baseURL: "http://localhost:8080/api/v1",
+  baseURL: "https://maroc-influence.com/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+export function setAuthToken(token: string) {
+  if (token) {
+    // Set the token in the default Authorization header for all requests
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    // Remove the token from the header if it's not provided
+    delete api.defaults.headers.common["Authorization"];
+  }
+}
+
+// Usage
 
 api.interceptors.response.use(
   (response) => {
@@ -15,9 +27,8 @@ api.interceptors.response.use(
   },
   (error) => {
     console.log(JSON.stringify(error));
-    if (error.response?.status === 401) {
-      logout();
-      window.location.href = "/login";
+    if (error.response?.status === 403) {
+      signOut();
       // return Promise.reject(new Error("Unauthorized - Please login again."));
     }
   }

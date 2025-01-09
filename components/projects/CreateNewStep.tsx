@@ -29,7 +29,7 @@ function CreateNewStep({ id, queryName }: { id: string; queryName: string }) {
   const handleSubmit = async (values: Step) => {
     try {
       await api.post(
-        `/projects/${id}/steps`,
+        `/step-project/${id}`,
         JSON.stringify(values)
       );
       queryClient.invalidateQueries({ queryKey: [queryName] });

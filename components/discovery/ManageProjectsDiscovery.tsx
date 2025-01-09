@@ -10,18 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { BASE_URL } from "@/lib/hepler";
 import { AxiosResponse } from "axios";
 import api from "@/lib/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Error from "../utils/Error";
 import Loading from "../utils/Loading";
 import CreateNewProject from "../projects/CreateNewProject";
+import { useSession } from "next-auth/react";
 
-interface Pagination {
-  data: Project[];
-  count: number;
-}
 
 const ManageProjectsDiscovery = ({
   selectedInfluencers,
@@ -32,6 +28,7 @@ const ManageProjectsDiscovery = ({
 }) => {
   const queryClient = useQueryClient();
 
+  const { data: session } = useSession();
   // Selected Project
   const [selected, setSelected] = useState<Project | null>(null);
   // Selected Step Project
@@ -43,12 +40,13 @@ const ManageProjectsDiscovery = ({
     return query;
   };
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise< Project[]> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
+  const { isLoading, error, data } = useQuery<Project[], Error>({
     queryKey: [queryBuilder()],
     queryFn: fetch,
+    enabled :!! session?.user.accessToken
   });
 
   if (error) return <Error />;
@@ -56,8 +54,10 @@ const ManageProjectsDiscovery = ({
   const addCreatorsToProject = async () => {
     if (selected) {
       try {
-        await api.post(`/projects-steps/${selectedStep?.id}/creators`, {
-          creators: Array.from(selectedInfluencers).map((item) => item.id),
+        
+
+        await api.post(`/step-project/accounts/${selectedStep?.id}`, {
+          accounts: Array.from(selectedInfluencers).map((item) => item.id),
         });
 
         setOpen(false);
@@ -96,7 +96,7 @@ const ManageProjectsDiscovery = ({
                         <div
                           className="rounded-full mx-auto w-[34px] h-[34px] bg-contain p-0.5"
                           style={{
-                            backgroundImage: `url(${BASE_URL}/media/account?id=${influencer.insights.top.id})`,
+                            backgroundImage: `url(${influencer.pictureUrl})`,
                           }}
                         ></div>
                       </div>
@@ -123,9 +123,8 @@ const ManageProjectsDiscovery = ({
             ) : (
               <>
                 {data &&
-                  data.data &&
-                  data.data.length > 0 &&
-                  data.data.map((project) => (
+                  data.length > 0 &&
+                  data.map((project) => (
                     <ProjectCard
                       key={project.id}
                       project={project}
@@ -177,7 +176,7 @@ const ShowDetailProject = ({
   selected: Step | null;
   setSelected: (step: Step) => void;
 }) => {
-  const buildQueryString = () => `/projects/${id}`;
+  const buildQueryString = () => `/step-project/${id}`;
 
   const fetch = (): Promise<Project> =>
     api.get(buildQueryString()).then((res: AxiosResponse) => res.data);
@@ -197,7 +196,7 @@ const ShowDetailProject = ({
 
       {data && (
         <h2 className="font-semibold">
-          Project :  {data.label}
+          Project :  {data.name}
         </h2>
       )}
       {data &&
@@ -214,9 +213,7 @@ const ShowDetailProject = ({
                 : "border-gray-600"
             }`}
           >
-            {item.label}
-
-           
+            {item.name}
           </Button>
         ))}
     </div>
@@ -243,10 +240,10 @@ const ProjectCard = ({
     >
   
       <div className="flex flex-col">
-        <p>{project.label}</p>
+        <p>{project.name}</p>
         <div className="flex items-center gap-2">
           <Users className="h-5 w-5" />
-          <p>{project.creators_count}</p>
+          <p>{project.accountCount}</p>
         </div>
       </div>
     </Button>

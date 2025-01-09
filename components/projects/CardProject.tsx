@@ -10,13 +10,13 @@ const CardProject = ({ project }: { project: Project }) => {
       className="bg-darkColor w-full rounded-md pt-5 text-whiteColor flex flex-col justify-between"
     >
       <h2 className="capitalize border-b border-gray-600 pb-3 px-3">
-        {project.label}
+        {project.name}
       </h2>
       <div className="px-3 pt-5">
         <div className="flex ">
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5" />
-            <p>{project.creators_count}</p>
+            <p>{project.accountCount}</p>
           </div>
 
           <div></div>

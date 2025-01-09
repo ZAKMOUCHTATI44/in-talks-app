@@ -5,11 +5,8 @@ import AccountCategory from "./filters/AccountCategory";
 import GenderFilter from "./filters/GenderFilter";
 import CountryFilter from "./filters/CountryFilter";
 import AccountType from "./filters/AccountType";
-import NicheFilter from "./filters/NicheFilter";
 import { Button } from "../ui/button";
 import { Filter, RotateCcw } from "lucide-react";
-// import { Button } from "../ui/button";
-// import { Filter, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const FilterDiscovery = () => {
@@ -19,7 +16,6 @@ const FilterDiscovery = () => {
       <div className="py-5 flex flex-col gap-5 items-center">
         <SocialMediaFilter />
         <CategoriesFilter />
-        <NicheFilter />
         <AccountCategory />
         <GenderFilter />
         <CountryFilter />

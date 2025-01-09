@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/hepler";
 import { formatNumber } from "@/lib/number";
 import { Eye, Heart, MessageCircle, Share } from "lucide-react";
 import Image from "next/image";
@@ -20,21 +19,20 @@ const PostCard = ({ post }: { post: Post }) => {
               <div
                 className="rounded-full mx-auto w-[43px] h-[43px] bg-contain p-0.5"
                 style={{
-                  backgroundImage: `url(${BASE_URL}/media/account?id=${post.account})`,
+                  backgroundImage: `url(${post.pictureUrl})`,
                 }}
               ></div>
             </div>
-            <p className="text-xs">@{post.handle}</p>
+            <p className="text-xs">@{post.username}</p>
           </div>
           <div className="flex items-center gap-1">
             <Image
               src={`/social-media/${post.network}.png`}
-              alt=""
-              width={15}
-              height={15}
+              alt={post.network}
+              width={20}
+              height={20}
             />
-            <span className="text-xs">{post.network}</span>
-            <Link href={post.url} target="_blank">
+            <Link href={post.mediaUrl} target="_blank">
               <Share fontSize={20} color="#ff56e3" className="h-4 w-4" />
             </Link>
           </div>
@@ -42,7 +40,7 @@ const PostCard = ({ post }: { post: Post }) => {
         <div
           className="w-full h-[280px] bg-darkColor bg-cover my-5 rounded-md backdrop-blur-sm"
           style={{
-            backgroundImage: `url(${BASE_URL}/media/post?id=${post.id})`,
+            backgroundImage: `url(${post.thumbnailUrl})`,
           }}
         ></div>
       </div>
@@ -53,22 +51,22 @@ const PostCard = ({ post }: { post: Post }) => {
           {post.caption && `${post.caption.substring(0, 100)} ...`}
         </p>
         <div className="flex items-center gap-2">
-          {post.views != 0 && (
+          {post.viewCountRaw != 0 && (
             <div className="flex items-center gap-1">
               <Eye className="h-4 w-5" />
-              <p className="text-xs">{formatNumber(post.views)}</p>
+              <p className="text-xs">{formatNumber(Number(post.viewCountRaw))}</p>
             </div>
           )}
-          {post.likes != 0 && (
+          {post.likeCountRaw != 0 && (
             <div className="flex items-center gap-1">
               <Heart className="h-4 w-5" />
-              <p className="text-xs">{formatNumber(post.likes)}</p>
+              <p className="text-xs">{formatNumber(Number(post.likeCountRaw))}</p>
             </div>
           )}
-          {post.comments != 0 && (
+          {post.commentCountRaw != 0 && (
             <div className="flex items-center gap-1">
               <MessageCircle className="h-4 w-5" />
-              <p className="text-xs">{formatNumber(post.comments)}</p>
+              <p className="text-xs">{formatNumber(Number(post.commentCountRaw))}</p>
             </div>
           )}
         </div>

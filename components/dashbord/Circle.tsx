@@ -6,9 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import "@/app/css/creator-netwrok.css";
 import Loading from "@/components/utils/Loading";
-import { BASE_URL } from "@/lib/hepler";
 import AutoCompleteFilter from "@/components/account/AutoCompleteFilter";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface Data {
   id: string;
@@ -17,8 +17,11 @@ interface Data {
 }
 
 const Circle = () => {
+  const { data: session } = useSession();
+
+
   const queryBuilder = () => {
-    const query = "creators/list";
+    const query = "accounts?accountType=Creator";
 
     return query;
   };
@@ -27,8 +30,10 @@ const Circle = () => {
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
 
   const { isLoading, error, data } = useQuery<Data[], Error>({
-    queryKey: ["creators/list", queryBuilder()],
+    queryKey: ["account/list", queryBuilder()],
     queryFn: fetch,
+    enabled :!! session?.user.accessToken
+
   });
 
   if (error) return <Error />;
@@ -40,7 +45,7 @@ const Circle = () => {
       <div className="relative mt-[360px]">
         {data && (
           <>
-            <BoxCreators
+            {/* <BoxCreators
               className="transform rotate-[25deg]"
               size={440}
               duration={30}
@@ -57,7 +62,7 @@ const Circle = () => {
               size={660}
               duration={30}
               data={data.slice(12, 18)}
-            />
+            /> */}
             {/* */}
             {/*
              */}
@@ -84,57 +89,57 @@ const Circle = () => {
   );
 };
 
-const BoxCreators = ({
-  size,
-  duration,
-  data,
-  className,
-}: {
-  size: number;
-  duration: number;
-  data: Data[];
-  className: string;
-}) => {
-  return (
-    <div
-      className={`box-network px-12 ${className}`}
-      style={
-        {
-          "--size": `${size}px`,
-          "--duration": `${duration}s`,
-          height: `${size}px`,
-          width: `${size}px`,
-          border: "0.3px solid #EFEFEF",
-        } as React.CSSProperties
-      }
-    >
-      {data.map((item, index) => (
-        <div className={`group-icon `} key={item.id} style={{ zIndex: "99px" }}>
-          <div className={`box-${index} children-container `}>
-            <img
-              src={`${BASE_URL}/media/account?id=${item.picture}`}
-              width={74}
-              height={74}
-              className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5"
-              alt=""
-            />
+// const BoxCreators = ({
+//   size,
+//   duration,
+//   data,
+//   className,
+// }: {
+//   size: number;
+//   duration: number;
+//   data: Data[];
+//   className: string;
+// }) => {
+//   return (
+//     <div
+//       className={`box-network px-12 ${className}`}
+//       style={
+//         {
+//           "--size": `${size}px`,
+//           "--duration": `${duration}s`,
+//           height: `${size}px`,
+//           width: `${size}px`,
+//           border: "0.3px solid #EFEFEF",
+//         } as React.CSSProperties
+//       }
+//     >
+//       {data.map((item, index) => (
+//         <div className={`group-icon `} key={item.id} style={{ zIndex: "99px" }}>
+//           <div className={`box-${index} children-container `}>
+//             <img
+//               src={`${BASE_URL}/media/account?id=${item.picture}`}
+//               width={74}
+//               height={74}
+//               className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5"
+//               alt=""
+//             />
 
-            {/* 
-            <img
-              src={item.picture}
-              style={{
-                width: "55px",
-                height: "55px",
-                borderRadius: "50%",
-              }}
-              alt=""
-            /> */}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+//             {/* 
+//             <img
+//               src={item.picture}
+//               style={{
+//                 width: "55px",
+//                 height: "55px",
+//                 borderRadius: "50%",
+//               }}
+//               alt=""
+//             /> */}
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
 
 const MiddleElement = () => {
   const router = useRouter();

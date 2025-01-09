@@ -41,7 +41,7 @@ function CreateNewProject({
 
   const handleSubmit = async (values: ProjectRequest) => {
     try {
-      await api.patch(`/projects/${id}`, JSON.stringify(values));
+      await api.put(`/projects/${id}`, JSON.stringify(values));
       queryClient.invalidateQueries({ queryKey: [queryName] });
       setOpen(false)
     } catch (error) {
@@ -87,6 +87,7 @@ function CreateNewProject({
                 <Textarea
                   placeholder="description"
                   name="description"
+                  value={values.description}
                   onChange={handleChange}
                 />
               </div>

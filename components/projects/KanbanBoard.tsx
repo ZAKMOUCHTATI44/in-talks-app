@@ -5,20 +5,21 @@ import { AxiosResponse } from "axios";
 import React, { useState } from "react";
 import Error from "../utils/Error";
 import Loading from "../utils/Loading";
-import { BASE_URL } from "@/lib/hepler";
 import ActionStep from "./ActionStep";
 import CreateNewStep from "./CreateNewStep";
 import DeleteProject from "./DeleteProject";
 import DailogAddCreators from "./DailogAddCreators";
 import EditProjectName from "./EditProjectName";
 import DeleteCreator from "../favlists/DeleteCreator";
+import { useSession } from "next-auth/react";
 
 const KanbanBoard = ({ id }: { id: string }) => {
   const [draggedTask, setDraggedTask] = useState<Account | null>(null);
   const [draggedColumn, setDraggedColumn] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
-  const buildQueryString = () => `/projects/${id}`;
+  const buildQueryString = () => `/step-project/${id}`;
 
   const fetch = (): Promise<Project> =>
     api.get(buildQueryString()).then((res: AxiosResponse) => res.data);
@@ -26,7 +27,7 @@ const KanbanBoard = ({ id }: { id: string }) => {
   const { isLoading, error, data } = useQuery<Project, Error>({
     queryKey: [buildQueryString()],
     queryFn: fetch,
-    enabled: !!id,
+    enabled: !!id && !!session?.user.accessToken,
   });
 
   if (error) return <Error />;
@@ -51,7 +52,7 @@ const KanbanBoard = ({ id }: { id: string }) => {
         // Remove the task from the current column
         return {
           ...step,
-          creators: step.creators.filter(
+          creators: step.accounts.filter(
             (creator) => creator.id !== draggedTask.id
           ),
         };
@@ -59,7 +60,7 @@ const KanbanBoard = ({ id }: { id: string }) => {
         // Add the task to the new column
         return {
           ...step,
-          creators: [...step.creators, draggedTask],
+          creators: [...step.accounts, draggedTask],
         };
       }
       return step;
@@ -74,12 +75,8 @@ const KanbanBoard = ({ id }: { id: string }) => {
     setDraggedTask(null);
     setDraggedColumn(null);
 
-    // Make the API call to persist the change
     api
-      .patch(`/projects-steps/${draggedColumn}/creators`, {
-        step: columnId,
-        creator: draggedTask.id,
-      })
+      .put(`/step-project/move-accounts/${draggedTask.id}/${draggedColumn}/${columnId}`)
       .then(() => {
         // Invalidate the query to fetch fresh data
         queryClient.invalidateQueries({ queryKey: [buildQueryString()] });
@@ -96,8 +93,8 @@ const KanbanBoard = ({ id }: { id: string }) => {
     accountId: string
   ) => {
     try {
-      await api.post(`/projects-steps/${activeColumn}/creators`, {
-        creators: [accountId],
+      await api.post(`/step-project/accounts/${activeColumn}`, {
+        accounts: [accountId],
       });
       queryClient.invalidateQueries({ queryKey: [buildQueryString()] });
     } catch (error) {
@@ -111,14 +108,14 @@ const KanbanBoard = ({ id }: { id: string }) => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center p-5">
             <div>
-              <h1 className="text-2xl font-bold">{data?.label}</h1>
+              <h1 className="text-2xl font-bold">{data?.name}</h1>
               <p className="text-sm">{data.description}</p>
             </div>
             <div className="flex items-center gap-2">
               <EditProjectName
                 id={id}
                 queryName={buildQueryString()}
-                name={data.label}
+                name={data.name}
                 description={data.description}
               />
               <CreateNewStep id={id} queryName={buildQueryString()} />
@@ -138,19 +135,19 @@ const KanbanBoard = ({ id }: { id: string }) => {
               >
                 <div className="px-2 py-4 border-b border-gray-600 flex justify-between items-center">
                   <h2 className="text-sm font-semibold">
-                    {column.label} ({column.creators.length})
+                    {column.name} ({column.accounts.length})
                   </h2>
                   <div className="flex gap-2">
                     <ActionStep
                       id={column.id}
                       queryName={buildQueryString()}
-                      name={column.label}
+                      name={column.name}
                     />
                   </div>
                 </div>
 
                 <div className="p-4 flex flex-col gap-2">
-                  {column.creators.map((creator) => (
+                  {column.accounts.map((creator) => (
                     <div
                       key={creator.id}
                       draggable
@@ -172,7 +169,7 @@ const KanbanBoard = ({ id }: { id: string }) => {
                           <div
                             className="rounded-full mx-auto w-[48px] h-[48px] bg-contain p-0.5"
                             style={{
-                              backgroundImage: `url(${BASE_URL}/media/account?id=${creator.picture})`,
+                              backgroundImage: `url(${creator.pictureUrl})`,
                             }}
                           ></div>
                         </div>

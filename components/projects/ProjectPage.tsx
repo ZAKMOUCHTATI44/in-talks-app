@@ -7,27 +7,25 @@ import api from "@/lib/api";
 import Loading from "../utils/Loading";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import {  Search } from "lucide-react";
+import { Search } from "lucide-react";
 import EmptyFavList from "../favlists/EmptyFavList";
 import CreateNewProject from "./CreateNewProject";
 import CardProject from "./CardProject";
+import { useSession } from "next-auth/react";
 
-interface Pagination {
-  data: Project[];
-  count: number;
-}
 const ProjectPage = () => {
   const queryBuilder = () => {
-    const query = "projects";
+    const query = "/projects";
     return query;
   };
 
-  const fetch = (): Promise<Pagination> =>
+  const fetch = (): Promise<Project[]> =>
     api.get(queryBuilder()).then((res: AxiosResponse) => res.data);
-
-  const { isLoading, error, data } = useQuery<Pagination, Error>({
-    queryKey: ["projects", queryBuilder()],
+  const { data: session } = useSession();
+  const { isLoading, error, data } = useQuery<Project[], Error>({
+    queryKey: ["/projects", queryBuilder()],
     queryFn: fetch,
+    enabled: !!session?.user.accessToken,
   });
 
   if (error) return <Error />;
@@ -49,19 +47,20 @@ const ProjectPage = () => {
       </div>
       <div className="grid grid-cols-3 gap-2 py-5 ">
         {data &&
-          data.data &&
-          data.data.length > 0 &&
-          data.data.map((project) => <CardProject key={project.id} project={project} />)}
+          data &&
+          data.length > 0 &&
+          data.map((project) => (
+            <CardProject key={project.id} project={project} />
+          ))}
 
-        {data && data.data && data.data.length === 0 &&  (
-            <div className="w-full flex items-center justify-center col-span-3">
-                <EmptyFavList />
-            </div>
-        )}  
+        {data && data.length === 0 && (
+          <div className="w-full flex items-center justify-center col-span-3">
+            <EmptyFavList />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-
-export default ProjectPage
+export default ProjectPage;

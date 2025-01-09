@@ -5,8 +5,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface PropsType {
-  cleared: number
-  flagged: number
+  realFollowersPercentage: number;
+  suspiciousFollowersPercentage: number;
 
   // mass_followers_percent: number
   // real_people_percent: number
@@ -15,7 +15,7 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
   const credibilityData = {
     datasets: [
       {
-        data: [props.cleared, props.flagged],
+        data: [props.realFollowersPercentage, props.suspiciousFollowersPercentage],
         backgroundColor: ['#4CAF50', '#F44336'],
         borderWidth: 0
       }
@@ -28,9 +28,8 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
     datasets: [
       {
         data: [
-          props.cleared,
-          props.flagged
-
+          props.realFollowersPercentage,
+          props.suspiciousFollowersPercentage
           // props.influencer_percent,
           // props.real_people_percent
         ], // Mass followers, Suspicious, Influencers, Real
@@ -72,7 +71,7 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
               textAlign: 'center'
             }}
           >
-            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{props.cleared * 100}%</div>
+            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{props.realFollowersPercentage}%</div>
             <div className='text-green-400'>Real People</div>
           </div>
         </div>
@@ -90,7 +89,7 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
                 backgroundColor: '#4CAF50'
               }}
             ></span>{' '}
-            Real {(props.cleared * 100).toFixed(2)}%
+            Real {props.realFollowersPercentage}
           </p>
           <p>
             <span
@@ -102,7 +101,7 @@ const FollowersCredibility = ({ props }: { props: PropsType }) => {
                 backgroundColor: '#F44336'
               }}
             ></span>{' '}
-            Suspicious {(props.flagged * 100).toFixed(2)}%
+            Suspicious {props.suspiciousFollowersPercentage}
           </p>
         </div>
       </div>

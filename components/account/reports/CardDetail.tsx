@@ -1,7 +1,5 @@
-// import { generatePDF } from "@/components/utils/pdfGenerator";
-import { BASE_URL } from "@/lib/hepler";
-// import { Download } from "lucide-react";
 import React from "react";
+
 
 const CardDetail = ({ account }: { account: Account }) => {
   return (
@@ -15,23 +13,17 @@ const CardDetail = ({ account }: { account: Account }) => {
                 background: "linear-gradient(45deg, #4ec6fb, #ff56e3)",
               }}
             >
-              <img src={`${BASE_URL}/media/account?id=${account.accounts[0].id}`} width={74} height={74}  className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5" alt="" />
-              {/* <div
-              className="rounded-full mx-auto w-[72px] h-[72px] bg-contain p-0.5"
-              style={{
-                backgroundImage: `url(${BASE_URL}/media/account?id=${account.accounts[0].id})`,
-              }}
-            ></div> */}
+              <img src={account.pictureUrl} width={74} height={74}  className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5" alt="" />
             </div>
           </div>
 
           <div className="w-full">
             <h2 className="font-semibold text-xl">{account.name}</h2>
             <p className="text-xs font-medium capitalize">{account.title}</p>
-            <div className="w-full justify-start flex gap-1">
-              {account.accounts.length > 0 &&
-                account.accounts.map((item) => (
-                  <div key={item.id} className="flex items-center gap-2 py-2">
+            <div className="w-full justify-start flex gap-2">
+              {account.networks.length > 0 &&
+                account.networks.map((item) => (
+                  <div key={item.id} className="flex items-center gap-5 py-2">
                     <div
                       className="h-4 w-4 bg-contain bg-center bg-no-repeat"
                       style={{
@@ -44,7 +36,7 @@ const CardDetail = ({ account }: { account: Account }) => {
           </div>
         </div>
 
-        <p className="text-sm">{account.description.substring(0, 300)}</p>
+        <p className="text-sm">{account.description}</p>
       </div>
       {/* <button onClick={() => generatePDF("pdf-content")}>Export to PDF</button>
       <Button  className="w-full my-5 bg-mainColor flex justify-center gap-2 items-center">

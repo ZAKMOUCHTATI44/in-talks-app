@@ -3,6 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Locale } from "@/i18n.config";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/components/provider/SessionProvider";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic-ext"],
@@ -24,28 +26,27 @@ export const metadata: Metadata = {
 };
 
 interface PropsType {
-  params: Promise<{ lang: Locale }>; 
+  params: Promise<{ lang: Locale }>;
   children: React.ReactNode;
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: PropsType) { 
-  const { lang } = await params; 
-
+export default async function RootLayout({ children, params }: PropsType) {
+  const { lang } = await params;
+  const session = await getServerSession();
 
   return (
     <html lang={lang} suppressHydrationWarning>
       <body className={`${montserrat.className} dark:bg-bgDarkColor`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <SessionProvider session={session}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

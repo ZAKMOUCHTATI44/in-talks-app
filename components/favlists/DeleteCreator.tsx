@@ -30,16 +30,11 @@ const DeleteCreator = ({
   const handleDelete = async () => {
     let query = `lists/${id}/creators`;
     if (from === "PROJECT") {
-      query = `/projects-steps/${id}/creators`;
+      query = `/step-project/${id}/accounts/${creator}`;
     }
-
     setOpen(false);
     try {
-      const res = await api.delete(query, {
-        data: {
-          creators: [creator],
-        },
-      });
+      const res = await api.delete(query);
       console.log(res);
       queryClient.invalidateQueries({ queryKey: [queryName] });
     } catch (error) {

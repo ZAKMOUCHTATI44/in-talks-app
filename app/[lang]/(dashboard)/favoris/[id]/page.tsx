@@ -9,15 +9,22 @@ import DataTableFavlists from "@/components/favlists/DataTableFavlists";
 import EditFavName from "@/components/favlists/EditFavName";
 import DeleteFavList from "@/components/favlists/DeleteFavList";
 import EmptyFavList from "@/components/favlists/EmptyFavList";
+import { useSession } from "next-auth/react";
 
 interface Pagination {
   id: string;
-  label: string;
-  creators: Account[];
+  name: string;
+  description: string;
+  accountsCount : string
+  accounts: Account[];
+  pictures: string[];
 }
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const buildQueryString = () => `/lists/${params.id}`;
+  const buildQueryString = () => `/favorites/${params.id}`;
+
+  const { data: session } = useSession();
+
 
   const fetch = (): Promise<Pagination> =>
     api.get(buildQueryString()).then((res: AxiosResponse) => res.data);
@@ -25,7 +32,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   const { isLoading, error, data } = useQuery<Pagination, Error>({
     queryKey: [buildQueryString()],
     queryFn: fetch,
-    enabled: !!params.id,
+    enabled: !!params.id && !!session?.user.accessToken,
+
   });
 
   if (error) return <Error />;
@@ -38,30 +46,23 @@ const Page = ({ params }: { params: { id: string } }) => {
         <div className="px-5">
           <div className="flex justify-between items-center p-5">
             <div>
-              <h1 className="text-2xl font-bold">{data?.label}</h1>
+              <h1 className="text-2xl font-bold">{data?.name}</h1>
+              <p>
+                {data.description}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <EditFavName
                 id={params.id}
                 queryName={buildQueryString()}
-                name={data.label}
+                name={data.name}
               />
 
               <DeleteFavList id={params.id} queryName={buildQueryString()} />
-
-              {/* <EditProjectNae
-                id={id}
-                queryName={buildQueryString()}
-                name={data.label}
-                description={data.description}
-              />
-              <CreateNewStep id={id} queryName={buildQueryString()} />
-              <DeleteProject id={id} queryName={buildQueryString()} /> */}
             </div>
           </div>
-
-          {data.creators.length > 0 ? (
-              <DataTableFavlists data={data.creators} id={params.id} queryName={buildQueryString()}  />
+          {data.accounts && data.accounts.length > 0 ? (
+              <DataTableFavlists data={data.accounts} id={params.id} queryName={buildQueryString()}  />
           ) : (
             <div className="my-24">
                 <EmptyFavList />

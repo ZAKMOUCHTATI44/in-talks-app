@@ -21,11 +21,7 @@ interface FavRequest {
   description: string;
 }
 function CreateNewFav({queryName } : {queryName ?: string}) {
-
   const queryClient = useQueryClient();
-
-
-
   const [open , setOpen ] = useState<boolean>(false)
   const projectSchema = Yup.object().shape({
     name: Yup.string().required("le nom est requis"),
@@ -35,7 +31,7 @@ function CreateNewFav({queryName } : {queryName ?: string}) {
   const handleSubmit = async (values: FavRequest) => {
     console.log(values);
     try {
-      const res = await api.post("/lists", JSON.stringify(values));
+      const res = await api.post("/favorites", JSON.stringify(values));
       console.log(res);
       if(queryName)  queryClient.invalidateQueries({ queryKey: [queryName] });
       setOpen(false)

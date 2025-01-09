@@ -12,55 +12,55 @@ interface ChartData {
   icon: string; // URL to the icon
 }
 
-const FollowersDisptach = ({ data }: { data: SocialAccounts[] }) => {
+const FollowersDisptach = ({ data }: { data: Network[] }) => {
   const dataChart: ChartData[] = [
     {
       name: "YouTube",
-      value: data.find((network) => network.network === "YT")?.subscribers || 0,
+      value: data.find((network) => network.network === "youtube")?.followers || 0,
       label:
         data
-          .find((network) => network.network === "YT")
-          ?.subscribers?.toString() || "",
+          .find((network) => network.network === "youtube")
+          ?.followers?.toString() || "",
       color: "url(#color-youtube)",
-      icon: "/social-media/YT.png",
+      icon: "/social-media/youtube.png",
     },
     {
       name: "Instagram",
-      value: data.find((network) => network.network === "IG")?.subscribers || 0,
+      value: data.find((network) => network.network === "instagram")?.followers || 0,
       label:
         data
-          .find((network) => network.network === "IG")
-          ?.subscribers?.toString() || "",
+          .find((network) => network.network === "instagram")
+          ?.followers?.toString() || "",
       color: "url(#color-instagram)",
-      icon: "/social-media/IG.png",
+      icon: "/social-media/instagram.png",
     },
     {
       name: "TikTok",
-      value: data.find((network) => network.network === "TK")?.subscribers || 0,
+      value: data.find((network) => network.network === "tiktok")?.followers || 0,
       label:
         data
-          .find((network) => network.network === "TK")
-          ?.subscribers?.toString() || "",
+          .find((network) => network.network === "tiktok")
+          ?.followers?.toString() || "",
       color: "url(#color-tiktok)",
       icon: "/social-media/tiktok.png",
     },
     {
       name: "Twitter",
-      value: data.find((network) => network.network === "TW")?.subscribers || 0,
+      value: data.find((network) => network.network === "twitter")?.followers || 0,
       label:
         data
-          .find((network) => network.network === "TW")
-          ?.subscribers?.toString() || "",
+          .find((network) => network.network === "twitter")
+          ?.followers?.toString() || "",
       color: "url(#color-twitter)",
-      icon: "/social-media/TW.png",
+      icon: "/social-media/twitter.png",
     },
     {
       name: "LinkedIn",
-      value: data.find((network) => network.network === "LD")?.subscribers || 0,
+      value: data.find((network) => network.network === "linkedin")?.followers || 0,
       label:
         data
-          .find((network) => network.network === "LD")
-          ?.subscribers?.toString() || "",
+          .find((network) => network.network === "linkedin")
+          ?.followers?.toString() || "",
       color: "url(#color-linkedin)",
       icon: "/social-media/LD.png",
     },
